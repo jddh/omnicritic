@@ -1,0 +1,17 @@
+{
+  "name": "colonel",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Very illegal",
+  "main": "colonel.js",
+  "imports": {
+    "#models/*": "./lib/*.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "mongodb": "^5.1.0",
+    "nano": "^10.1.2"
+  }
+}

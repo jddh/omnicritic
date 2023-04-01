@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  couchdb:
+    profiles: ["couchdb"]
+    image: couchdb
+    container_name: my-couchdb
+    ports:
+      - "5984:5984"
+    volumes:
+      - ./couchdb-data:/opt/couchdb/data
+        # - couchdb-config:/opt/couchdb/etc/local.d
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=password
+
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - 27017:27017
+    volumes: 
+      - ./mongodb-data:/data/db #bad
+  mongo-express:
+    image: mongo-express
+    restart: on-failure
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_URL: mongodb://admin:password@mongo:27017/
+# volumes:
+#   couchdb-data:
+#   couchdb-config:
