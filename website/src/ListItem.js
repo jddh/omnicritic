@@ -1,21 +1,39 @@
-export default function ListItem(props) {
+export default function ListItem({item}) {
 	return(
-	  <tr key={props.item._id}>
-		<td>{props.item.title}</td>
+	  <tr key={item._id}>
+		<td>{item.title}</td>
 			<td>
-				{props.item.ratings?.metacritic.rating &&
-				props.item.ratings.metacritic.rating}
+				{item.ratings?.metacritic?.rating &&
+				item.ratings.metacritic.rating}
+			</td>
+			<td>
+				{item.ratings?.rottentomatoes?.rating &&
+				item.ratings.rottentomatoes.rating}
+			</td>
+			
+			<td>
+				{item.ratings?.imdb?.rating &&
+				item.ratings.imdb.rating}
 			</td>
 
 			<td>
-				{props.item.ratings?.metacritic.url &&
-				<a href={props.item.ratings.metacritic.url}Metacritic></a>}
+				{item.ratings?.metacritic?.url &&
+				<a target="_blank" href={item.ratings.metacritic.url}>Metacritic</a>}
 			</td>
 
 			<td>
-				{props.item.imdbId &&
-				<a target="_blank" href={"https://www.imdb.com/title/" + props.item.imdbId}>IMDB</a>}
+				{item.ratings?.rottentomatoes?.url &&
+				<a target="_blank" href={item.ratings.rottentomatoes.url}>RT</a>}
+			</td>
+
+			<td>
+				{item.imdbId &&
+				<a target="_blank" href={"https://www.imdb.com/title/" + item.imdbId}>IMDB</a>}
 			</td> 
+
+			<td>
+				<a target="_blank" href={"https://www.netflix.com/watch/" + item.netflixId}>Netflix</a>
+			</td>
 	  </tr>
 	)
   }

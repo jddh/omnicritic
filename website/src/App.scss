@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+tbody tr:nth-child(odd) {
+  background-color: rgb(237, 237, 237);
+}
+
+td {
+  padding: .5em .3em;
+}
+
+td.direction-desc.active {
+  &:after {
+    content: '👇';
+    display: inline-block;
+  }
+}
+td.direction-asc.active {
+  &:after {
+    content: '👆';
+    display: inline-block;
+  }
+}
