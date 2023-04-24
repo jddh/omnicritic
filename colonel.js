@@ -14,10 +14,11 @@ if (args('action')) await bootstrap({
 		await db.removeDuplicates();
 	},
 	ratings: async function() {
+		const numberOfTitles = 10;
 
 		await Promise.all([
-			mcrunch.addRatingLoop(5),
-			roma.addRatingLoop(5)
+			mcrunch.addRatingLoop(numberOfTitles),
+			roma.addRatingLoop(numberOfTitles)
 		]);
 	},
 	gettitles: async function() {
@@ -28,6 +29,9 @@ if (args('action')) await bootstrap({
 	},
 	oneoff: async function() {
 		await actions.oneOff();
+	},
+	newmc: async function() {
+		await actions.testNewMC();
 	},
 	test: function() {
 		console.log('we tested');

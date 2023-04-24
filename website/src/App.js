@@ -16,23 +16,21 @@ function App() {
 	const inputTimer = React.useRef(null);
 
 	React.useEffect(() => {
-		async function getIt() {
+		(async function() {
 			const ts = await fetchFromApi('rated');
 
 			setMasterData(ts);
 			setData(ts);
 
 			// if (searchTerm) handleSearch({target:{value:searchTerm}});
-		}
-
-		getIt();
+		})()
 	}, []);
 
 	React.useEffect(() => {
 		localStorage.setItem('searchTerm',searchTerm);
 	},[searchTerm])
 
-	const filterKing = data.filter(i => i.title.match(new RegExp(searchTerm, 'gi')));
+	const dataForRender = data.filter(i => i.title.match(new RegExp(searchTerm, 'gi')));
 
 	function handleSearch(event) {
 		const term = event.target.value;
@@ -128,7 +126,7 @@ function App() {
 						</tr>
 					</thead>
 					<tbody>
-						{filterKing.map(title =>
+						{dataForRender.map(title =>
 							<ListItem item={title} key={title._id} />
 						)}
 					</tbody>
