@@ -22,18 +22,20 @@ services:
       - 27017:27017
     volumes: 
       - ./mongodb-data:/data/db #bad?
-    healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
-      retries: 5
-      interval: 2s
-      start_period: 5s
+    # healthcheck:
+      # test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      # retries: 1
+      # interval: 5s
+      # timeout: 5s
+      # start_period: 5s
+    #TODO resolve the health check loop
 
   mongo-express:
     image: mongo-express
     restart: on-failure
     depends_on:
-      mongo:
-        condition: service_healthy
+      - mongo
+        # condition: service_healthy
     ports:
       - 8081:8081
     environment:
@@ -52,3 +54,20 @@ services:
       - ./:/app
     environment:
       DB_HOST: mongo
+
+  react-frontend:
+    profiles: ["site"]
+    image: httpd:alpine 
+    volumes:
+      - ./website/build:/usr/local/apache2/htdocs/
+      # - ./web/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    networks:
+      - vhost-net
+    environment:
+      VIRTUAL_HOST: colonel.localhost
+      # LETSENCRYPT_HOST: $SSL_HOSTS
+    restart: unless-stopped
+
+networks:
+  vhost-net:
+    external: true

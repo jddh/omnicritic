@@ -1,7 +1,9 @@
+import * as he from 'he';
+
 export default function ListItem({item}) {
 	return(
 	  <tr key={item._id}>
-		<td>{item.title}</td>
+			<td>{he.decode(item.title)}</td>
 			<td>
 				{item.ratings?.metacritic?.rating &&
 				item.ratings.metacritic.rating}

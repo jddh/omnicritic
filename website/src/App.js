@@ -5,6 +5,8 @@ import ListItem from './ListItem';
 import SearchBox from './SearchBox';
 import FilterButtons from './FilterButtons'
 import SortingColumn from './SortingColumn';
+import Pager from './Pager';
+import StatusInfo from './StatusInfo';
 
 function dispatchApi(state, action) {
 	switch(action.type) {
@@ -41,10 +43,19 @@ async function fetchFromApi(endpoint) {
 	return data;
 }
 
+async function fetchDBStatus() {
+	const s = await fetch('http://localhost:4000/status');
+	const sj = await s.json();
+
+	return sj;
+}
+
 function App() {
 
 	const [dataView, setDataView] = React.useState([]);
-	const [searchTerm, setSearchTerm] = React.useState(localStorage.getItem('searchTerm') || '');
+	const [searchInput, setSearchInput] = React.useState(localStorage.getItem('searchTerm') || '');
+	const [searchTerm, setSearchTerm] = React.useState(searchInput);
+	const [dbStatus, setDBStatus] = React.useState({});
 	const inputTimer = React.useRef(null);
 
 	React.useEffect(() => {
@@ -57,6 +68,8 @@ function App() {
 			.catch(() => {
 				dispatch({type:'API_FETCH_ERROR'})
 			})
+
+			setDBStatus(await fetchDBStatus());
 		})()
 	}, []);
 
@@ -67,30 +80,28 @@ function App() {
 	}, [apiFeed.data])
 
 	React.useEffect(() => {
-		localStorage.setItem('searchTerm',searchTerm);
-	},[searchTerm])
+		localStorage.setItem('searchTerm',searchInput);
+	},[searchInput])
 
 	function handleSearch(event) {
 		const term = event.target.value;
+		setSearchInput(term);
 
 		clearTimeout(inputTimer.current);
-		// inputTimer.current = setInterval(() => {
-			let filteredData;
+		inputTimer.current = setInterval(() => {
 			setSearchTerm(term);
-			// if (term.length)
-			// 	filteredData = masterData.filter(i => i.title.match(new RegExp(term, 'gi')));
-			// else filteredData = masterData;
-			// setData(filteredData);
-		// },500)
+		},500)
 	}
 
 	async function handleFilters(event) {
 		const filter = event.target.id;
 		const apiUrl = filter.replace(/filter-(.*?)/gi, '$1');
+		dispatch({type: 'API_FETCH_INIT'});
 		const ts = await fetchFromApi(apiUrl);
-		setDataView(ts);
+		dispatch({type: 'API_FETCH_COMPLETE', payload: ts});
 	}
 
+	//sorting
 	const [activeSort, setActiveSort] = React.useState(false);
 
 	function sorter(dataSource, direction = 'desc') {
@@ -115,7 +126,17 @@ function App() {
 		setDataView(sortedData);
 	}
 
-	const dataForRender = dataView.filter(i => i.title.match(new RegExp(searchTerm, 'gi')));
+	//pagination
+	const [pager, setPager] = React.useState({page: 1, limit: localStorage.getItem('pageLimit') || 100});
+
+	React.useEffect(() => {
+		localStorage.setItem('pageLimit',pager.limit);
+	},[pager.limit])
+
+	//prune data for render
+	const filteredData = dataView.filter(i => i.title.match(new RegExp(searchTerm, 'gi')));
+	let dataForRender = filteredData;
+	if (pager.limit) dataForRender = dataForRender.slice(((pager.page-1) * pager.limit), (pager.page * pager.limit));
 
 	return (
 
@@ -127,9 +148,11 @@ function App() {
 			<main>
 				<h2>Rated titles</h2>
 			
-				<SearchBox searchHandler={handleSearch} searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+				<SearchBox searchHandler={handleSearch} searchTerm={searchInput} setSearchTerm={setSearchInput}/>
 
 				<FilterButtons filterHandler={handleFilters} />
+
+				<Pager pagerData={pager} setPagerData={setPager} totalCount={filteredData.length}></Pager>
 
 				<table style={{ textAlign: 'left' }}>
 					<thead>
@@ -146,6 +169,8 @@ function App() {
 						)}
 					</tbody>
 				</table>
+
+				<StatusInfo data={dbStatus}></StatusInfo>
 			</main>
 		</div>
 	);

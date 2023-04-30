@@ -2,6 +2,7 @@
 export default function SearchBox({searchHandler,searchTerm,setSearchTerm}) {
 	function clear() {
 		setSearchTerm('');
+		searchHandler({target: {value: ''}});
 	}
 
 	return(

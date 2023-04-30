@@ -14,7 +14,7 @@ if (args('action')) await bootstrap({
 		await db.removeDuplicates();
 	},
 	ratings: async function() {
-		const numberOfTitles = 10;
+		const numberOfTitles = 5;
 
 		await Promise.all([
 			mcrunch.addRatingLoop(numberOfTitles),
@@ -44,5 +44,6 @@ else {
 	await mcrunch.addRatingLoop(10);
 }
 
+console.log('done!');
 db.quit();
 

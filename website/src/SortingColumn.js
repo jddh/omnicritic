@@ -20,12 +20,11 @@ export default function SortingColumn({sorter, dataSource, activeSort, label}) {
 	}
 
 	React.useEffect(() => {
-		console.log(`click sort ${dataSource} newdir ${direction}`);
 		if (direction) 
 		sorter(dataSource,direction);
 	},[direction])
 
-	const isActive = activeSort == dataSource || false;
+	const isActive = activeSort == dataSource;
 
 	return (
 		<td 
