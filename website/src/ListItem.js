@@ -1,6 +1,8 @@
 import * as he from 'he';
 
 export default function ListItem({item}) {
+
+
 	return(
 	  <tr key={item._id}>
 			<td>{he.decode(item.title)}</td>
@@ -11,6 +13,11 @@ export default function ListItem({item}) {
 			<td>
 				{item.ratings?.rottentomatoes?.rating &&
 				item.ratings.rottentomatoes.rating}
+			</td>
+
+			<td>
+				{item.ratings?.colonel?.rating &&
+				item.ratings.colonel.rating}
 			</td>
 			
 			<td>

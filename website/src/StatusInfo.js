@@ -1,7 +1,7 @@
 export default function StatusInfo({data}) {
 	const propItems = [];
 	for (const prop in data) {
-		propItems.push(<li>{prop}: {data[prop]}</li>);
+		propItems.push(<li key={prop}>{prop}: {data[prop]}</li>);
 	}
 
 	return (

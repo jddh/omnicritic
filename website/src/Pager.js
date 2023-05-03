@@ -36,12 +36,12 @@ export default function Pager ({pagerData, setPagerData, totalCount}) {
 	return (
 		<div className="pager">
 			<label htmlFor="pager-limit">Limit: </label>
-			<select name="pager-limit" id="pager-limit" onChange={changeLimit}>
+			<select name="pager-limit" id="pager-limit" defaultValue={pagerData.limit} onChange={changeLimit}>
 
 				{limitOptions.map(op => 
 					<option
 						value={op}
-						selected={op == pagerData.limit}
+						key={op}
 					>
 					{op}</option>	
 				)}
@@ -55,10 +55,9 @@ export default function Pager ({pagerData, setPagerData, totalCount}) {
 				}
 
 				{pagination.items.map((page => 
-					<li>
+					<li key={page}>
 					{page != pagerData.page &&
-						<a 
-							pageTarget={page} 
+						<a  
 							onClick={() => setPage(page)}
 							href="#">
 							{page}

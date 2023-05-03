@@ -7,6 +7,7 @@ import FilterButtons from './FilterButtons'
 import SortingColumn from './SortingColumn';
 import Pager from './Pager';
 import StatusInfo from './StatusInfo';
+import ParserButtons from './ParserButtons';
 
 function dispatchApi(state, action) {
 	switch(action.type) {
@@ -101,6 +102,37 @@ function App() {
 		dispatch({type: 'API_FETCH_COMPLETE', payload: ts});
 	}
 
+	const [parsers, setParsers] = React.useState([]);
+
+	/**
+	 * given names, return filter fns
+	 * @param {*} name 
+	 * @returns 
+	 */
+	function getParsers(nameArray) {
+		let parseFns = [];
+		nameArray.forEach(name => {
+			let parseFn;
+			switch(name) {
+				//disparate ratings
+				case 'contentious':
+					parseFn = item => 
+						Math.abs(item.ratings?.metacritic?.rating - item.ratings?.rottentomatoes?.rating) > 10;
+					break;
+				case 'topten':
+					parseFn = item =>
+					item.ratings?.metacritic?.rating > 90 &&
+					item.ratings?.rottentomatoes?.rating > 90
+					break;
+				default:
+					parseFn = item => item;
+			}
+			parseFns.push(parseFn)
+		})
+
+		return parseFns;
+	}
+
 	//sorting
 	const [activeSort, setActiveSort] = React.useState(false);
 
@@ -134,7 +166,14 @@ function App() {
 	},[pager.limit])
 
 	//prune data for render
-	const filteredData = dataView.filter(i => i.title.match(new RegExp(searchTerm, 'gi')));
+	let filteredData = dataView.filter(i => i.title.match(new RegExp(searchTerm, 'gi')));
+
+	// getParsers(parsers).forEach(p => 
+	// 	filteredData = filteredData.filter(p));
+	const parserArray = getParsers(parsers);
+	if (parserArray.length)
+		filteredData = filteredData.filter(element => parserArray.some(fn => fn(element)));
+	
 	let dataForRender = filteredData;
 	if (pager.limit) dataForRender = dataForRender.slice(((pager.page-1) * pager.limit), (pager.page * pager.limit));
 
@@ -152,15 +191,26 @@ function App() {
 
 				<FilterButtons filterHandler={handleFilters} />
 
+				<ParserButtons setParsers={setParsers}/>
+
 				<Pager pagerData={pager} setPagerData={setPager} totalCount={filteredData.length}></Pager>
 
 				<table style={{ textAlign: 'left' }}>
 					<thead>
 						<tr>
 							<td>Title</td>
-							<SortingColumn sorter={sorter} dataSource='metacritic' activeSort={activeSort} label="MC Rating" />
-							<SortingColumn sorter={sorter} dataSource='rottentomatoes' activeSort={activeSort} label="RT Rating" />
-							<SortingColumn sorter={sorter} dataSource='imdb' activeSort={activeSort} label="IMDB Rating" />
+							<SortingColumn sorter={sorter} dataSource='metacritic' activeSort={activeSort} >
+								MC Rating
+							</SortingColumn>
+							<SortingColumn sorter={sorter} dataSource='rottentomatoes' activeSort={activeSort} >
+								RT Rating
+							</SortingColumn>
+							<SortingColumn sorter={sorter} dataSource='colonel' activeSort={activeSort} >
+								Colonel Rating
+							</SortingColumn>
+							<SortingColumn sorter={sorter} dataSource='imdb' activeSort={activeSort} >
+								IMDB Rating
+							</SortingColumn>
 						</tr>
 					</thead>
 					<tbody>

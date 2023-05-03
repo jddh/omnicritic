@@ -10,4 +10,6 @@ nvm use 18.15.0
 # npm works too!
 # npm --version
 
+echo $(date +%d/%m/%y-%H:%M:%S)
+
 node /Users/jhorvath/Documents/dev/web/colonel/colonel.js action=ratings

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function SortingColumn({sorter, dataSource, activeSort, label}) {
+export default function SortingColumn({sorter, dataSource, activeSort, children}) {
 
 	const [direction, setDirection] = React.useState();
 
@@ -28,9 +28,9 @@ export default function SortingColumn({sorter, dataSource, activeSort, label}) {
 
 	return (
 		<td 
-			onClick={sortColumn} 
-			className={`sorting-col direction-${direction} ${isActive && ' active'}`} id={"sortfor-" + dataSource}>
-			{label}
+		onClick={sortColumn} 
+		className={`sorting-col direction-${direction} ${isActive && ' active'}`} id={"sortfor-" + dataSource}>
+			{children}
 		</td>
 	)
 }

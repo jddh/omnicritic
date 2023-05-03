@@ -11,7 +11,7 @@ await db.init();
 
 if (args('action')) await bootstrap({
 	removedupes: async function() {
-		await db.removeDuplicates();
+		await db.removeDuplicates(true);
 	},
 	ratings: async function() {
 		const numberOfTitles = 5;
@@ -28,7 +28,7 @@ if (args('action')) await bootstrap({
 		await titles.statusRatings();
 	},
 	oneoff: async function() {
-		await actions.oneOff();
+		await actions.bulkProcessRatings();
 	},
 	newmc: async function() {
 		await actions.testNewMC();
