@@ -33,6 +33,12 @@ app.get("/all", async function(req, res) {
 
 });
 
+app.get("/title/:titleId", async function(req, res) {
+	const title = await db.getTitleById(req.params.titleId);
+
+	res.send(title);
+})
+
 app.get("/status", async function(req, res) {
 	const titles = await db.statusRatings();
 	

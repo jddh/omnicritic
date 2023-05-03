@@ -28,7 +28,7 @@ if (args('action')) await bootstrap({
 		await titles.statusRatings();
 	},
 	oneoff: async function() {
-		await actions.bulkProcessRatings();
+		await actions.oneOff();
 	},
 	newmc: async function() {
 		await actions.testNewMC();
