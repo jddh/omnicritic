@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 import List from './ListView';
-import ItemView from "./ItemView";
+import TitleView from "./TitleView";
 
 export default function App() {
   return (
@@ -15,7 +15,7 @@ export default function App() {
           <Route index element={<List />} />
           <Route path="about" element={<About />} />
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="title/:titleid" element={<ItemView />} />
+          <Route path="title/:titleid" element={<TitleView />} />
 
           {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit

@@ -5,7 +5,11 @@ export default function ListItem({item}) {
 
 	return(
 	  <tr key={item._id}>
-			<td>{he.decode(item.title)}</td>
+			<td>
+				<a href={"/title/" + item._id}>
+					{he.decode(item.title)}
+				</a>
+			</td>
 			<td>
 				{item.ratings?.metacritic?.rating &&
 				item.ratings.metacritic.rating}

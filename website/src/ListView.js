@@ -8,73 +8,26 @@ import SortingColumn from './SortingColumn';
 import Pager from './Pager';
 import StatusInfo from './StatusInfo';
 import ParserButtons from './ParserButtons';
-
-function dispatchApi(state, action) {
-	switch(action.type) {
-		case 'API_FETCH_INIT':
-			return {
-				...state,
-				isLoading: true,
-				isError: false
-			}
-		case 'API_FETCH_COMPLETE':
-			return {
-				data: action.payload,
-				isLoading: false,
-				isError: false
-			}
-		case 'API_FETCH_ERROR':
-			return {
-				...state,
-				isLoading: false,
-				isError: true
-			}
-	}
-}
-
-async function fetchFromApi(endpoint) {
-	const ts = await fetch('http://localhost:4000/' + endpoint);
-	const tsj = await ts.json();
-	const data = tsj.map(d => {
-		if (d.ratings?.metacritic?.rating == 'tbd')
-			delete d.ratings.metacritic.rating;
-		return d;
-	});
-
-	return data;
-}
-
-async function fetchDBStatus() {
-	const s = await fetch('http://localhost:4000/status');
-	const sj = await s.json();
-
-	return sj;
-}
+import useApi from './ApiDispatcher';
 
 function App() {
 
 	const [dataView, setDataView] = React.useState([]);
 	const [searchInput, setSearchInput] = React.useState(localStorage.getItem('searchTerm') || '');
 	const [searchTerm, setSearchTerm] = React.useState(searchInput);
-	const [dbStatus, setDBStatus] = React.useState({});
+	const [dbStatus, getFromDbStatus] = useApi();
 	const inputTimer = React.useRef(null);
 
+	//runtime
 	React.useEffect(() => {
 		(async function() {
-			dispatch({type:'API_FETCH_INIT'});
-			fetchFromApi('rated')
-			.then((ts) => {
-				dispatch({type:'API_FETCH_COMPLETE', payload:ts});
-			})
-			.catch(() => {
-				dispatch({type:'API_FETCH_ERROR'})
-			})
+			await getFromApi('rated');
 
-			setDBStatus(await fetchDBStatus());
+			await getFromDbStatus('status');
 		})()
 	}, []);
 
-	const [apiFeed, dispatch] = React.useReducer(dispatchApi, { data: [], isLoading: false, isError: false });
+	const [apiFeed, getFromApi] = useApi();
 
 	React.useEffect(() => {
 		setDataView(apiFeed.data);
@@ -97,9 +50,7 @@ function App() {
 	async function handleFilters(event) {
 		const filter = event.target.id;
 		const apiUrl = filter.replace(/filter-(.*?)/gi, '$1');
-		dispatch({type: 'API_FETCH_INIT'});
-		const ts = await fetchFromApi(apiUrl);
-		dispatch({type: 'API_FETCH_COMPLETE', payload: ts});
+		await getFromApi(apiUrl);
 	}
 
 	const [parsers, setParsers] = React.useState([]);
@@ -168,8 +119,6 @@ function App() {
 	//prune data for render
 	let filteredData = dataView.filter(i => i.title.match(new RegExp(searchTerm, 'gi')));
 
-	// getParsers(parsers).forEach(p => 
-	// 	filteredData = filteredData.filter(p));
 	const parserArray = getParsers(parsers);
 	if (parserArray.length)
 		filteredData = filteredData.filter(element => parserArray.some(fn => fn(element)));
@@ -195,7 +144,7 @@ function App() {
 
 				<Pager pagerData={pager} setPagerData={setPager} totalCount={filteredData.length}></Pager>
 
-				<table style={{ textAlign: 'left' }}>
+				<table>
 					<thead>
 						<tr>
 							<td>Title</td>
@@ -220,7 +169,7 @@ function App() {
 					</tbody>
 				</table>
 
-				<StatusInfo data={dbStatus}></StatusInfo>
+				<StatusInfo data={dbStatus.data}></StatusInfo>
 			</main>
 		</div>
 	);
