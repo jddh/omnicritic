@@ -1,9 +1,27 @@
-export default function FilterButtons(props) {
+import React from "react";
+import useSemiPersistentState from "./semiPersistentState";
+
+export default function FilterButtons({filterHandler}) {
+	const [filter, setFilter] = useSemiPersistentState('listFilter', 'rated');
+	const filterStrings = ['all','rated','unrated'];
+
+	function handleClick(e) {
+		setFilter(e.target.value);
+		filterHandler(e);
+	}
+
 	return (
 		<div className="filter-buttons">
-			<button id="filter-all" onClick={props.filterHandler}>All</button>
-			<button id="filter-rated" onClick={props.filterHandler}>Rated</button>
-			<button id="filter-unrated" onClick={props.filterHandler}>Unrated</button>
+			{filterStrings.map(fs => 
+				<button 
+					key={fs}
+					value={fs}
+					id={'filter-' + fs}
+					disabled={fs == filter}
+					onClick={handleClick}>
+						{fs}
+				</button>	
+			)}
 		</div>
 	)
 }

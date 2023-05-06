@@ -1,4 +1,4 @@
-export default function ParserButtons ({setParsers}) {
+export default function ParserButtons ({parsers, setParsers}) {
 
 function changeValues(event) {
 	let activeParserNames = [];
@@ -14,7 +14,13 @@ return (
 		<fieldset>
 			{options.map(op => 
 				<label htmlFor={op} key={op}>
-					<input type="checkbox" name="parsers" id={op} value={op} onChange={changeValues} />
+					<input 
+						type="checkbox" 
+						name="parsers" 
+						id={op} 
+						value={op} 
+						checked={parsers.includes(op)}
+						onChange={changeValues} />
 					{op}
 				</label>
 			)}

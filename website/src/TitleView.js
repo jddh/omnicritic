@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom';
 import React from 'react';
-import useApi from './ApiDispatcher';
+import useApi from './apiDispatcher';
+import SearchWidget from './Search/SearchWidget'
+import {heObj} from './utils';
 
 export default function ItemView() {
 	const {titleid} = useParams();
@@ -12,10 +14,12 @@ export default function ItemView() {
 		})()
 	}, [])
 
-	const item = api.data;
+	const item = heObj(api.data);
 
 	return (
 		<div className="App">
+			<SearchWidget />
+
 			{api.isLoading && <div>Loading...</div>}
 
 			{api.isError && <div>Fetch error!</div>}

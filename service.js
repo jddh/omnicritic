@@ -39,6 +39,12 @@ app.get("/title/:titleId", async function(req, res) {
 	res.send(title);
 })
 
+app.get("/title/search/:query", async function(req, res) {
+	const query = await db.searchTitlesByName(req.params.query, 10);
+
+	res.send(query);
+})
+
 app.get("/status", async function(req, res) {
 	const titles = await db.statusRatings();
 	

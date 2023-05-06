@@ -8,12 +8,13 @@ import SortingColumn from './SortingColumn';
 import Pager from './Pager';
 import StatusInfo from './StatusInfo';
 import ParserButtons from './ParserButtons';
-import useApi from './ApiDispatcher';
+import useApi from './apiDispatcher';
+import useSemiPersistentState from './semiPersistentState';
 
 function App() {
 
 	const [dataView, setDataView] = React.useState([]);
-	const [searchInput, setSearchInput] = React.useState(localStorage.getItem('searchTerm') || '');
+	const [searchInput, setSearchInput] = useSemiPersistentState('searchTerm','')
 	const [searchTerm, setSearchTerm] = React.useState(searchInput);
 	const [dbStatus, getFromDbStatus] = useApi();
 	const inputTimer = React.useRef(null);
@@ -33,10 +34,6 @@ function App() {
 		setDataView(apiFeed.data);
 	}, [apiFeed.data])
 
-	React.useEffect(() => {
-		localStorage.setItem('searchTerm',searchInput);
-	},[searchInput])
-
 	function handleSearch(event) {
 		const term = event.target.value;
 		setSearchInput(term);
@@ -48,12 +45,13 @@ function App() {
 	}
 
 	async function handleFilters(event) {
-		const filter = event.target.id;
-		const apiUrl = filter.replace(/filter-(.*?)/gi, '$1');
+		const filter = event.target.value;
+		const apiUrl = filter;
 		await getFromApi(apiUrl);
 	}
 
-	const [parsers, setParsers] = React.useState([]);
+	// const [parsers, setParsers] = React.useState([]);
+	const [parsers, setParsers] = useSemiPersistentState('listParser', []);
 
 	/**
 	 * given names, return filter fns
@@ -140,7 +138,7 @@ function App() {
 
 				<FilterButtons filterHandler={handleFilters} />
 
-				<ParserButtons setParsers={setParsers}/>
+				<ParserButtons parsers={parsers} setParsers={setParsers}/>
 
 				<Pager pagerData={pager} setPagerData={setPager} totalCount={filteredData.length}></Pager>
 
