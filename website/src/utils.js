@@ -7,7 +7,7 @@ import * as he from 'he';
  */
 export function heObj(obj) {
 	for (const prop in obj) {
-		obj[prop] = typeof obj[prop] === 'string' && he.decode(obj[prop]);
+		obj[prop] = (typeof obj[prop] === 'string') ? he.decode(obj[prop]) : obj[prop] ;
 	}
 
 	return obj;

@@ -1,12 +1,12 @@
 import React from "react";
 import useSemiPersistentState from "./semiPersistentState";
 
-export default function FilterButtons({filterHandler}) {
-	const [filter, setFilter] = useSemiPersistentState('listFilter', 'rated');
+export default function FilterButtons({filter, filterHandler}) {
+	
 	const filterStrings = ['all','rated','unrated'];
 
 	function handleClick(e) {
-		setFilter(e.target.value);
+		// setFilter(e.target.value);
 		filterHandler(e);
 	}
 

@@ -9,11 +9,22 @@ export default function SearchField({setSearchQuery}) {
 		clearTimeout(inputTimer.current);
 		inputTimer.current = setInterval(() => {
 			clearTimeout(inputTimer.current);
-			setSearchQuery(term);
+			if (term.length > 2)
+				setSearchQuery(term);
+			else if (!term) setSearchQuery('');
 		},500)
+
+	}
+
+	function handleSubmit(event) {
+		event.preventDefault();
+		const q = event.target['title-search'].value;
+		window.location.pathname = '/search/' + q;
 	}
 
 	return (
-		<input type="text" id="title-search" placeholder="Search" onChange={handleSearch} />
+		<form onSubmit={handleSubmit}>
+			<input type="text" name="title-search" id="title-search" placeholder="Search Everything" onChange={handleSearch} />
+		</form>
 	)
 }

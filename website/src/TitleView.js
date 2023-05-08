@@ -18,7 +18,7 @@ export default function ItemView() {
 
 	return (
 		<div className="App">
-			<SearchWidget />
+			{/* <SearchWidget /> */}
 
 			{api.isLoading && <div>Loading...</div>}
 

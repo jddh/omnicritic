@@ -40,7 +40,13 @@ app.get("/title/:titleId", async function(req, res) {
 })
 
 app.get("/title/search/:query", async function(req, res) {
-	const query = await db.searchTitlesByName(req.params.query, 10);
+	const query = await db.searchTitlesByName(req.params.query, 10, ['title','_id']);
+
+	res.send(query);
+})
+
+app.get("/search/:query", async function(req, res) {
+	const query = await db.searchTitlesByName(req.params.query, 100);
 
 	res.send(query);
 })

@@ -29,7 +29,7 @@ export default function ListItem({item}) {
 				item.ratings.imdb.rating}
 			</td>
 
-			<td>
+			{/* <td>
 				{item.ratings?.metacritic?.url &&
 				<a target="_blank" href={item.ratings.metacritic.url}>Metacritic</a>}
 			</td>
@@ -46,7 +46,7 @@ export default function ListItem({item}) {
 
 			<td>
 				<a target="_blank" href={"https://www.netflix.com/watch/" + item.netflixId}>Netflix</a>
-			</td>
+			</td> */}
 	  </tr>
 	)
   }

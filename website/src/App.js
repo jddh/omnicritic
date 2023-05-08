@@ -2,10 +2,12 @@ import * as React from "react";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 import List from './ListView';
 import TitleView from "./TitleView";
+import SearchWidget from "./Search/SearchWidget";
+import SearchResults from "./SearchResults";
 
 export default function App() {
   return (
-    <div>
+    <>
 
       {/* Routes nest inside one another. Nested route paths build upon
             parent route paths, and nested route elements render inside
@@ -16,6 +18,7 @@ export default function App() {
           <Route path="about" element={<About />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="title/:titleid" element={<TitleView />} />
+          <Route path="search/:query" element={<SearchResults />} />
 
           {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
@@ -23,37 +26,41 @@ export default function App() {
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
-    </div>
+    </>
   );
 }
 
 function Layout() {
   return (
-    <div>
+    <>
       {/* A "layout route" is a good place to put markup you want to
           share across all the pages on your site, like navigation. */}
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/nothing-here">Nothing Here</Link>
-          </li>
-        </ul>
-      </nav>
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/nothing-here">Nothing Here</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <SearchWidget />
+      </header>
 
       {/* An <Outlet> renders whatever child route is currently active,
           so you can think about this <Outlet> as a placeholder for
           the child routes we defined above. */}
       <Outlet />
-    </div>
+    </>
   );
 }
 

@@ -1,8 +1,10 @@
-
-
-.App {
+#root {
   max-width: 1000px;
   margin: 0 auto;
+}
+
+.App {
+  
 }
 
 .App-logo {
@@ -38,6 +40,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 table {

@@ -16,7 +16,7 @@ export default function SearchWidget() {
 	}, [searchTerm])
 
 	return (
-		<div>
+		<div id="search-widget">
 			<SearchField setSearchQuery={setSearchTerm}/>
 			<Results searchTerm={searchTerm} data={api.data}/>
 		</div>
