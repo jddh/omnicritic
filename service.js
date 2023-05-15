@@ -60,6 +60,26 @@ app.get("/status", async function(req, res) {
 
 });
 
+app.get('/user', async function(req, res) {
+	let resObj = {}, status = 401;
+	const token = req.get('Authorization').replace('Basic ','');
+	if (token) {
+		try {
+			const q = await auth.validateToken(token);
+			console.log(q);
+			if (q) {
+				status = 200;
+				resObj = q;
+			}
+		} 
+		catch(e) {
+
+		}
+	}
+
+	res.status(status).send(resObj);
+})
+
 app.post("/login", async function(req, res) {
 	let message, resObj = {}, status = 400;
 	const body = req.body;

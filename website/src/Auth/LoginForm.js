@@ -4,6 +4,10 @@ import useApi from '../apiDispatcher'
 export default function LoginForm({setToken}) {
 	const [authApi, getFromAuthApi] = useApi();
 
+	React.useEffect(() => {
+		if (authApi.data?.token) setToken(authApi.data.token); 
+	}, [authApi])
+
 	async function handleSubmit(e) {
 		e.preventDefault();
 		const user = e.target.username.value;
@@ -16,7 +20,9 @@ export default function LoginForm({setToken}) {
 			headers: {'Content-Type': 'application/json'}
 		});
 
-		if (authApi.data?.token) setToken(authApi.data.token); 
+		// if (authApi.data?.token) setToken(authApi.data.token); 
+
+		
 	}
 
 	return (

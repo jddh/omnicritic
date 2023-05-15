@@ -2,9 +2,10 @@ import * as React from "react";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 import List from './ListView';
 import TitleView from "./TitleView";
-import SearchWidget from "./SearchWidget/SearchWidget";
 import SearchResults from "./SearchResults";
 import Settings from "./Settings/Settings";
+import Header from "./Header";
+import Logout from "./Logout";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="title/:titleid" element={<TitleView />} />
           <Route path="search/:query" element={<SearchResults />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="logout" element={<Logout />} />
 
           {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
@@ -37,40 +39,13 @@ function Layout() {
     <>
       {/* A "layout route" is a good place to put markup you want to
           share across all the pages on your site, like navigation. */}
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            {/* <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/nothing-here">Nothing Here</Link>
-            </li> */}
-          </ul>
-        </nav>
-
-        <SearchWidget />
-      </header>
+      <Header />
 
       {/* An <Outlet> renders whatever child route is currently active,
           so you can think about this <Outlet> as a placeholder for
           the child routes we defined above. */}
       <Outlet />
     </>
-  );
-}
-
-function Home() {
-  return (
-    <div>
-      <h2>Home</h2>
-    </div>
   );
 }
 

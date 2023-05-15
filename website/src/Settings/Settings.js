@@ -24,7 +24,7 @@ export default function Settings() {
 		<Authenticated>
 			<h2>Here are your settings</h2>
 
-			<p>Your name is {user.name}</p>
+			<p>Your name is {user.username}</p>
 		</Authenticated>
 	)
 }
