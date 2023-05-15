@@ -19,6 +19,7 @@ export default function SearchResults() {
 		<div className="App">
 			<main>
 				<h2>Search for: "{query}"</h2> 
+				<em>{api.data.length} results</em>
 
 				<ListTable data={api.data} />
 			</main>

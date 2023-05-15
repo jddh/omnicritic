@@ -29,7 +29,7 @@ export default function SortingColumn({sorter, dataSource, activeSort, children}
 	return (
 		<td 
 		onClick={sortColumn} 
-		className={`sorting-col direction-${direction} ${isActive && ' active'}`} id={"sortfor-" + dataSource}>
+		className={`sorting-col numerical direction-${direction} ${isActive && ' active'}`} id={"sortfor-" + dataSource}>
 			{children}
 		</td>
 	)

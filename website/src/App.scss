@@ -52,12 +52,29 @@ table {
   width: 100%;
 }
 
-tbody tr:nth-child(odd) {
-  background-color: rgb(237, 237, 237);
+thead {
+  td {
+    font-weight: bold;
+    font-size: 0.8em;
+  }
 }
 
 td {
   padding: .5em .3em;
+
+  &.numerical {
+    width: 100px;
+  }
+}
+
+tbody {
+  td.numerical {
+    text-align: center;
+  }
+}
+
+tbody tr:nth-child(odd) {
+  background-color: rgb(237, 237, 237);
 }
 
 td.direction-desc.active {
@@ -77,5 +94,26 @@ td.direction-asc.active {
   li {
     display: inline-block;
     margin: 0 1em;
+  }
+}
+
+#search-widget {
+  position: relative;
+  min-width: 250px;
+  text-align: right;
+}
+
+#search-autocomplete {
+  position: absolute;
+  right: 0;
+  padding: 1em;
+  background: white;
+  border: 1px solid #b3b3b3;
+  text-align: left;
+
+  li {
+    padding-bottom: 0.5em;
+    list-style: none;
+    font-size: .9em;
   }
 }

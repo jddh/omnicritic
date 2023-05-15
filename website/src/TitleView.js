@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
 import React from 'react';
 import useApi from './apiDispatcher';
-import SearchWidget from './Search/SearchWidget'
+import SearchWidget from './SearchWidget/SearchWidget'
+import LoadStatus from './LoadStatus';
 import {heObj} from './utils';
 
 export default function ItemView() {
@@ -20,9 +21,7 @@ export default function ItemView() {
 		<div className="App">
 			{/* <SearchWidget /> */}
 
-			{api.isLoading && <div>Loading...</div>}
-
-			{api.isError && <div>Fetch error!</div>}
+			<LoadStatus apiDispatcher={api}/>
 
 			{!api.isError && !api.isLoading &&
 

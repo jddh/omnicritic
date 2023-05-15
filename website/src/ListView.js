@@ -5,6 +5,7 @@ import FeedFilterButtons from './FilterButtons'
 import StatusInfo from './StatusInfo';
 import useApi from './apiDispatcher';
 import useSemiPersistentState from './semiPersistentState';
+import LoadStatus from './LoadStatus';
 
 function App() {
 
@@ -32,9 +33,7 @@ function App() {
 	return (
 
 		<div className="App">
-			{apiFeed.isLoading && <div>Loading...</div>}
-
-			{apiFeed.isError && <div>Data fetch error!</div>}
+			<LoadStatus apiDispatcher={apiFeed} />
 
 			<main>
 				<h2>Rated titles</h2>

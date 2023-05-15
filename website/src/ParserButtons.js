@@ -7,7 +7,7 @@ function changeValues(event) {
 	setParsers(activeParserNames)
 }
 
-const options = ['contentious','topten'];
+const options = ['contentious','topten','lowten','justmc','justrt'];
 
 return (
 	<div className="parsers">

@@ -10,21 +10,21 @@ export default function ListItem({item}) {
 					{he.decode(item.title)}
 				</a>
 			</td>
-			<td>
+			<td className='numerical'>
 				{item.ratings?.metacritic?.rating &&
 				item.ratings.metacritic.rating}
 			</td>
-			<td>
+			<td className='numerical'>
 				{item.ratings?.rottentomatoes?.rating &&
 				item.ratings.rottentomatoes.rating}
 			</td>
 
-			<td>
+			<td className='numerical'>
 				{item.ratings?.colonel?.rating &&
 				item.ratings.colonel.rating}
 			</td>
 			
-			<td>
+			<td className='numerical'>
 				{item.ratings?.imdb?.rating &&
 				item.ratings.imdb.rating}
 			</td>

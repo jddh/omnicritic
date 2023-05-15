@@ -23,8 +23,8 @@ function dispatchApi(state, action) {
 	}
 }
 
-async function fetchFromApi(base, endpoint) {
-	const ts = await fetch(base + endpoint);
+async function fetchFromApi(base, endpoint, options) {
+	const ts = await fetch(base + endpoint, options);
 	const tsj = await ts.json();
 	let data = tsj;
 	if (Array.isArray(data)) {
@@ -38,10 +38,13 @@ async function fetchFromApi(base, endpoint) {
 	return data;
 }
 
-export default function useApi(rqBasePath = 'http://localhost:4000/') {
-	async function get(endpoint) {
+export default function useApi(
+	{rqBasePath = 'http://localhost:4000/', fetchOptions = undefined} 
+	= {rqBasePath: undefined, fetchOptions: undefined}) {
+
+	const get = async function (endpoint, options) {
 		dispatch({type:'API_FETCH_INIT'});
-		fetchFromApi(rqBasePath, endpoint)
+		fetchFromApi(rqBasePath, endpoint, {...options, ...fetchOptions})
 		.then((ts) => {
 			dispatch({type:'API_FETCH_COMPLETE', payload:ts});
 		})

@@ -51,6 +51,21 @@ export default function ListTable({data}) {
 					item.ratings?.metacritic?.rating > 90 &&
 					item.ratings?.rottentomatoes?.rating > 90
 					break;
+				case 'lowten':
+					parseFn = item =>
+					item.ratings?.metacritic?.rating < 21 &&
+					item.ratings?.rottentomatoes?.rating < 21
+					break;
+				case 'justmc':
+					parseFn = item =>
+					item.ratings?.metacritic?.rating &&
+					!item.ratings?.rottentomatoes?.rating
+					break;
+				case 'justrt':
+					parseFn = item =>
+					!item.ratings?.metacritic?.rating &&
+					item.ratings?.rottentomatoes?.rating
+					break;
 				default:
 					parseFn = item => item;
 			}

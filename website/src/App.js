@@ -2,8 +2,9 @@ import * as React from "react";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 import List from './ListView';
 import TitleView from "./TitleView";
-import SearchWidget from "./Search/SearchWidget";
+import SearchWidget from "./SearchWidget/SearchWidget";
 import SearchResults from "./SearchResults";
+import Settings from "./Settings/Settings";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="title/:titleid" element={<TitleView />} />
           <Route path="search/:query" element={<SearchResults />} />
+          <Route path="settings" element={<Settings />} />
 
           {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
@@ -41,7 +43,7 @@ function Layout() {
             <li>
               <Link to="/">Home</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/about">About</Link>
             </li>
             <li>
@@ -49,7 +51,7 @@ function Layout() {
             </li>
             <li>
               <Link to="/nothing-here">Nothing Here</Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
 
