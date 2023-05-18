@@ -1,11 +1,16 @@
 import React from "react";
 import useApi from '../apiDispatcher'
+import authContext from "./authContext";
 
-export default function LoginForm({setToken}) {
+export default function LoginForm() {
 	const [authApi, getFromAuthApi] = useApi();
+	const { setAuthenticated, setToken } = React.useContext(authContext);
 
 	React.useEffect(() => {
-		if (authApi.data?.token) setToken(authApi.data.token); 
+		if (authApi.data?.token) {
+			setToken(authApi.data.token); 
+			setAuthenticated(true);
+		}
 	}, [authApi])
 
 	async function handleSubmit(e) {

@@ -1,13 +1,11 @@
 import React from "react";
-import Authenticated from '../Auth/Authenticated';
-import useAuth from "../Auth/useAuth";
+import AuthOrLogin from '../Auth/AuthOrLogin';
 import useApi from '../apiDispatcher';
+import authContext from "../Auth/authContext";
 
 export default function Settings() {
-	const [token, setToken] = useAuth();
-	const [userApi, getFromUserApi] = useApi({
-		fetchOptions: {headers: {Authorization: 'Basic ' + token}}
-	});
+	const { token } = React.useContext(authContext);
+	const [userApi, getFromUserApi] = useApi({ useAuth: true });
 
 	React.useEffect(() => {
 		(async () => {
@@ -19,12 +17,15 @@ export default function Settings() {
 	}, [token])
 
 	const user = userApi.data;
+	const loginTime = new Date(user.authTime).toString();
 
 	return (
-		<Authenticated>
+		<AuthOrLogin>
 			<h2>Here are your settings</h2>
 
 			<p>Your name is {user.username}</p>
-		</Authenticated>
+
+			<small><em>Last login was {loginTime}</em></small>
+		</AuthOrLogin>
 	)
 }

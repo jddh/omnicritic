@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SearchWidget from "./SearchWidget/SearchWidget";
-import useAuth from "./Auth/useAuth";
+import authContext from "./Auth/authContext";
 
 export default function Header() {
-	const [token, setToken] = useAuth();
+	const { authenticated, token } = React.useContext(authContext);
 
 	return (
 		<header>
@@ -24,8 +24,10 @@ export default function Header() {
 				</ul>
 			</nav>
 
+			user is {`${authenticated ? "" : "not"} authenticated`}
+
 			<SearchWidget />
-			
+
 		</header>
 	)
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import authContext from "./Auth/authContext";
 
 function dispatchApi(state, action) {
 	switch(action.type) {
@@ -23,6 +24,15 @@ function dispatchApi(state, action) {
 	}
 }
 
+function mergeHeaders(options, header) {
+	let allHeaders = options?.headers
+	  ? { ...options.headers, ...header }
+	  : header;
+	options = { ...options, headers: allHeaders };
+  
+	return options;
+  }
+
 async function fetchFromApi(base, endpoint, options) {
 	const ts = await fetch(base + endpoint, options);
 	const tsj = await ts.json();
@@ -39,10 +49,23 @@ async function fetchFromApi(base, endpoint, options) {
 }
 
 export default function useApi(
-	{rqBasePath = 'http://localhost:4000/', fetchOptions = undefined} 
-	= {rqBasePath: undefined, fetchOptions: undefined}) {
+	{
+		rqBasePath = 'http://localhost:4000/', 
+		fetchOptions = undefined,
+		useAuth = false
+	} = {
+		rqBasePath: undefined, 
+		fetchOptions: undefined,
+		useAuth: undefined
+	}) {
+
+	const { token } = React.useContext(authContext);
 
 	const get = async function (endpoint, options) {
+		if (useAuth && token) {
+			options = mergeHeaders(options, {Authorization: 'Basic ' + token});
+		}
+
 		dispatch({type:'API_FETCH_INIT'});
 		fetchFromApi(rqBasePath, endpoint, {...options, ...fetchOptions})
 		.then((ts) => {

@@ -1,11 +1,13 @@
 import * as React from "react";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
+import authContext from "./Auth/authContext";
 import List from './ListView';
 import TitleView from "./TitleView";
 import SearchResults from "./SearchResults";
 import Settings from "./Settings/Settings";
 import Header from "./Header";
 import Logout from "./Logout";
+import useSemiPersistentState from "./semiPersistentState";
 
 export default function App() {
   return (
@@ -35,7 +37,11 @@ export default function App() {
 }
 
 function Layout() {
+  const [authenticated, setAuthenticated] = useSemiPersistentState('authenticated', false);
+  const [token, setToken] = useSemiPersistentState('authToken', '');
+
   return (
+    <authContext.Provider value={{ authenticated, setAuthenticated, token, setToken }}>
     <>
       {/* A "layout route" is a good place to put markup you want to
           share across all the pages on your site, like navigation. */}
@@ -46,6 +52,7 @@ function Layout() {
           the child routes we defined above. */}
       <Outlet />
     </>
+    </authContext.Provider>
   );
 }
 

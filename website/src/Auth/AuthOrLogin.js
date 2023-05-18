@@ -1,14 +1,14 @@
 import React from "react";
 import LoginForm from "./LoginForm";
-import useAuth from "./useAuth";
+import authContext from "./authContext";
 
 export default function Authenticated({children}) {
-	const [token, setToken] = useAuth();
+	const { token } = React.useContext(authContext);
 
 	return (
 		<>
 
-		{!token && <LoginForm setToken={setToken} /> }
+		{!token && <LoginForm /> }
 
 		{token && children }
 

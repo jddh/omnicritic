@@ -3,6 +3,7 @@ import React from 'react';
 import useApi from './apiDispatcher';
 import SearchWidget from './SearchWidget/SearchWidget'
 import LoadStatus from './LoadStatus';
+import Favourite from './Title/Favourite';
 import {heObj} from './utils';
 
 export default function ItemView() {
@@ -19,7 +20,6 @@ export default function ItemView() {
 
 	return (
 		<div className="App">
-			{/* <SearchWidget /> */}
 
 			<LoadStatus apiDispatcher={api}/>
 
@@ -57,6 +57,8 @@ export default function ItemView() {
 						<li><a target="_blank" href={"https://www.netflix.com/watch/" + item.netflixId}>Netflix</a></li>
 					</ul>
 				</div>
+
+				<Favourite titleId={item._id} />
 			</main>
 
 			}

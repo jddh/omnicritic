@@ -3,6 +3,7 @@ import cors from "cors";
 import compression from 'compression';
 import * as db from '#models/db/titles';
 import * as auth from '#models/db/auth';
+import * as user from '#models/db/user';
 
 const app = express();
 const PORT = 4000;
@@ -60,25 +61,54 @@ app.get("/status", async function(req, res) {
 
 });
 
-app.get('/user', async function(req, res) {
-	let resObj = {}, status = 401;
+app.get('/user', function(req, res) {
+	validatePrivilegedRq(req)
+	.then(v => {
+		if (!v) res.status(401).send('');
+
+		res.status(200).send(v);
+	})
+});
+
+app.get('/user/favourites', async function(req, res) {
+	const valid = await validatePrivilegedRq(req);
+	if (!valid) return res.status(401).send('');
+
+	const q = await user.getFavourites(valid._id);
+
+	res.send(q);
+})
+
+app.post('/user/favourites', async function(req, res) {
+	const valid = await validatePrivilegedRq(req);
+	if (!valid) return res.status(401).send('');
+
+	const body = req.body;
+	const userID = valid._id;
+	const titleArray = body.titles;
+
+	const q = await user.addFavourites(userID, titleArray);
+
+	if (q.modifiedCount) res.status(200).send('');
+	else res.status(406).send('');
+})
+
+async function validatePrivilegedRq(req) {
+	if (!req.get('Authorization')) return false;
 	const token = req.get('Authorization').replace('Basic ','');
 	if (token) {
 		try {
 			const q = await auth.validateToken(token);
-			console.log(q);
 			if (q) {
-				status = 200;
-				resObj = q;
+				q._id = q._id.toString();;
+				return q;
 			}
 		} 
 		catch(e) {
-
+			return false;
 		}
 	}
-
-	res.status(status).send(resObj);
-})
+}
 
 app.post("/login", async function(req, res) {
 	let message, resObj = {}, status = 400;
