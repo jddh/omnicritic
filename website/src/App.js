@@ -5,6 +5,7 @@ import List from './ListView';
 import TitleView from "./TitleView";
 import SearchResults from "./SearchResults";
 import Settings from "./Settings/Settings";
+import Watchlist from "./Watchlist/Watchlist";
 import Header from "./Header";
 import Logout from "./Logout";
 import useSemiPersistentState from "./semiPersistentState";
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="title/:titleid" element={<TitleView />} />
           <Route path="search/:query" element={<SearchResults />} />
+          <Route path="watchlist" element={<Watchlist />} />
           <Route path="settings" element={<Settings />} />
           <Route path="logout" element={<Logout />} />
 

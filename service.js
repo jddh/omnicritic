@@ -79,6 +79,15 @@ app.get('/user/favourites', async function(req, res) {
 	res.send(q);
 })
 
+app.get('/user/favourites/docs', async function(req, res) {
+	const valid = await validatePrivilegedRq(req);
+	if (!valid) return res.status(401).send('');
+
+	const q = await user.getFavouritesAsDocs(valid._id);
+
+	res.send(q);
+})
+
 app.post('/user/favourites', async function(req, res) {
 	const valid = await validatePrivilegedRq(req);
 	if (!valid) return res.status(401).send('');
@@ -88,6 +97,20 @@ app.post('/user/favourites', async function(req, res) {
 	const titleArray = body.titles;
 
 	const q = await user.addFavourites(userID, titleArray);
+
+	if (q.modifiedCount) res.status(200).send('');
+	else res.status(406).send('');
+})
+
+app.post('/user/favourites/remove', async function(req, res) {
+	const valid = await validatePrivilegedRq(req);
+	if (!valid) return res.status(401).send('');
+
+	const body = req.body;
+	const userID = valid._id;
+	const titleArray = body.titles;
+
+	const q = await user.removeFavourites(userID, titleArray);
 
 	if (q.modifiedCount) res.status(200).send('');
 	else res.status(406).send('');

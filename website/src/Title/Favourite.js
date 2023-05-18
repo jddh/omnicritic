@@ -41,6 +41,13 @@ export default function Favourite({titleId, isActive}) {
 				headers: {'Content-Type': 'application/json'}
 			});
 		}
+		if (!newState) {
+			const favRq = await getFromUserModApi('user/favourites/remove', {
+				method: 'post', 
+				body: JSON.stringify({titles: [titleId]}),
+				headers: {'Content-Type': 'application/json'}
+			});
+		}
 	}
 
 	return (

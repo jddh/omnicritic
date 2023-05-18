@@ -17,9 +17,14 @@ export default function Header() {
 						<Link to="/settings">Settings</Link>
 					</li>
 					{token && 
+					<>
+					<li>
+						<Link to="/watchlist">Watchlist</Link>
+					</li>
 					<li>
 						<Link to="/logout">Logout</Link>
 					</li>
+					</>
 					}
 				</ul>
 			</nav>
