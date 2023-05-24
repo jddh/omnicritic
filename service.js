@@ -159,6 +159,16 @@ app.post("/login", async function(req, res) {
 	res.status(status).json({...resObj, message: message});
 })
 
+app.post('/logout', async function(req, res) {
+	const body = req.body;
+	const token = body.token;
+
+	const q = await auth.removeToken(token);
+
+	if (q.modifiedCount) res.status(200).send('');
+	else res.status(406).send('');
+})
+
 app.get('/about', (req, res) => {
 	res.send('about')
   })

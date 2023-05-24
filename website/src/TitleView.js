@@ -6,6 +6,7 @@ import LoadStatus from './LoadStatus';
 import Favourite from './Title/Favourite';
 import {heObj} from './utils';
 
+//TODO: include year?
 export default function ItemView() {
 	const {titleid} = useParams();
 	const [api, getFromApi] = useApi();

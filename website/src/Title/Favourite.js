@@ -12,15 +12,16 @@ export default function Favourite({titleId, isActive}) {
 
 	React.useEffect(() => {
 		//cancel fetching if unloaded
-		apiTo.current = setTimeout(() => {
 		if (isActive == undefined && authenticated) {
-			const favStatusRq = getFromUserApi('user/favourites');
-		}
-		}, 0);
+			apiTo.current = setTimeout(() => {
+				const favStatusRq = getFromUserApi('user/favourites');
+			}, 0);
+			
 
-		return () => {
-			clearTimeout(apiTo.current)
-		};
+			return () => {
+				clearTimeout(apiTo.current)
+			};
+		}
 	}, [])
 
 	React.useEffect(() => {
@@ -53,7 +54,7 @@ export default function Favourite({titleId, isActive}) {
 	return (
 		<AuthOrHidden>
 			{!userApi.isLoading &&
-			<a href="#" onClick={handleClick} className={`favourite ${active ? 'active': ''}`}> {active ? '✅':''} Favourite: </a>
+			<a href="#" onClick={handleClick} className={`favourite ${active ? 'active': ''}`}> {active ? '✅':''} Favourite</a>
 			}
 		</AuthOrHidden>
 	)

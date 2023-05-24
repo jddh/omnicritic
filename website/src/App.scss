@@ -48,6 +48,17 @@ header {
   align-items: center;
 }
 
+header nav {
+  ul {
+    padding-left: 0;
+  }
+
+  li {
+    display: inline-block;
+    margin: 0 1em;
+  }
+}
+
 table {
   width: 100%;
 }

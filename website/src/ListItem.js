@@ -1,7 +1,8 @@
 import * as he from 'he';
+import AuthOrHidden from './Auth/AuthOrHidden';
+import Favourite from './Title/Favourite';
 
-export default function ListItem({item}) {
-
+export default function ListItem({item, isFavourited}) {
 
 	return(
 	  <tr key={item._id}>
@@ -28,25 +29,12 @@ export default function ListItem({item}) {
 				{item.ratings?.imdb?.rating &&
 				item.ratings.imdb.rating}
 			</td>
-
-			{/* <td>
-				{item.ratings?.metacritic?.url &&
-				<a target="_blank" href={item.ratings.metacritic.url}>Metacritic</a>}
-			</td>
-
-			<td>
-				{item.ratings?.rottentomatoes?.url &&
-				<a target="_blank" href={item.ratings.rottentomatoes.url}>RT</a>}
-			</td>
-
-			<td>
-				{item.imdbId &&
-				<a target="_blank" href={"https://www.imdb.com/title/" + item.imdbId}>IMDB</a>}
-			</td> 
-
-			<td>
-				<a target="_blank" href={"https://www.netflix.com/watch/" + item.netflixId}>Netflix</a>
-			</td> */}
+			
+			<AuthOrHidden>
+				<td>
+					<Favourite titleId={item._id} isActive={isFavourited} />
+				</td>
+			</AuthOrHidden>
 	  </tr>
 	)
   }

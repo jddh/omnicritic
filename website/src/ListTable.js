@@ -5,9 +5,12 @@ import SortingColumn from './SortingColumn';
 import Pager from './Pager';
 import ParserButtons from './ParserButtons';
 import useSemiPersistentState from './semiPersistentState';
+import useApi from './apiDispatcher';
+import authContext from "./Auth/authContext";
 
 export default function ListTable({data}) {
 	const [dataView, setDataView] = React.useState([]);
+	const {authenticated} = React.useContext(authContext);
 
 	React.useEffect(() => {
 		setDataView(data);
@@ -107,6 +110,16 @@ export default function ListTable({data}) {
 		localStorage.setItem('pageLimit',pager.limit);
 	},[pager.limit])
 
+	//favourites
+	const [userApi, getFromUserApi] = useApi({ useAuth: true });
+
+	React.useEffect(() => {
+		if (authenticated) {
+			//TODO: if this doesn't work, each li hits the API individually
+			const favStatusRq = getFromUserApi('user/favourites');
+		}
+	}, [])
+
 	//prune data for render
 	let filteredData = dataView.filter(i => i.title.match(new RegExp(searchTerm, 'gi')));
 
@@ -145,7 +158,11 @@ export default function ListTable({data}) {
 			</thead>
 			<tbody>
 				{dataForRender.map(title =>
-					<ListItem item={title} key={title._id} />
+					<ListItem 
+						item={title} 
+						key={title._id} 
+						isFavourited={userApi.data.favourites?.includes(title._id)} 
+					/>
 				)}
 			</tbody>
 		</table>
