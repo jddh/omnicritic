@@ -16,7 +16,7 @@ app.use(express.json());
 // router.use(compression());
 
 app.get("/rated", async function(req, res) {
-	const titles = await db.getRatedTitles(1000);
+	const titles = await db.getRatedTitles(5000);
 	
 	res.send(titles);
 
@@ -31,6 +31,13 @@ app.get("/unrated", async function(req, res) {
 
 app.get("/all", async function(req, res) {
 	const titles = await db.getAllTitles(5000);
+	
+	res.send(titles);
+
+});
+
+app.get("/nullrated", async function(req, res) {
+	const titles = await db.getNullRatings(5000);
 	
 	res.send(titles);
 

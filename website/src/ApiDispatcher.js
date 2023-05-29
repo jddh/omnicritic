@@ -24,6 +24,13 @@ function dispatchApi(state, action) {
 	}
 }
 
+/**
+ * merge props into options.headers for use in fetch()
+ * 
+ * @param {object} options - fetch() options 
+ * @param {object} header - props to merge 
+ * @returns 
+ */
 function mergeHeaders(options, header) {
 	let allHeaders = options?.headers
 	  ? { ...options.headers, ...header }
@@ -48,6 +55,13 @@ async function fetchFromApi(base, endpoint, options) {
 	return data;
 }
 
+/**
+ * register service for querying api
+ * @param {string} rqBasePath
+ * @param {object} fetchOptions - passed to fetch() 
+ * @param {boolean} useAuth - pass token with request
+ * @returns {object,function} feed object with .data, call to fetch 
+ */
 export default function useApi(
 	{
 		rqBasePath = 'http://localhost:4000/', 

@@ -3,7 +3,7 @@ import useSemiPersistentState from "./semiPersistentState";
 
 export default function FilterButtons({filter, filterHandler}) {
 	
-	const filterStrings = ['all','rated','unrated'];
+	const filterStrings = ['all','rated','unrated','nullrated'];
 
 	function handleClick(e) {
 		// setFilter(e.target.value);

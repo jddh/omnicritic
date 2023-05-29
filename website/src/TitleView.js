@@ -27,7 +27,7 @@ export default function ItemView() {
 			{!api.isError && !api.isLoading &&
 
 			<main>
-				<h1>{item.title}</h1>
+				<h1>{item.title} ({item.releaseDate})</h1>
 				<div>
 					{item.synopsis}
 				</div>

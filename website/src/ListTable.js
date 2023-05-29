@@ -115,7 +115,6 @@ export default function ListTable({data}) {
 
 	React.useEffect(() => {
 		if (authenticated) {
-			//TODO: if this doesn't work, each li hits the API individually
 			const favStatusRq = getFromUserApi('user/favourites');
 		}
 	}, [])
@@ -137,6 +136,8 @@ export default function ListTable({data}) {
 		<ParserButtons parsers={parsers} setParsers={setParsers}/>
 
 		<Pager pagerData={pager} setPagerData={setPager} totalCount={filteredData.length}></Pager>
+
+		<em>{dataForRender.length} titles shown, {filteredData.length} total</em>
 
 		<table>
 			<thead>
@@ -161,6 +162,7 @@ export default function ListTable({data}) {
 					<ListItem 
 						item={title} 
 						key={title._id} 
+						showFavourite={!userApi.isLoading && !userApi.isError}
 						isFavourited={userApi.data.favourites?.includes(title._id)} 
 					/>
 				)}

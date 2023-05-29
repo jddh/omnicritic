@@ -2,7 +2,7 @@ import * as he from 'he';
 import AuthOrHidden from './Auth/AuthOrHidden';
 import Favourite from './Title/Favourite';
 
-export default function ListItem({item, isFavourited}) {
+export default function ListItem({item, isFavourited, showFavourite}) {
 
 	return(
 	  <tr key={item._id}>
@@ -30,11 +30,13 @@ export default function ListItem({item, isFavourited}) {
 				item.ratings.imdb.rating}
 			</td>
 			
+			{showFavourite &&
 			<AuthOrHidden>
 				<td>
 					<Favourite titleId={item._id} isActive={isFavourited} />
 				</td>
 			</AuthOrHidden>
+			}
 	  </tr>
 	)
   }
