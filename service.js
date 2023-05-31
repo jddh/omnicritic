@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import compression from 'compression';
 import * as db from '#models/db/titles';
+import * as mcrunch from '#models/scrape/mcrunch';
+import * as roma from '#models/scrape/roma';
 import * as auth from '#models/db/auth';
 import * as user from '#models/db/user';
 
@@ -76,6 +78,23 @@ app.get('/user', function(req, res) {
 		res.status(200).send(v);
 	})
 });
+
+app.post('/title/get/rate', async function(req, res) {
+	const valid = await validatePrivilegedRq(req);
+	if (!valid) return res.status(401).send('');
+
+	const body = req.body;
+	const titleID = body.id;
+	const source = body.source
+	//TODO: port chromium to docker
+	const sourceLib = (source == 'metacritic') ? mcrunch : roma;
+
+	const titleDoc = await db.getTitleById(titleID);
+	const ratingQ = await sourceLib.rateAndStore(titleDoc);
+
+	if (ratingQ !== undefined) res.status(200).send(ratingQ);
+	else res.status(406).send('');
+})
 
 app.get('/user/favourites', async function(req, res) {
 	const valid = await validatePrivilegedRq(req);

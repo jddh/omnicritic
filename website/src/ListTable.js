@@ -4,6 +4,7 @@ import SearchBox from './ListSearch';
 import SortingColumn from './SortingColumn';
 import Pager from './Pager';
 import ParserButtons from './ParserButtons';
+import AuthOrHidden from './Auth/AuthOrHidden';
 import useSemiPersistentState from './semiPersistentState';
 import useApi from './apiDispatcher';
 import authContext from "./Auth/authContext";
@@ -84,9 +85,11 @@ export default function ListTable({data}) {
 	function sorter(dataSource, direction = 'desc') {
 		console.log('sorting ' + dataSource + ' ' + direction);
 		let sortedData = [...dataView];
+		const traverse = (obj, path) => path.split(".").reduce((ag, o) => ag[o] ? ag[o] : ag, obj);
+
 		sortedData = sortedData.sort((a, b) => {
-			const ar = parseInt(a.ratings[dataSource]?.rating);
-			const br = parseInt(b.ratings[dataSource]?.rating);
+			const ar = parseInt(traverse(a,dataSource));
+			const br = parseInt(traverse(b,dataSource));
 			
 			if (direction == 'asc') {
 				if (ar > br || ar && !br) return 1;
@@ -143,17 +146,24 @@ export default function ListTable({data}) {
 			<thead>
 				<tr>
 					<td>Title</td>
-					<SortingColumn sorter={sorter} dataSource='metacritic' activeSort={activeSort} >
+					<SortingColumn sorter={sorter} dataSource='ratings.metacritic.rating' activeSort={activeSort} >
 						MC Rating
 					</SortingColumn>
-					<SortingColumn sorter={sorter} dataSource='rottentomatoes' activeSort={activeSort} >
+
+					<SortingColumn sorter={sorter} dataSource='ratings.rottentomatoes.rating' activeSort={activeSort} >
 						RT Rating
 					</SortingColumn>
-					<SortingColumn sorter={sorter} dataSource='colonel' activeSort={activeSort} >
+
+					<SortingColumn sorter={sorter} dataSource='ratings.colonel.rating' activeSort={activeSort} >
 						Colonel Rating
 					</SortingColumn>
-					<SortingColumn sorter={sorter} dataSource='imdb' activeSort={activeSort} >
+
+					<SortingColumn sorter={sorter} dataSource='ratings.imdb.rating' activeSort={activeSort} >
 						IMDB Rating
+					</SortingColumn>
+
+					<SortingColumn sorter={sorter} dataSource='scrapeDate' activeSort={activeSort} >
+						Scrape date
 					</SortingColumn>
 				</tr>
 			</thead>

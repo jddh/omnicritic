@@ -29,6 +29,12 @@ export default function ListItem({item, isFavourited, showFavourite}) {
 				{item.ratings?.imdb?.rating &&
 				item.ratings.imdb.rating}
 			</td>
+
+			<AuthOrHidden>
+				<td className='numerical small'>
+					{item.scrapeDate}
+				</td>
+			</AuthOrHidden>
 			
 			{showFavourite &&
 			<AuthOrHidden>

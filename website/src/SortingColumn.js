@@ -21,7 +21,7 @@ export default function SortingColumn({sorter, dataSource, activeSort, children}
 
 	React.useEffect(() => {
 		if (direction) 
-		sorter(dataSource,direction);
+		sorter(dataSource, direction);
 	},[direction])
 
 	const isActive = activeSort == dataSource;

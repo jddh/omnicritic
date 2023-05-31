@@ -15,14 +15,17 @@ if (args('action')) await bootstrap({
 	},
 	ratings: async function() {
 		const numberOfTitles = 5;
-
+		
 		await Promise.all([
-			mcrunch.addRatingLoop(numberOfTitles),
+			mcrunch.addRatingLoop(numberOfTitles),	
 			roma.addRatingLoop(numberOfTitles)
 		]);
 	},
 	gettitles: async function() {
 		await unogs.fetchTitlesLoop();
+	},
+	gettv: async function() {
+		await unogs.fetchTitlesLoop('series');
 	},
 	status: async function() {
 		await titles.statusRatings();

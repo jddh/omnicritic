@@ -60,7 +60,7 @@ async function fetchFromApi(base, endpoint, options) {
  * @param {string} rqBasePath
  * @param {object} fetchOptions - passed to fetch() 
  * @param {boolean} useAuth - pass token with request
- * @returns {object,function} feed object with .data, call to fetch 
+ * @returns {[object,function]} feed object with .data; call to fetch 
  */
 export default function useApi(
 	{

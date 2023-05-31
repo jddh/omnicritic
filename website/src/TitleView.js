@@ -4,9 +4,10 @@ import useApi from './apiDispatcher';
 import SearchWidget from './SearchWidget/SearchWidget'
 import LoadStatus from './LoadStatus';
 import Favourite from './Title/Favourite';
+import ExecActions from './Title/ExecActions';
+import AuthOrHidden from './Auth/AuthOrHidden';
 import {heObj} from './utils';
 
-//TODO: include year?
 export default function ItemView() {
 	const {titleid} = useParams();
 	const [api, getFromApi] = useApi();
@@ -28,6 +29,7 @@ export default function ItemView() {
 
 			<main>
 				<h1>{item.title} ({item.releaseDate})</h1>
+				<em>{item.type}</em>
 				<div>
 					{item.synopsis}
 				</div>
@@ -60,6 +62,22 @@ export default function ItemView() {
 				</div>
 
 				<Favourite titleId={item._id} />
+
+				<AuthOrHidden>
+					<div className="scrape-meta">
+						<h4>Scrape info</h4>
+						Unogs: {new Date(item.scrapeDate).toLocaleString()} <br />
+						Metacritic: {
+							item.ratings?.metacritic && 
+							new Date(item.ratings?.metacritic?.timestamp).toLocaleString()}
+						<br />
+						RT: {
+							item.ratings?.rottentomatoes && 
+							new Date(item.ratings?.rottentomatoes?.timestamp).toLocaleString()}
+					</div>
+
+					<ExecActions id={item._id} />
+				</AuthOrHidden>
 			</main>
 
 			}
