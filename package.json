@@ -25,6 +25,7 @@
     "puppeteer": "^19.8.5",
     "random-token": "^0.0.8",
     "string-similarity": "^4.0.4",
+    "sydney-ai": "^1.0.1",
     "throttled-queue": "^2.1.4"
   }
 }

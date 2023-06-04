@@ -86,7 +86,6 @@ app.post('/title/get/rate', async function(req, res) {
 	const body = req.body;
 	const titleID = body.id;
 	const source = body.source
-	//TODO: port chromium to docker
 	const sourceLib = (source == 'metacritic') ? mcrunch : roma;
 
 	const titleDoc = await db.getTitleById(titleID);

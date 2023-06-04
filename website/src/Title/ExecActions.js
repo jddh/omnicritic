@@ -39,7 +39,7 @@ export default function ExecActions({id}) {
 						value={s} 
 						onChange={changeSource} 
 						defaultValue={s == rateSource} 
-						disabled={s == 'rottentomatoes'}
+						
 						key={s}>
 					{s}</option>
 				)}

@@ -71,10 +71,11 @@ thead {
 }
 
 td {
-  padding: .5em .3em;
+  padding: .4em .3em;
+  font-size: .8em;
 
   &.numerical {
-    width: 100px;
+    width: 5em;
   }
 }
 

@@ -45,7 +45,7 @@ services:
 
   api:
     # profiles: ['api']
-    image: node:18
+    image: jddh/node-chrome
     working_dir: /app
     ports:
       - 4000:4000
@@ -54,6 +54,7 @@ services:
       - ./:/app
     environment:
       DB_HOST: mongo
+      CONTAINER: docker
 
   react-frontend:
     profiles: ["site"]

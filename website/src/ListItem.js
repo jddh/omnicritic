@@ -31,8 +31,8 @@ export default function ListItem({item, isFavourited, showFavourite}) {
 			</td>
 
 			<AuthOrHidden>
-				<td className='numerical small'>
-					{item.scrapeDate}
+				<td className=' small'>
+					{new Date(item.scrapeDate).toLocaleDateString(undefined,{month:'short',day:'numeric'})}
 				</td>
 			</AuthOrHidden>
 			

@@ -147,19 +147,19 @@ export default function ListTable({data}) {
 				<tr>
 					<td>Title</td>
 					<SortingColumn sorter={sorter} dataSource='ratings.metacritic.rating' activeSort={activeSort} >
-						MC Rating
+						MC 
 					</SortingColumn>
 
 					<SortingColumn sorter={sorter} dataSource='ratings.rottentomatoes.rating' activeSort={activeSort} >
-						RT Rating
+						RT 
 					</SortingColumn>
 
 					<SortingColumn sorter={sorter} dataSource='ratings.colonel.rating' activeSort={activeSort} >
-						Colonel Rating
+						Colonel 
 					</SortingColumn>
 
 					<SortingColumn sorter={sorter} dataSource='ratings.imdb.rating' activeSort={activeSort} >
-						IMDB Rating
+						IMDB 
 					</SortingColumn>
 
 					<SortingColumn sorter={sorter} dataSource='scrapeDate' activeSort={activeSort} >
