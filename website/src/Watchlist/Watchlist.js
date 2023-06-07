@@ -16,7 +16,7 @@ export default function Watchlist() {
 
 	return (
 		<AuthOrLogin>
-			<ListTable data={userApi.data} />
+			<ListTable data={userApi.data} id="favourites" />
 		</AuthOrLogin>
 	)
 }

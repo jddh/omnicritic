@@ -12,3 +12,9 @@ export function heObj(obj) {
 
 	return obj;
 }
+
+export function wait(time) {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(), time);
+	})
+}

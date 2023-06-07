@@ -9,7 +9,7 @@ import useSemiPersistentState from './semiPersistentState';
 import useApi from './apiDispatcher';
 import authContext from "./Auth/authContext";
 
-export default function ListTable({data}) {
+export default function ListTable({data, id}) {
 	const [dataView, setDataView] = React.useState([]);
 	const {authenticated} = React.useContext(authContext);
 
@@ -80,9 +80,16 @@ export default function ListTable({data}) {
 	}
 
 	//sorting
-	const [activeSort, setActiveSort] = React.useState(false);
+	const [activeSort, setActiveSort] = useSemiPersistentState('activeSort-'+id, false);
+	const [sortDirection, setSortDirection] = useSemiPersistentState('sortDirection-'+id, 'desc');
+
+	function changeSort(dataSource, direction) {
+		setActiveSort(dataSource);
+		direction && setSortDirection(direction);
+	}
 
 	function sorter(dataSource, direction = 'desc') {
+		if (!dataSource) return dataView;
 		console.log('sorting ' + dataSource + ' ' + direction);
 		let sortedData = [...dataView];
 		const traverse = (obj, path) => path.split(".").reduce((ag, o) => ag[o] ? ag[o] : ag, obj);
@@ -102,8 +109,7 @@ export default function ListTable({data}) {
 			return 0;
 		})
 
-		setActiveSort(dataSource);
-		setDataView(sortedData);
+		return sortedData;
 	}
 
 	//pagination
@@ -123,14 +129,20 @@ export default function ListTable({data}) {
 	}, [])
 
 	//prune data for render
-	let filteredData = dataView.filter(i => i.title.match(new RegExp(searchTerm, 'gi')));
+	let filteredData = [], dataForRender = [];
+	if (dataView.length)
+	{
+		filteredData = sorter(activeSort, sortDirection);
 
-	const parserArray = getParsers(parsers);
-	if (parserArray.length)
-		filteredData = filteredData.filter(element => parserArray.some(fn => fn(element)));
-	
-	let dataForRender = filteredData;
-	if (pager.limit) dataForRender = dataForRender.slice(((pager.page-1) * pager.limit), (pager.page * pager.limit));
+		filteredData = filteredData.filter(i => i.title.match(new RegExp(searchTerm, 'gi')));
+
+		const parserArray = getParsers(parsers);
+		if (parserArray.length)
+			filteredData = filteredData.filter(element => parserArray.some(fn => fn(element)));
+		
+		dataForRender = filteredData;
+		if (pager.limit) dataForRender = dataForRender.slice(((pager.page-1) * pager.limit), (pager.page * pager.limit));
+	}
 
 	return (
 		<>
@@ -146,23 +158,23 @@ export default function ListTable({data}) {
 			<thead>
 				<tr>
 					<td>Title</td>
-					<SortingColumn sorter={sorter} dataSource='ratings.metacritic.rating' activeSort={activeSort} >
+					<SortingColumn sorter={changeSort} dataSource='ratings.metacritic.rating' activeSort={activeSort} parentDirection={sortDirection}>
 						MC 
 					</SortingColumn>
 
-					<SortingColumn sorter={sorter} dataSource='ratings.rottentomatoes.rating' activeSort={activeSort} >
+					<SortingColumn sorter={changeSort} dataSource='ratings.rottentomatoes.rating' activeSort={activeSort} parentDirection={sortDirection}>
 						RT 
 					</SortingColumn>
 
-					<SortingColumn sorter={sorter} dataSource='ratings.colonel.rating' activeSort={activeSort} >
+					<SortingColumn sorter={changeSort} dataSource='ratings.colonel.rating' activeSort={activeSort} parentDirection={sortDirection}>
 						Colonel 
 					</SortingColumn>
 
-					<SortingColumn sorter={sorter} dataSource='ratings.imdb.rating' activeSort={activeSort} >
+					<SortingColumn sorter={changeSort} dataSource='ratings.imdb.rating' activeSort={activeSort} parentDirection={sortDirection}>
 						IMDB 
 					</SortingColumn>
 
-					<SortingColumn sorter={sorter} dataSource='scrapeDate' activeSort={activeSort} >
+					<SortingColumn sorter={changeSort} dataSource='scrapeDate' activeSort={activeSort} parentDirection={sortDirection}>
 						Scrape date
 					</SortingColumn>
 				</tr>

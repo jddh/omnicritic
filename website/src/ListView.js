@@ -40,7 +40,7 @@ function App() {
 
 				<FeedFilterButtons filter={filter} filterHandler={handleFilters} />
 
-				<ListTable data={apiFeed.data} />
+				<ListTable data={apiFeed.data} id="main-table" />
 
 				<StatusInfo data={dbStatus.data}></StatusInfo>
 			</main>

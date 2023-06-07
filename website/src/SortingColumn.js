@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function SortingColumn({sorter, dataSource, activeSort, children}) {
+export default function SortingColumn({sorter, dataSource, activeSort, parentDirection, children}) {
 
-	const [direction, setDirection] = React.useState();
+	const [direction, setDirection] = React.useState(parentDirection);
 
 	function sortColumn() {
 		let newDirection;
@@ -20,7 +20,7 @@ export default function SortingColumn({sorter, dataSource, activeSort, children}
 	}
 
 	React.useEffect(() => {
-		if (direction) 
+		if (direction && direction != parentDirection) 
 		sorter(dataSource, direction);
 	},[direction])
 
