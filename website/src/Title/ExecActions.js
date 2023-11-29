@@ -19,6 +19,7 @@ export default function ExecActions({id}) {
 
 	async function getRating(e) {
 		e.preventDefault();
+		setApiResponse('');
 		const source = e.target['rating-source'].value;
 		const ratingRq = await getFromApi('title/get/rate', {
 			method: 'post', 

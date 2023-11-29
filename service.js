@@ -70,6 +70,7 @@ app.get("/status", async function(req, res) {
 
 });
 
+//BUG fake auth will crash this
 app.get('/user', function(req, res) {
 	validatePrivilegedRq(req)
 	.then(v => {

@@ -117,7 +117,7 @@ export default function ListTable({data, id}) {
 
 	React.useEffect(() => {
 		localStorage.setItem('pageLimit',pager.limit);
-	},[pager.limit])
+	},[pager.limit]);
 
 	//favourites
 	const [userApi, getFromUserApi] = useApi({ useAuth: true });
@@ -166,12 +166,12 @@ export default function ListTable({data, id}) {
 						RT 
 					</SortingColumn>
 
-					<SortingColumn sorter={changeSort} dataSource='ratings.colonel.rating' activeSort={activeSort} parentDirection={sortDirection}>
-						Colonel 
-					</SortingColumn>
-
 					<SortingColumn sorter={changeSort} dataSource='ratings.imdb.rating' activeSort={activeSort} parentDirection={sortDirection}>
 						IMDB 
+					</SortingColumn>
+
+					<SortingColumn sorter={changeSort} dataSource='ratings.colonel.rating' activeSort={activeSort} parentDirection={sortDirection}>
+						Colonel 
 					</SortingColumn>
 
 					<SortingColumn sorter={changeSort} dataSource='scrapeDate' activeSort={activeSort} parentDirection={sortDirection}>

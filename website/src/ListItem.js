@@ -19,15 +19,15 @@ export default function ListItem({item, isFavourited, showFavourite}) {
 				{item.ratings?.rottentomatoes?.rating &&
 				item.ratings.rottentomatoes.rating}
 			</td>
-
-			<td className='numerical'>
-				{item.ratings?.colonel?.rating &&
-				item.ratings.colonel.rating}
-			</td>
 			
 			<td className='numerical'>
 				{item.ratings?.imdb?.rating &&
 				item.ratings.imdb.rating}
+			</td>
+
+			<td className='numerical'>
+				{item.ratings?.colonel?.rating &&
+				item.ratings.colonel.rating}
 			</td>
 
 			<AuthOrHidden>

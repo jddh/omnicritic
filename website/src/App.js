@@ -7,6 +7,7 @@ import SearchResults from "./SearchResults";
 import Settings from "./Settings/Settings";
 import Watchlist from "./Watchlist/Watchlist";
 import Header from "./Header";
+import Login from "./Login";
 import Logout from "./Logout";
 import useSemiPersistentState from "./semiPersistentState";
 
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="search/:query" element={<SearchResults />} />
           <Route path="watchlist" element={<Watchlist />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="login" element={<Login />} />
           <Route path="logout" element={<Logout />} />
 
           {/* Using path="*"" means "match anything", so this route
@@ -77,7 +79,7 @@ function Dashboard() {
 function NoMatch() {
   return (
     <div>
-      <h2>Nothing to see here!</h2>
+      <h2>401</h2>
       <p>
         <Link to="/">Go to the home page</Link>
       </p>

@@ -16,6 +16,12 @@ export default function Header() {
 					<li>
 						<Link to="/settings">Settings</Link>
 					</li>
+
+					{!token && 
+					<li>
+						<Link to="/login">Login</Link>
+					</li>}
+
 					{token && 
 					<>
 					<li>
@@ -26,6 +32,7 @@ export default function Header() {
 					</li>
 					</>
 					}
+
 				</ul>
 			</nav>
 
