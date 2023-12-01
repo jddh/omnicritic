@@ -1,5 +1,6 @@
 import React from "react";
 import authContext from "./Auth/authContext";
+import useSemiPersistentState from "./semiPersistentState";
 
 function dispatchApi(state, action) {
 	switch(action.type) {
@@ -40,20 +41,7 @@ function mergeHeaders(options, header) {
 	return options;
   }
 
-async function fetchFromApi(base, endpoint, options) {
-	const ts = await fetch(base + endpoint, options);
-	const tsj = await ts.json();
-	let data = tsj;
-	if (Array.isArray(data)) {
-		data = data.map(d => {
-			if (d.ratings?.metacritic?.rating == 'tbd')
-				delete d.ratings.metacritic.rating;
-			return d;
-		});
-	}
 
-	return data;
-}
 
 /**
  * register service for querying api
@@ -66,14 +54,66 @@ export default function useApi(
 	{
 		rqBasePath = 'http://localhost:4000/', 
 		fetchOptions = undefined,
-		useAuth = false
+		useAuth = false,
+		useCache = true
 	} = {
 		rqBasePath: undefined, 
 		fetchOptions: undefined,
-		useAuth: undefined
+		useAuth: undefined,
+		useCache: undefined
 	}) {
 
+	const canCache = !useAuth && useCache;
 	const { token } = React.useContext(authContext);
+	let apiCache, setApiCache;
+	if (canCache)
+		{
+			[apiCache, setApiCache] = useSemiPersistentState('apiCache',{});
+		}
+
+	function aggregateApiCache(entry) {
+		const data = {...apiCache};
+		Object.assign(data, entry);
+		setApiCache(data);
+	}
+
+	async function fetchFromApi(base, endpoint, options) {
+		//if !nocache param & GET & !useAuth & !env variable
+		let cacheKey;
+		if (canCache)
+		//crunch params and check cache
+		{
+			cacheKey = JSON.stringify(options).toString()
+				+ endpoint
+		}
+		//if cache & !expiry, get cache value
+		let tsj, didFetch = false;
+		if (canCache && apiCache[cacheKey]) {
+				console.log('Cache finished loading: ', base + endpoint);
+				tsj = apiCache[cacheKey];
+			}
+		//else:
+		else {
+			const ts = await fetch(base + endpoint, options);
+		//if !nocache param & GET & !useAuth & !env variable & !nocache res
+		//crunch params, store res & expiry/cache header
+		//endif
+			tsj = await ts.json();
+			didFetch = true;
+		}
+		if (canCache && didFetch)
+			aggregateApiCache({[cacheKey]: tsj});
+		let data = tsj;
+		if (Array.isArray(data)) {
+			data = data.map(d => {
+				if (d.ratings?.metacritic?.rating == 'tbd')
+					delete d.ratings.metacritic.rating;
+				return d;
+			});
+		}
+	
+		return data;
+	}
 
 	const get = async function (endpoint, options) {
 		if (useAuth && token) {
