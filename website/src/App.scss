@@ -77,6 +77,10 @@ td {
   &.numerical {
     width: 5em;
   }
+
+  &.sorting-col {
+    cursor: pointer;
+  }
 }
 
 tbody {

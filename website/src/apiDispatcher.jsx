@@ -85,7 +85,7 @@ export default function useApi(
 		.then((ts) => {
 			dispatch({type:'API_FETCH_COMPLETE', payload:ts});
 		})
-		.catch(() => {
+		.catch((e) => {
 			dispatch({type:'API_FETCH_ERROR'})
 		})
 	}

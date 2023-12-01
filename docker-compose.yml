@@ -1,17 +1,6 @@
 version: "3.9"
 
 services:
-  couchdb:
-    profiles: ["couchdb"]
-    image: couchdb
-    container_name: my-couchdb
-    ports:
-      - "5984:5984"
-    volumes:
-      - ./couchdb-data:/opt/couchdb/data 
-    environment:
-      - COUCHDB_USER=admin
-      - COUCHDB_PASSWORD=password
 
   mongo:
     image: mongo

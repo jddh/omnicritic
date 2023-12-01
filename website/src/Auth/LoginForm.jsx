@@ -2,6 +2,7 @@ import React from "react";
 import useApi from '../apiDispatcher'
 import authContext from "./authContext";
 
+//TODO form validation & auth rejection
 export default function LoginForm() {
 	const [authApi, getFromAuthApi] = useApi();
 	const { setAuthenticated, setToken } = React.useContext(authContext);

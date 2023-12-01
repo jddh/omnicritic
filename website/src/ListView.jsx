@@ -6,13 +6,15 @@ import StatusInfo from './StatusInfo';
 import useApi from './apiDispatcher';
 import useSemiPersistentState from './semiPersistentState';
 import LoadStatus from './LoadStatus';
+import AuthOrHidden from './Auth/AuthOrHidden';
 
 function App() {
 
 	const [filter, setFilter] = useSemiPersistentState('listFilter', 'rated');
-	const [dbStatus, getFromDbStatus] = useApi();
+	const [dbStatus, getFromDbStatus] = useApi({useAuth: true});
 
 	//runtime
+	//TODO caching
 	React.useEffect(() => {
 		(async function() {
 			await getFromApi(filter);
@@ -42,7 +44,9 @@ function App() {
 
 				<ListTable data={apiFeed.data} id="main-table" />
 
-				<StatusInfo data={dbStatus.data}></StatusInfo>
+				<AuthOrHidden>
+					<StatusInfo data={dbStatus.data}></StatusInfo>
+				</AuthOrHidden>
 			</main>
 		</div>
 	);

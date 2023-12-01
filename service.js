@@ -63,16 +63,22 @@ app.get("/search/:query", async function(req, res) {
 	res.send(query);
 })
 
+/**
+ * status of title ratings {all, rated, null, unrated}
+ */
 app.get("/status", async function(req, res) {
+	const valid = await validateAuthenticatedRq(req);
+	if (!valid) return res.status(401).send('');
+
 	const titles = await db.statusRatings();
 	
-	res.send(titles);
+	res.status(200).send(titles);
 
 });
 
 //BUG fake auth will crash this
 app.get('/user', function(req, res) {
-	validatePrivilegedRq(req)
+	validateAuthenticatedRq(req)
 	.then(v => {
 		if (!v) res.status(401).send('');
 
@@ -81,7 +87,7 @@ app.get('/user', function(req, res) {
 });
 
 app.post('/title/get/rate', async function(req, res) {
-	const valid = await validatePrivilegedRq(req);
+	const valid = await validateAuthenticatedRq(req);
 	if (!valid) return res.status(401).send('');
 
 	const body = req.body;
@@ -97,16 +103,16 @@ app.post('/title/get/rate', async function(req, res) {
 })
 
 app.get('/user/favourites', async function(req, res) {
-	const valid = await validatePrivilegedRq(req);
+	const valid = await validateAuthenticatedRq(req);
 	if (!valid) return res.status(401).send('');
 
 	const q = await user.getFavourites(valid._id);
 
-	res.send(q);
+	res.send(q || []);
 })
 
 app.get('/user/favourites/docs', async function(req, res) {
-	const valid = await validatePrivilegedRq(req);
+	const valid = await validateAuthenticatedRq(req);
 	if (!valid) return res.status(401).send('');
 
 	const q = await user.getFavouritesAsDocs(valid._id);
@@ -115,7 +121,7 @@ app.get('/user/favourites/docs', async function(req, res) {
 })
 
 app.post('/user/favourites', async function(req, res) {
-	const valid = await validatePrivilegedRq(req);
+	const valid = await validateAuthenticatedRq(req);
 	if (!valid) return res.status(401).send('');
 
 	const body = req.body;
@@ -129,7 +135,7 @@ app.post('/user/favourites', async function(req, res) {
 })
 
 app.post('/user/favourites/remove', async function(req, res) {
-	const valid = await validatePrivilegedRq(req);
+	const valid = await validateAuthenticatedRq(req);
 	if (!valid) return res.status(401).send('');
 
 	const body = req.body;
@@ -142,7 +148,7 @@ app.post('/user/favourites/remove', async function(req, res) {
 	else res.status(406).send('');
 })
 
-async function validatePrivilegedRq(req) {
+async function validateAuthenticatedRq(req) {
 	if (!req.get('Authorization')) return false;
 	const token = req.get('Authorization').replace('Basic ','');
 	if (token) {
@@ -157,6 +163,10 @@ async function validatePrivilegedRq(req) {
 			return false;
 		}
 	}
+}
+
+async function validatePermittedRq(req) {
+
 }
 
 app.post("/login", async function(req, res) {

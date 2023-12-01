@@ -13,9 +13,6 @@ export default function Header() {
 					<li>
 						<Link to="/">Home</Link>
 					</li>
-					<li>
-						<Link to="/settings">Settings</Link>
-					</li>
 
 					{!token && 
 					<li>
@@ -28,6 +25,9 @@ export default function Header() {
 						<Link to="/watchlist">Watchlist</Link>
 					</li>
 					<li>
+						<Link to="/settings">Settings</Link>
+					</li>
+					<li>
 						<Link to="/logout">Logout</Link>
 					</li>
 					</>
@@ -36,7 +36,7 @@ export default function Header() {
 				</ul>
 			</nav>
 
-			user is {`${authenticated ? "" : "not"} authenticated`}
+			{/* user is {`${authenticated ? "" : "not"} authenticated`} */}
 
 			<SearchWidget />
 

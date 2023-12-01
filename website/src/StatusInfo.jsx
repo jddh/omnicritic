@@ -4,6 +4,7 @@ export default function StatusInfo({data}) {
 		propItems.push(<li key={prop}>{prop}: {data[prop]}</li>);
 	}
 
+	//TODO privileged role
 	return (
 		<div>
 			<h1>Status</h1>
