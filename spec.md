@@ -1,2 +1,0 @@
-- uNoGS via rapidapi
-- couchDB? via docker

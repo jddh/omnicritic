@@ -56,7 +56,7 @@ function getParsers(nameArray) {
 export default function ListTable({data, id}) {
 	const [dataView, setDataView] = React.useState([]);
 	const {authenticated} = React.useContext(authContext);
-	const [parsers, setParsers] = useSemiPersistentState('listParser', []);
+	const [parsers, setParsers] = useSemiPersistentState('listParser-'+id, []);
 
 	//inline search
 	const [searchInput, setSearchInput] = useSemiPersistentState('searchTerm','');
@@ -105,7 +105,6 @@ export default function ListTable({data, id}) {
 
 	function sorter(dataSource, direction = 'desc') {
 		if (!dataSource) return dataView;
-		console.log('sorting ' + dataSource + ' ' + direction);
 		let sortedData = [...dataView];
 		const traverse = (obj, path) => path.split(".").reduce((ag, o) => ag[o] ? ag[o] : ag, obj);
 

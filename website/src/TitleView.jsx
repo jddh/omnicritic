@@ -10,7 +10,7 @@ import {heObj} from './utils';
 
 export default function ItemView() {
 	const {titleid} = useParams();
-	const [api, getFromApi] = useApi();
+	const [api, getFromApi] = useApi({useCache: false});
 
 	React.useEffect(() => {
 		(async () => {

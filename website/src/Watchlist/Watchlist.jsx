@@ -4,7 +4,6 @@ import useApi from '../apiDispatcher';
 import authContext from "../Auth/authContext";
 import ListTable from '..//ListTable';
 
-//BUG table parsers are shared with main view
 export default function Watchlist() {
 	const {authenticated} = useContext(authContext);
 	const [userApi, getFromUserApi] = useApi({ useAuth: true });
