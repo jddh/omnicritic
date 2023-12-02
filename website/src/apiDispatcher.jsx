@@ -1,6 +1,5 @@
 import React from "react";
 import authContext from "./Auth/authContext";
-import useSemiPersistentState from "./semiPersistentState";
 
 function dispatchApi(state, action) {
 	switch(action.type) {
@@ -41,10 +40,16 @@ function mergeHeaders(options, header) {
 	return options;
   }
 
-
+function checkForCachedData(key) {
+	let storedValue = localStorage.getItem(key) && JSON.parse(localStorage.getItem(key));
+	return storedValue || false;
+}
 
 /**
  * register service for querying api
+ * responses are aggresively cached in localstorage if they are public (expects Cache-Control headers)
+ * we are not using useSemiPersistentState because storage keys are scoped to individual requests, whereas the hook is scoped to general use
+ * 
  * @param {string} rqBasePath
  * @param {object} fetchOptions - passed to fetch() 
  * @param {boolean} useAuth - pass token with request
@@ -63,46 +68,57 @@ export default function useApi(
 		useCache: undefined
 	}) {
 
-	const canCache = !useAuth && useCache;
+	const isPublicSocket = !useAuth && useCache;
 	const { token } = React.useContext(authContext);
-	let apiCache, setApiCache;
-	if (canCache)
-		{
-			[apiCache, setApiCache] = useSemiPersistentState('apiCache',{});
-		}
-
-	function aggregateApiCache(entry) {
-		const data = {...apiCache};
-		Object.assign(data, entry);
-		setApiCache(data);
-	}
 
 	async function fetchFromApi(base, endpoint, options) {
 		//if !nocache param & GET & !useAuth & !env variable
-		let cacheKey;
+		const canCache = isPublicSocket && options?.method != 'post';
+		let cacheKey, cacheLoad, tsj, cacheHeaders, didFetch = false, isCached = false;;
 		if (canCache)
+			cacheKey = 'cache-' + JSON.stringify(options).toString() + endpoint;
 		//crunch params and check cache
-		{
-			cacheKey = JSON.stringify(options).toString()
-				+ endpoint
-		}
 		//if cache & !expiry, get cache value
-		let tsj, didFetch = false;
-		if (canCache && apiCache[cacheKey]) {
-				console.log('Cache finished loading: ', base + endpoint);
-				tsj = apiCache[cacheKey];
+		// let tsj, cacheHeaders, didFetch = false, isCached = false;
+		if (cacheKey) cacheLoad = checkForCachedData(cacheKey);
+		if (canCache && cacheLoad) {
+			let validCache = true;
+			const cache = cacheLoad;
+			if (!cache.res.length) return;
+			const timeStamp = cache.time;
+			const age = parseInt(cache.age);
+			if (timeStamp && age) {
+				if (new Date().getTime()/1000 > timeStamp + age) {
+					console.log('Invalidated cache', base + endpoint);
+					localStorage.removeItem(cacheKey);
+					validCache = false;
+				}
 			}
-		//else:
-		else {
+			if (validCache) {
+				console.log('Cache finished loading: ', base + endpoint);
+				tsj = JSON.parse(cacheLoad.res);
+				isCached = true;
+			}
+		}
+		//else: fetch()
+		if (!isCached) {
 			const ts = await fetch(base + endpoint, options);
-		//if !nocache param & GET & !useAuth & !env variable & !nocache res
-		//crunch params, store res & expiry/cache header
-		//endif
+			cacheHeaders = ts.headers.get('Cache-Control');
 			tsj = await ts.json();
 			didFetch = true;
 		}
-		if (canCache && didFetch)
-			aggregateApiCache({[cacheKey]: tsj});
+		//if !nocache param & GET & !useAuth & !env variable & !nocache res
+		//crunch params, store res & expiry/cache header
+		if (didFetch && canCache) {
+			const age = cacheHeaders?.match(/age=(\d+)/i)?.[1] || false;
+			const currentSeconds = Math.round(new Date().getTime()
+			/ 1000);
+			const cachePayload = JSON.stringify({
+				res: JSON.stringify(tsj),
+				time: currentSeconds, age
+			})
+			localStorage.setItem(cacheKey, cachePayload);
+		}
 		let data = tsj;
 		if (Array.isArray(data)) {
 			data = data.map(d => {

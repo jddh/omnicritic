@@ -9,58 +9,59 @@ import * as user from '#models/db/user';
 
 const app = express();
 const PORT = 4000;
-// const router = express.Router();
-// app.use("/", router);
 app.use(compression());
 app.use(cors());
 app.use(express.json());
-// router.use(cors());
-// router.use(compression());
+
+function cacheResponse(res, seconds = 10) {
+	return res.set({'Cache-Control': `max-age=${seconds}, must-revalidate`});
+}
 
 app.get("/rated", async function(req, res) {
 	const titles = await db.getRatedTitles(5000);
-	
-	res.send(titles);
+	await wait(1000);
+
+	cacheResponse(res).send(titles);
 
 });
 
 app.get("/unrated", async function(req, res) {
 	const titles = await db.getUnratedTitles(5000);
 	
-	res.send(titles);
+	cacheResponse(res).send(titles);
 
 });
 
 app.get("/all", async function(req, res) {
 	const titles = await db.getAllTitles(5000);
 	
-	res.send(titles);
+	cacheResponse(res).send(titles);
 
 });
 
 app.get("/nullrated", async function(req, res) {
 	const titles = await db.getNullRatings(5000);
 	
-	res.send(titles);
+	cacheResponse(res).send(titles);
 
 });
 
 app.get("/title/:titleId", async function(req, res) {
 	const title = await db.getTitleById(req.params.titleId);
 
-	res.send(title);
+	cacheResponse(res,60).send(title);
 })
 
 app.get("/title/search/:query", async function(req, res) {
 	const query = await db.searchTitlesByName(req.params.query, 10, ['title','_id']);
 
-	res.send(query);
+	cacheResponse(res).send(query);
 })
 
 app.get("/search/:query", async function(req, res) {
 	const query = await db.searchTitlesByName(req.params.query, 100);
 
-	res.send(query);
+	cacheResponse(res).send(query);
 })
 
 /**
@@ -213,3 +214,8 @@ app.listen(PORT, function() {
   console.log("Server is running on Port: " + PORT);
 });
 
+function wait(time) {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(), time);
+	})
+}
