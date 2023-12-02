@@ -26,7 +26,7 @@ app.get("/rated", async function(req, res) {
 });
 
 app.get("/unrated", async function(req, res) {
-	const titles = await db.getUnratedTitles(5000);
+	const titles = await db.getUnratedTitles(5000, ['metacritic', 'rottentomatoes']);
 	
 	cacheResponse(res).send(titles);
 
@@ -185,7 +185,7 @@ app.post("/login", async function(req, res) {
 		} catch(e) {
 			console.log('login error: ' + e.message);
 			status = 401;
-			message = 'bad credentials';
+			message = '401';
 		}
 		if (token) {
 			status = 200;

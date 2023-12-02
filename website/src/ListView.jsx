@@ -1,5 +1,5 @@
 import './App.scss';
-import React from 'react';
+import React, { useContext } from 'react';
 import ListTable from './ListTable';
 import FeedFilterButtons from './FilterButtons'
 import StatusInfo from './StatusInfo';
@@ -7,19 +7,21 @@ import useApi from './apiDispatcher';
 import useSemiPersistentState from './semiPersistentState';
 import LoadStatus from './LoadStatus';
 import AuthOrHidden from './Auth/AuthOrHidden';
+import authContext from "./Auth/authContext";
 
 function App() {
 
 	const [filter, setFilter] = useSemiPersistentState('listFilter', 'rated');
 	const [dbStatus, getFromDbStatus] = useApi({useAuth: true});
+	const {authenticated} = useContext(authContext);
 
 	//runtime
-	//TODO caching
 	React.useEffect(() => {
 		(async function() {
 			await getFromApi(filter);
 
-			await getFromDbStatus('status');
+			if (authenticated)
+				await getFromDbStatus('status');
 		})()
 	}, []);
 
