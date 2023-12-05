@@ -1,4 +1,5 @@
 import React from "react";
+import { FormattedMessage } from 'react-intl';
 import ListItem from './ListItem';
 import SearchBox from './ListSearch';
 import SortingColumn from './SortingColumn';
@@ -174,11 +175,17 @@ export default function ListTable({data, id}) {
 				<tr>
 					<td>Title</td>
 					<SortingColumn sorter={changeSort} dataSource='ratings.metacritic.rating' activeSort={activeSort} parentDirection={sortDirection}>
-						MC 
+					<FormattedMessage
+          				defaultMessage="Metacritic"
+          				description="Aggreator with 'Meta'"
+        			/> 
 					</SortingColumn>
 
 					<SortingColumn sorter={changeSort} dataSource='ratings.rottentomatoes.rating' activeSort={activeSort} parentDirection={sortDirection}>
-						RT 
+					<FormattedMessage
+          				defaultMessage="Rotten Tomatoes"
+          				description="Aggreator with 'Meta'"
+        			/> 
 					</SortingColumn>
 
 					<SortingColumn sorter={changeSort} dataSource='ratings.imdb.rating' activeSort={activeSort} parentDirection={sortDirection}>
@@ -186,7 +193,7 @@ export default function ListTable({data, id}) {
 					</SortingColumn>
 
 					<SortingColumn sorter={changeSort} dataSource='ratings.colonel.rating' activeSort={activeSort} parentDirection={sortDirection}>
-						Colonel 
+						Omnicritic 
 					</SortingColumn>
 
 					<AuthOrHidden>
@@ -207,6 +214,8 @@ export default function ListTable({data, id}) {
 				)}
 			</tbody>
 		</table>
+
+		<Pager pagerData={pager} setPagerData={setPager} totalCount={filteredData?.length}></Pager>
 
 		</>
 	)

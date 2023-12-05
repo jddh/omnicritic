@@ -9,6 +9,14 @@ import LoadStatus from './LoadStatus';
 import AuthOrHidden from './Auth/AuthOrHidden';
 import authContext from "./Auth/authContext";
 
+const titles = {
+	all: ['All titles'],
+	rated: ['Rated titles', 'Rated by at least one of the sources'],
+	unrated: ['Unrated titles', 'Unrated titles have no ratings from any source'],
+	nullrated: ['Nullrated titles', 'Null ratings have been scraped and returned as unavailable or nonexistant']
+}
+
+//TODO loaded strings
 function App() {
 
 	const [filter, setFilter] = useSemiPersistentState('listFilter', 'rated');
@@ -40,7 +48,9 @@ function App() {
 			<LoadStatus apiDispatcher={apiFeed} />
 
 			<main>
-				<h2>Rated titles</h2>
+				<h2>{titles[filter][0]}</h2>
+				
+				<em>{titles[filter][1]}</em>
 
 				<FeedFilterButtons filter={filter} filterHandler={handleFilters} />
 
