@@ -48,11 +48,10 @@ function App() {
 			<LoadStatus apiDispatcher={apiFeed} />
 
 			<main>
-				<h2>{titles[filter][0]}</h2>
-				
-				<em>{titles[filter][1]}</em>
 
 				<FeedFilterButtons filter={filter} filterHandler={handleFilters} />
+				
+				<em>{titles[filter][1]}</em>
 
 				<ListTable data={apiFeed.data} id="main-table" />
 

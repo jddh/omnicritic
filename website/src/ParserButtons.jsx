@@ -11,31 +11,30 @@ function changeValues(event) {
 }
 
 const options = [
-	['contentious', 'Contentious'],
-	['topten', 'Top Ten'],
-	['lowten', 'Bottom Ten'],
+	['contentious', 'Contentious', 'Disparate ratings between sources'],
+	['topten', 'Top Ten', 'At least one high rating'],
+	['lowten', 'Bottom Ten', 'Low ratings'],
 	['justmc', intl.formatMessage({
-		defaultMessage: 'Just Metacritic',
-		description: 'parser for mc',
-		id: 'parser-mc'
+		defaultMessage: 'Metacritic',
+		description: 'parser for mc'
 	})],
 	['justrt', intl.formatMessage({
-		defaultMessage: 'Just Rottenpotatoes',
-		description: 'parser for rt',
-		id: 'parser-rt'
+		defaultMessage: 'Rotten Tomatoes',
+		description: 'parser for rt'
 	})]
 ];
 
 return (
 	<div className="parsers">
 		<fieldset>
-			{options.map(([key, label]) => 
-				<label htmlFor={key} key={key}>
+			{options.map(([key, label, title]) => 
+				<label htmlFor={key} key={key} title={title}>
 					<input 
 						type="checkbox" 
 						name="parsers" 
 						id={key} 
 						value={key} 
+						
 						checked={parsers.includes(key)}
 						onChange={changeValues} />
 					{label}

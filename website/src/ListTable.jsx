@@ -168,7 +168,7 @@ export default function ListTable({data, id}) {
 
 		<Pager pagerData={pager} setPagerData={setPager} totalCount={filteredData?.length}></Pager>
 
-		<em>{dataForRender?.length} titles shown, {filteredData?.length} total</em>
+		{/* <em>{dataForRender?.length} titles shown, {filteredData?.length} total</em> */}
 
 		<table>
 			<thead>
@@ -215,7 +215,7 @@ export default function ListTable({data, id}) {
 			</tbody>
 		</table>
 
-		<Pager pagerData={pager} setPagerData={setPager} totalCount={filteredData?.length}></Pager>
+		<Pager pagerData={pager} setPagerData={setPager} totalCount={filteredData?.length} showTotals={false}></Pager>
 
 		</>
 	)

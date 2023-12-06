@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
+import {IntlProvider} from 'react-intl'
 import authContext from "./Auth/authContext";
 import List from './ListView';
 import TitleView from "./TitleView";
@@ -11,10 +12,21 @@ import Login from "./Login";
 import Logout from "./Logout";
 import useSemiPersistentState from "./semiPersistentState";
 
+
+
 export default function App() {
+  const [langStrings, setLangStrings] = React.useState();
+
+  React.useEffect(() => {
+    (async () => {
+      const messages = await import('../compiled-lang/dev.json');
+      setLangStrings(messages)
+    })()
+  }, [])
+
   return (
     <>
-
+      <IntlProvider locale="en" messages={langStrings}>
       {/* Routes nest inside one another. Nested route paths build upon
             parent route paths, and nested route elements render inside
             parent route elements. See the note about <Outlet> below. */}
@@ -36,6 +48,7 @@ export default function App() {
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
+      </IntlProvider>
     </>
   );
 }

@@ -17,16 +17,19 @@ export default function FilterButtons({ filter, filterHandler }) {
 
 	return (
 		<div className="filter-buttons">
-			{filterStrings.map(([key, label]) =>
-				<button
-					key={key}
-					value={key}
-					id={'filter-' + key}
-					disabled={key == filter}
-					onClick={handleClick}>
-					{label}
-				</button>
-			)}
+			<h2>
+				<select value={filter} onChange={handleClick} name="" id="">
+					{filterStrings.map(([key, label]) =>
+						<option
+							key={key}
+							value={key}
+							id={'filter-' + key}>
+							{label}
+						</option>
+					)}
+				</select>
+				Titles
+			</h2>
 		</div>
 	)
 }

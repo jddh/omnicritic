@@ -19,7 +19,7 @@ function paginate({current, max}) {
 	return {current, prev, next, items}
 }
 
-export default function Pager ({pagerData, setPagerData, totalCount}) {
+export default function Pager ({pagerData, setPagerData, totalCount, showTotals = true}) {
 	function changeLimit(event) {
 		setPagerData({...pagerData, limit: event.target.value});
 	}
@@ -35,17 +35,7 @@ export default function Pager ({pagerData, setPagerData, totalCount}) {
 
 	return (
 		<div className="pager">
-			<label htmlFor="pager-limit">Limit: </label>
-			<select name="pager-limit" id="pager-limit" defaultValue={pagerData.limit} onChange={changeLimit}>
-
-				{limitOptions.map(op => 
-					<option
-						value={op}
-						key={op}
-					>
-					{op}</option>	
-				)}
-			</select>
+			
 
 			{pagination?.items.length > 1 &&
 			<ul className="pagination-links">
@@ -74,6 +64,19 @@ export default function Pager ({pagerData, setPagerData, totalCount}) {
 				}	
 			</ul>
 			}
+
+			{showTotals && <em>
+				<select name="pager-limit" id="pager-limit" defaultValue={pagerData.limit} onChange={changeLimit}>
+				{limitOptions.map(op => 
+					<option
+						value={op}
+						key={op}
+					>
+					{op}</option>	
+				)}
+				</select>
+				titles shown, {totalCount} total
+			</em>}
 		</div>
 	)
 }
