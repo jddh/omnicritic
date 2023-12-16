@@ -1,5 +1,4 @@
 import React from "react";
-import { push as Menu } from 'react-burger-menu';
 import { Link } from "react-router-dom";
 import SearchWidget from "./SearchWidget/SearchWidget";
 import authContext from "./Auth/authContext";
@@ -9,7 +8,8 @@ export default function Header() {
 
 	return (
 		<header>
-			<nav>
+			<div id="site-title"><a href="/">OmniCritic</a></div>
+			{/* <nav>
 				<ul>
 					<li>
 						<Link to="/">Home</Link>
@@ -35,17 +35,11 @@ export default function Header() {
 					}
 
 				</ul>
-			</nav>
+			</nav> */}
 
 			{/* user is {`${authenticated ? "" : "not"} authenticated`} */}
 
 			<SearchWidget />
-
-			<Menu pageWrapId={"App"} outerContainerId={ "root" }>
-				<a id="home" className="menu-item" href="/">Home</a>
-				<a id="about" className="menu-item" href="/about">About</a>
-				<a id="contact" className="menu-item" href="/contact">Contact</a>
-			</Menu>
 
 		</header>
 	)

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 import {IntlProvider} from 'react-intl'
+import { push as Menu } from 'react-burger-menu';
 import authContext from "./Auth/authContext";
 import List from './ListView';
 import TitleView from "./TitleView";
@@ -60,17 +61,37 @@ function Layout() {
   return (
     <authContext.Provider value={{ authenticated, setAuthenticated, token, setToken }}>
     <>
+      <Menu right customBurgerIcon={<MenuButton />} pageWrapId={"app-container"} outerContainerId={ "root" }>
+        <Link to="/">Home</Link>
+        {!token && 
+						<Link to="/login">Login</Link>
+					}
+          {token && 
+					<>
+						<Link to="/watchlist">Watchlist</Link>
+						<Link to="/settings">Settings</Link>
+						<Link to="/logout">Logout</Link>
+					</>
+          }
+			</Menu>
       {/* A "layout route" is a good place to put markup you want to
           share across all the pages on your site, like navigation. */}
-      <Header />
-
-      {/* An <Outlet> renders whatever child route is currently active,
-          so you can think about this <Outlet> as a placeholder for
-          the child routes we defined above. */}
-      <Outlet />
+      <div id="app-container">
+        <Header />
+        {/* An <Outlet> renders whatever child route is currently active,
+            so you can think about this <Outlet> as a placeholder for
+            the child routes we defined above. */}
+        <Outlet />
+      </div>
     </>
     </authContext.Provider>
   );
+}
+
+function MenuButton() {
+  return (
+    <h3>Menu</h3>
+  )
 }
 
 function About() {
