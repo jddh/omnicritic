@@ -5,6 +5,7 @@ import SearchBox from './ListSearch';
 import SortingColumn from './SortingColumn';
 import Pager from './Pager';
 import ParserButtons from './ParserButtons';
+import MainContent from "./Layout/MainContent";
 import AuthOrHidden from './Auth/AuthOrHidden';
 import useSemiPersistentState from './semiPersistentState';
 import useApi from './apiDispatcher';
@@ -54,7 +55,7 @@ function getParsers(nameArray) {
 	return parseFns;
 }
 
-export default function ListTable({data, id}) {
+export default function ListTable({data, id, children}) {
 	const [dataView, setDataView] = React.useState([]);
 	const {authenticated} = React.useContext(authContext);
 	const [parsers, setParsers] = useSemiPersistentState('listParser-'+id, []);
@@ -160,16 +161,19 @@ export default function ListTable({data, id}) {
 		return [fd, renderArray];
 	}, [dataView, activeSort, sortDirection, searchTerm, pager, parsers])
 
+
 	return (
 		<>
-		<SearchBox searchHandler={handleSearch} searchTerm={searchInput} setSearchTerm={setSearchInput}/>
-
-		<ParserButtons parsers={parsers} setParsers={setParsers}/>
+		<div id="search-parsers">
+			<SearchBox searchHandler={handleSearch} searchTerm={searchInput} setSearchTerm={setSearchInput}/>
+			<ParserButtons parsers={parsers} setParsers={setParsers}/>
+		</div>
 
 		<Pager pagerData={pager} setPagerData={setPager} totalCount={filteredData?.length}></Pager>
 
 		{/* <em>{dataForRender?.length} titles shown, {filteredData?.length} total</em> */}
 
+		<MainContent>
 		<table>
 			<thead>
 				<tr>
@@ -216,6 +220,10 @@ export default function ListTable({data, id}) {
 		</table>
 
 		<Pager pagerData={pager} setPagerData={setPager} totalCount={filteredData?.length} showTotals={false}></Pager>
+
+		{children}
+
+		</MainContent>
 
 		</>
 	)

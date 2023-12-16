@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import React from 'react';
 import useApi from './apiDispatcher';
 import SearchWidget from './SearchWidget/SearchWidget'
+import MainContent from "./Layout/MainContent";
 import LoadStatus from './LoadStatus';
 import Favourite from './Title/Favourite';
 import ExecActions from './Title/ExecActions';
@@ -21,13 +22,13 @@ export default function ItemView() {
 	const item = heObj(api.data);
 
 	return (
-		<div className="App">
+		<MainContent>
 
 			<LoadStatus apiDispatcher={api}/>
 
 			{!api.isError && !api.isLoading &&
 
-			<main>
+			<>
 				<h1>{item.title} ({item.releaseDate})</h1>
 				<em>{item.type}</em>
 				<div>
@@ -78,9 +79,9 @@ export default function ItemView() {
 
 					<ExecActions id={item._id} />
 				</AuthOrHidden>
-			</main>
+			</>
 
 			}
-		</div>
+		</MainContent>
 	)
 }

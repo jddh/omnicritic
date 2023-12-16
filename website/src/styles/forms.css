@@ -1,0 +1,71 @@
+input[type="text"], input[type="password"] {
+	padding: .3em .7em;
+	border: 1px solid rgb(var(--ui-dark-rgb));
+	background-color: rgba(255, 255, 255, 0.46);
+	
+
+	&::placeholder {
+		color: rgba(var(--ui-dark-rgb) / .35);
+	}
+}
+
+label.checkbox, select {
+	margin-right: 10px;
+	padding: .3em 10px;
+	background-color: var(--ui-dark);
+	border-radius: 10px;
+	text-transform: uppercase;
+	font-size: .8em;
+	font-weight: bold;
+	border: none;
+	text-wrap: nowrap;
+	font-size: var(--fs-label-small);
+	cursor: pointer;
+}
+
+input[type="checkbox"] {
+	--size: 15px;
+	display: inline-block;
+	margin-right: 5px;
+	width: var(--size);
+	height: var(--size);
+	border: 1px solid rgba(255 255 255 / .12);
+	border-radius: 50%;
+	appearance: none;
+	vertical-align: bottom;
+
+	&:checked {
+		border: 2px solid white;
+		background-color: var(--top-container);
+	}
+}
+
+.select {
+	position: relative;
+
+	&::after {
+		content: '^';
+		position: absolute;
+		top: 17px;
+		right: 15px;
+		font-size: 20px;
+		pointer-events: none;
+	}
+}
+
+select {
+	border-radius: 17px;
+	color: white;
+	text-transform: none;
+	appearance: none;
+
+	&:focus-visible {
+		border: none;
+	}
+}
+
+fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
+}

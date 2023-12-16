@@ -1,138 +1,179 @@
 #root {
-  max-width: 1000px;
-  margin: 0 auto;
+	--top-container: #048C8C;
+	--bottom-container: #C9F2F2;
+	--ui-dark: #006161;
+	--ui-dark-rgb: 0 97 97;
+	--header-inline-padding: 8px;
+	--header-block-padding: 18px;
+
+	--fs-base: 19px;
+	--fs-h1: 1.74em;					//33
+	--fs-em: 0.79em;					//15
+	--fs-table: 0.68em;				//13
+	--fs-label-small: 0.63em; //12
 }
 
-.App {
-  
+@import url("styles/html.css");
+@import url("styles/forms.css");
+
+#app-container {
+	position: relative;
+	max-width: 1000px;
+	margin: 0 auto;
+	font-size: var(--fs-base);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+//large header section
+#search-widget, .filter-buttons, .search-box, .parsers, .pager, .title-description {
+	padding-left: var(--header-inline-padding);
+	padding-right: var(--header-inline-padding);
+	background-color: var(--top-container);
+	color: white;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#main-content {
+	background-color: var(--bottom-container);
 }
 
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	
 }
 
-header nav {
-  ul {
-    padding-left: 0;
-  }
+header nav, .bm-menu nav {
+	ul {
+		padding-left: 0;
+	}
 
-  li {
-    display: inline-block;
-    margin: 0 1em;
-  }
+	li {
+		display: inline-block;
+		margin: 0 1em;
+	}
+
+	a {
+		display: block;
+		color: white;
+	}
+}
+
+.filter-buttons {
+	h2 {
+		margin: 0;
+	}
+
+	select {
+		font-size: 1em;
+	}
+}
+
+.title-description {
+	em {
+		font-size: var(--fs-em);
+		font-weight: 100;
+	}
+}
+
+#search-parsers {
+	display: flex;
+
+	.search-box {
+		flex: 1;
+	}
+
+	.parsers {
+		flex: 1;
+
+		.checkbox {
+			display: inline-block;
+			margin-bottom: 5px;
+		}
+	}
+}
+
+.pager {
+	ul {
+		margin: 0;
+		padding: 0;
+	}
 }
 
 table {
-  width: 100%;
+	width: 100%;
 }
 
 thead {
-  td {
-    font-weight: bold;
-    font-size: 0.8em;
-  }
+	td {
+		font-weight: bold;
+		font-size: 0.8em;
+	}
 }
 
 td {
-  padding: .4em .3em;
-  font-size: .8em;
+	padding: .4em .3em;
+	font-size: .8em;
 
-  &.numerical {
-    width: 5em;
-  }
+	&.numerical {
+		width: 5em;
+	}
 
-  &.sorting-col {
-    cursor: pointer;
-  }
+	&.sorting-col {
+		cursor: pointer;
+	}
 }
 
 tbody {
-  td.numerical {
-    text-align: center;
-  }
+	td.numerical {
+		text-align: center;
+	}
 }
 
 tbody tr:nth-child(odd) {
-  background-color: rgb(237, 237, 237);
+	background-color: rgb(237, 237, 237);
 }
 
 td.direction-desc.active {
-  &:after {
-    content: '👇';
-    display: inline-block;
-  }
+	&:after {
+		content: '👇';
+		display: inline-block;
+	}
 }
 td.direction-asc.active {
-  &:after {
-    content: '👆';
-    display: inline-block;
-  }
+	&:after {
+		content: '👆';
+		display: inline-block;
+	}
 }
 
 .pagination-links {
-  li {
-    display: inline-block;
-    margin: 0 1em;
-  }
+	li {
+		display: inline-block;
+		margin: 0 1em;
+	}
 }
 
 #search-widget {
-  position: relative;
-  min-width: 250px;
-  text-align: right;
+	// position: absolute;
+	// box-sizing: border-box;
+	// width: 100%;
+	min-width: 250px;
+	padding-top: var(--header-block-padding);
+	text-align: right;
 }
 
 #search-autocomplete {
-  position: absolute;
-  right: 0;
-  padding: 1em;
-  background: white;
-  border: 1px solid #b3b3b3;
-  text-align: left;
+	position: absolute;
+	right: 0;
+	padding: 1em;
+	background: white;
+	border: 1px solid #b3b3b3;
+	text-align: left;
 
-  li {
-    padding-bottom: 0.5em;
-    list-style: none;
-    font-size: .9em;
-  }
+	li {
+		padding-bottom: 0.5em;
+		list-style: none;
+		font-size: .9em;
+	}
 }
+
 //menu
 /* Position and sizing of burger button */
 .bm-burger-button {

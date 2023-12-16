@@ -18,7 +18,7 @@ export default function FilterButtons({ filter, filterHandler }) {
 	return (
 		<div className="filter-buttons">
 			<h2>
-				<select value={filter} onChange={handleClick} name="" id="">
+				<span className="select"><select value={filter} onChange={handleClick} name="" id="">
 					{filterStrings.map(([key, label]) =>
 						<option
 							key={key}
@@ -28,6 +28,7 @@ export default function FilterButtons({ filter, filterHandler }) {
 						</option>
 					)}
 				</select>
+				</span>
 				Titles
 			</h2>
 		</div>

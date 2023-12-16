@@ -28,7 +28,7 @@ return (
 	<div className="parsers">
 		<fieldset>
 			{options.map(([key, label, title]) => 
-				<label htmlFor={key} key={key} title={title}>
+				<label className="checkbox" htmlFor={key} key={key} title={title}>
 					<input 
 						type="checkbox" 
 						name="parsers" 

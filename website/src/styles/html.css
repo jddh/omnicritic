@@ -1,0 +1,7 @@
+h2 {
+	font-size: var(--fs-h1);
+}
+
+a {
+	color: var(--ui-dark);
+}
