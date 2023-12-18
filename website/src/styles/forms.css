@@ -1,21 +1,37 @@
 input[type="text"], input[type="password"] {
-	padding: .3em .7em;
+	padding: 0.5em 1.5em .5em .5em;
 	border: 1px solid rgb(var(--ui-dark-rgb));
 	background-color: rgba(255, 255, 255, 0.46);
-	
 
 	&::placeholder {
 		color: rgba(var(--ui-dark-rgb) / .35);
+	}
+
+	&:focus-visible {
+		outline: none;
+	}
+
+	& + input[type="reset"] {
+		--size: 9px;
+		position: relative;
+		display: inline-block;
+		width: var(--size);
+		height: var(--size);
+		left: calc(var(--size) * -1.7);
+		top: calc(var(--size) * -.4);
+		border: none;
+		background: url('/assets/icons.svg#x') no-repeat;
+		font-size: 0;
+		cursor: pointer;
 	}
 }
 
 label.checkbox, select {
 	margin-right: 10px;
-	padding: .3em 10px;
+	padding: .3em .9em;
 	background-color: var(--ui-dark);
-	border-radius: 10px;
+	border-radius: .9em;
 	text-transform: uppercase;
-	font-size: .8em;
 	font-weight: bold;
 	border: none;
 	text-wrap: nowrap;
@@ -32,7 +48,7 @@ input[type="checkbox"] {
 	border: 1px solid rgba(255 255 255 / .12);
 	border-radius: 50%;
 	appearance: none;
-	vertical-align: bottom;
+	cursor: pointer;
 
 	&:checked {
 		border: 2px solid white;
@@ -40,27 +56,44 @@ input[type="checkbox"] {
 	}
 }
 
-.select {
-	position: relative;
+label.checkbox {
+	padding: 0.2em 0.9em 0.2em 0.5em;
 
-	&::after {
-		content: '^';
-		position: absolute;
-		top: 17px;
-		right: 15px;
-		font-size: 20px;
-		pointer-events: none;
+	& input[type="checkbox"] {
+		vertical-align: -.4em;
 	}
 }
 
 select {
-	border-radius: 17px;
+	/* border-radius: 17px; */
+	font-size: 1em;
 	color: white;
 	text-transform: none;
 	appearance: none;
 
 	&:focus-visible {
-		border: none;
+		outline: none;
+	}
+}
+
+.select {
+	position: relative;
+
+	& select {
+		padding-right: 2em;
+	}
+
+	&::after {
+		--size: 10px;
+		content: '';
+		position: absolute;
+		top: 15px;
+		right: 19px;
+		width: var(--size);
+		height: var(--size);
+		background: url('/assets/icons.svg#caret') no-repeat;
+		font-size: 20px;
+		pointer-events: none;
 	}
 }
 

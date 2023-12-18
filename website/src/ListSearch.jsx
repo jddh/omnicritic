@@ -3,7 +3,8 @@ import { useIntl } from "react-intl";
 export default function SearchBox({searchHandler,searchTerm,setSearchTerm}) {
 	const intl = useIntl();
 
-	function clear() {
+	function clear(e) {
+		e.preventDefault();
 		setSearchTerm('');
 		searchHandler({target: {value: ''}});
 	}
@@ -16,7 +17,7 @@ export default function SearchBox({searchHandler,searchTerm,setSearchTerm}) {
 					id: 'jerkface'
 				})}
 				 onChange={searchHandler} name="search-term" id="search-term" value={searchTerm} />
-			<button className="clear" onClick={clear}>clear</button>
+			<input type="reset" value="clear" onClick={clear} />
 		</div>
 	)
 }

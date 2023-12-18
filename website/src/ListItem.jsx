@@ -38,7 +38,7 @@ export default function ListItem({item, isFavourited, showFavourite}) {
 			
 			{showFavourite &&
 			<AuthOrHidden>
-				<td>
+				<td className='favourite'>
 					<Favourite titleId={item._id} isActive={isFavourited} />
 				</td>
 			</AuthOrHidden>

@@ -20,12 +20,14 @@ export default function Settings() {
 	const loginTime = new Date(user.authTime).toString();
 
 	return (
+		<main id="main-content">
 		<AuthOrLogin>
-			<h2>Here are your settings</h2>
+			<h2 className="page-title">Here are your settings</h2>
 
 			<p>Your name is {user.username}</p>
 
 			<small><em>Last login was {loginTime}</em></small>
 		</AuthOrLogin>
+		</main>
 	)
 }

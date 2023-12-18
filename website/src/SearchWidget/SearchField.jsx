@@ -2,9 +2,11 @@ import React from "react";
 
 export default function SearchField({setSearchQuery}) {
 	const inputTimer = React.useRef(null);
+	const [searchTerm, setSetSearchTerm] = React.useState('');
 
 	function handleSearch(event) {
 		const term = event.target.value;
+		setSetSearchTerm(term);
 
 		clearTimeout(inputTimer.current);
 		inputTimer.current = setInterval(() => {
@@ -16,6 +18,12 @@ export default function SearchField({setSearchQuery}) {
 
 	}
 
+	function clear(e) {
+		e.preventDefault();
+		setSetSearchTerm('');
+		setSearchQuery('');
+	}
+
 	function handleSubmit(event) {
 		event.preventDefault();
 		const q = event.target['title-search'].value;
@@ -24,7 +32,8 @@ export default function SearchField({setSearchQuery}) {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<input type="text" name="title-search" id="title-search" placeholder="Search Everything" onChange={handleSearch} />
+			<input type="text" name="title-search" id="title-search" placeholder="Search Everything" onChange={handleSearch} value={searchTerm} />
+			<input type="reset" value="clear" onClick={clear} />
 		</form>
 	)
 }

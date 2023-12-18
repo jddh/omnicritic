@@ -12,8 +12,8 @@ import authContext from "./Auth/authContext";
 const titles = {
 	all: ['All titles'],
 	rated: ['Rated titles', <span><strong>Rated</strong> by at least one of the sources</span>],
-	unrated: ['Unrated titles', 'Unrated titles have no ratings from any source'],
-	nullrated: ['Nullrated titles', 'Null ratings have been scraped and returned as unavailable or nonexistant']
+	unrated: ['Unrated titles', <span><strong>Unrated</strong> titles have no ratings from any source</span>],
+	nullrated: ['Nullrated titles', <span><strong>Null ratings</strong> have been scraped and returned as unavailable or nonexistant</span>]
 }
 
 //TODO loaded strings

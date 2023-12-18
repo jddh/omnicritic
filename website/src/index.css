@@ -4,7 +4,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 18px;
-  background: url(assets/bg.png) top left/150px;
+  background: url('/assets/bg.png') top left/150px;
 }
 
 code {

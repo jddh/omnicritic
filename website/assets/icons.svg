@@ -1,0 +1,55 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+	<style type="text/css">
+		svg > svg:not(:target) {
+			display: none;
+		}
+	</style>
+
+	<symbol id="phone-checkmark" viewBox="0 0 34 73">
+		<rect fill="#404248" x="4" y="18" width="26" height="51" rx="4" />
+		<rect fill="#DAF3FF" x="6" y="26" width="22" height="35" />
+		<circle fill="none" stroke="#B3B3B3" cx="17" cy="65" r="1.5" />
+		<path fill="none" d="M11,44 L15,48 L23,40" stroke="#404248" stroke-width="2"
+			stroke-linejoin="round" />
+	</symbol>
+
+	<symbol id="star-symbol" viewBox="0 0 20 20" fill="none">
+		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="currentColor" fill-opacity="0.26"></path>
+	</symbol>
+
+	<symbol id="star-symbol-on" viewBox="0 0 26 25" fill="none">
+		<path d="M13 4L15.2451 10.9098H22.5106L16.6327 15.1803L18.8779 22.0902L13 17.8197L7.12215 22.0902L9.36729 15.1803L3.48944 10.9098H10.7549L13 4Z" fill="#0DCECE"/>
+		<path d="M13.4755 3.84549L13 2.38197L12.5245 3.84549L10.3916 10.4098H3.48944H1.95059L3.19554 11.3143L8.7795 15.3713L6.64662 21.9357L6.17109 23.3992L7.41604 22.4947L13 18.4377L18.584 22.4947L19.8289 23.3992L19.3534 21.9357L17.2205 15.3713L22.8045 11.3143L24.0494 10.4098H22.5106H15.6084L13.4755 3.84549Z" stroke="white" stroke-opacity="0.3"/>
+	</symbol>
+
+	<symbol id="x-symbol" viewBox="0 0 11 11" fill="none">
+		<path
+			d="M10.2422 11H6.94873L5.20459 7.96631L3.45117 11H0.241211L3.69238 5.87891L0.389648 0.90625H3.62744L5.31592 3.83789L6.96729 0.90625H10.1123L6.79102 5.83252L10.2422 11Z"
+			fill="#fff" fill-opacity="0.51"></path>
+	</symbol>
+
+	<symbol id="caret-symbol" viewBox="0 0 11 9" fill="none">
+		<path
+			d="M5.2168 9.45312L0.998047 2.14062C0.664062 1.57812 1.08594 0.875 1.71875 0.875H10.1562C10.8066 0.875 11.2109 1.57812 10.8945 2.14062L6.67578 9.45312C6.35938 10.0156 5.5332 10.0156 5.2168 9.45312Z"
+			fill="#fff" fill-opacity="0.76"></path>
+	</symbol>
+
+	<svg id="x">
+		<use xlink:href="#x-symbol" />
+	</svg>
+
+	<svg id="caret">
+		<use xlink:href="#caret-symbol" />
+	</svg>
+
+	<svg id="star">
+		<use xlink:href="#star-symbol" />
+	</svg>
+
+	<svg id="star-on">
+		<use xlink:href="#star-symbol-on" />
+	</svg>
+
+</svg>
+	

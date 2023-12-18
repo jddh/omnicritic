@@ -1,4 +1,9 @@
+import clsx from 'clsx';
+
+const rangeEllipsis = '…';
+
 //https://www.zacfukuda.com/blog/pagination-algorithm
+//BUG: multiple ellipses can appear after clicking around 
 function paginate({current, max}) {
 	if (!current || !max) return null
 
@@ -7,7 +12,7 @@ function paginate({current, max}) {
 			items = [1]
 
 	if (current === 1 && max === 1) return {current, prev, next, items}
-	if (current > 4) items.push('…')
+	if (current > 4) items.push(rangeEllipsis)
 
 	let r = 2, r1 = current - r, r2 = current + r
 
@@ -34,7 +39,7 @@ export default function Pager ({pagerData, setPagerData, totalCount, showTotals 
 	const pagination = paginate({current:pagerData.page, max:totalPages});
 
 	return (
-		<div className="pager">
+		<div className={clsx('pager', showTotals && 'large')}>
 			
 
 			{pagination?.items.length > 1 &&
@@ -46,14 +51,14 @@ export default function Pager ({pagerData, setPagerData, totalCount, showTotals 
 
 				{pagination.items.map((page => 
 					<li key={page}>
-					{page != pagerData.page &&
+					{page != pagerData.page && page != rangeEllipsis &&
 						<a  
 							onClick={() => setPage(page)}
-							href="#">
+							>
 							{page}
 						</a>
 					}
-					{page == pagerData.page &&
+					{((page == pagerData.page) || (page === rangeEllipsis)) &&
 						<span className="current">{page}</span>
 					}
 					</li>	
@@ -65,18 +70,22 @@ export default function Pager ({pagerData, setPagerData, totalCount, showTotals 
 			</ul>
 			}
 
-			{showTotals && <em>
-				<select name="pager-limit" id="pager-limit" defaultValue={pagerData.limit} onChange={changeLimit}>
-				{limitOptions.map(op => 
-					<option
-						value={op}
-						key={op}
-					>
-					{op}</option>	
-				)}
-				</select>
-				titles shown, {totalCount} total
-			</em>}
+			{showTotals && <div className="totals">
+				<em>
+					<span className="select">
+						<select name="pager-limit" id="pager-limit" defaultValue={pagerData.limit} onChange={changeLimit}>
+						{limitOptions.map(op =>
+							<option
+								value={op}
+								key={op}
+							>
+							{op}</option>
+						)}
+						</select>
+					</span>
+					titles shown, {totalCount} total
+				</em>
+			</div>}
 		</div>
 	)
 }
