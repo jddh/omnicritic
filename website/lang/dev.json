@@ -11,12 +11,12 @@
     "defaultMessage": "Stranger Rings, Accession, Ratman",
     "description": "placeholder text for table search"
   },
-  "parser-mc": {
-    "defaultMessage": "Just Metacryptic",
-    "description": "parser for mc"
-  },
-  "parser-rt": {
-    "defaultMessage": "Just Rottenpotatoes",
+  "mmQre3": {
+    "defaultMessage": "Rotten Potatoes",
     "description": "parser for rt"
+  },
+  "2tZgyl": {
+    "defaultMessage": "Metacryptic",
+    "description": "parser for mc"
   }
 }

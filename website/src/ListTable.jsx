@@ -1,5 +1,6 @@
 import React from "react";
 import { FormattedMessage } from 'react-intl';
+import clsx from "clsx";
 import ListItem from './ListItem';
 import SearchBox from './ListSearch';
 import SortingColumn from './SortingColumn';
@@ -55,7 +56,7 @@ function getParsers(nameArray) {
 	return parseFns;
 }
 
-export default function ListTable({data, id, children}) {
+export default function ListTable({data, id, dataLoadStatus, children}) {
 	const [dataView, setDataView] = React.useState([]);
 	const {authenticated} = React.useContext(authContext);
 	const [parsers, setParsers] = useSemiPersistentState('listParser-'+id, []);
@@ -161,6 +162,7 @@ export default function ListTable({data, id, children}) {
 		return [fd, renderArray];
 	}, [dataView, activeSort, sortDirection, searchTerm, pager, parsers])
 
+	const isDataPending = dataLoadStatus && (dataLoadStatus.isLoading || dataLoadStatus.isError);
 
 	return (
 		<>
@@ -174,7 +176,7 @@ export default function ListTable({data, id, children}) {
 		{/* <em>{dataForRender?.length} titles shown, {filteredData?.length} total</em> */}
 
 		<MainContent>
-		<table>
+		<table className={clsx('data-list', isDataPending && 'pending')}>
 			<thead>
 				<tr>
 					<td>Title</td>

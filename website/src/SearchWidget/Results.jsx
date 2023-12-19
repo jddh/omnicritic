@@ -2,9 +2,11 @@ import React from "react";
 import he from 'he';
 
 export default function Results({data, searchTerm}) {
+	const hasResults = searchTerm && data?.length > 0;
+
 	return (
 		<>
-			{searchTerm &&
+			{hasResults &&
 			<ul id="search-autocomplete">
 				{data.map(res =>
 					<li key={res._id}>

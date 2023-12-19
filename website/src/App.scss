@@ -216,7 +216,7 @@ tbody {
 }
 
 tbody tr:nth-child(odd) {
-	background-color: rgb(255 255 255 / .45);
+	background-color: rgb(255 255 255 / .35);
 }
 
 td.direction-desc.active {
@@ -252,6 +252,12 @@ td.favourite {
 	}
 }
 
+.data-list {
+	&.pending {
+		background-color: fuchsia;
+	}
+}
+
 .pagination-links {
 	li {
 		display: inline-block;
@@ -274,14 +280,18 @@ td.favourite {
 	position: absolute;
 	right: 0;
 	padding: 1em;
-	background: white;
-	border: 1px solid #b3b3b3;
+	background: var(--bottom-container);
+	border: 1px solid var(--ui-dark);
 	text-align: left;
 
 	li {
 		padding-bottom: 0.5em;
 		list-style: none;
 		font-size: .9em;
+
+		&:last-child {
+			padding-bottom: 0;
+		}
 	}
 }
 

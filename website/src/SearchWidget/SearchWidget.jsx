@@ -3,7 +3,6 @@ import SearchField from './SearchField';
 import Results from './Results';
 import useApi from '../apiDispatcher';
 
-//TODO no results behaviour
 export default function SearchWidget() {
 	const [api, getFromApi] = useApi();
 	const [searchTerm, setSearchTerm] = React.useState('');
