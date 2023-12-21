@@ -8,6 +8,8 @@ import Pager from './Pager';
 import ParserButtons from './ParserButtons';
 import MainContent from "./Layout/MainContent";
 import AuthOrHidden from './Auth/AuthOrHidden';
+import Throbber from './Throbber';
+import LoadStatus from "./LoadStatus";
 import useSemiPersistentState from './semiPersistentState';
 import useApi from './apiDispatcher';
 import authContext from "./Auth/authContext";
@@ -56,7 +58,7 @@ function getParsers(nameArray) {
 	return parseFns;
 }
 
-export default function ListTable({data, id, dataLoadStatus, children}) {
+export default function ListTable({apiFeed, id, dataLoadStatus, children}) {
 	const [dataView, setDataView] = React.useState([]);
 	const {authenticated} = React.useContext(authContext);
 	const [parsers, setParsers] = useSemiPersistentState('listParser-'+id, []);
@@ -77,8 +79,8 @@ export default function ListTable({data, id, dataLoadStatus, children}) {
 	const [userApi, getFromUserApi] = useApi({ useAuth: true });
 
 	React.useEffect(() => {
-		setDataView(data);
-	}, [data]);
+		setDataView(apiFeed.data);
+	}, [apiFeed.data]);
 
 	React.useEffect(() => {
 		localStorage.setItem('pageLimit',pager.limit);
@@ -176,6 +178,11 @@ export default function ListTable({data, id, dataLoadStatus, children}) {
 		{/* <em>{dataForRender?.length} titles shown, {filteredData?.length} total</em> */}
 
 		<MainContent>
+				
+		{/* {isDataPending && <Throbber />} */}
+
+		<LoadStatus apiDispatcher={apiFeed}>
+			
 		<table className={clsx('data-list', isDataPending && 'pending')}>
 			<thead>
 				<tr>
@@ -222,6 +229,8 @@ export default function ListTable({data, id, dataLoadStatus, children}) {
 		</table>
 
 		<Pager pagerData={pager} setPagerData={setPager} totalCount={filteredData?.length} showTotals={false}></Pager>
+
+		</LoadStatus>
 
 		{children}
 

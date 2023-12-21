@@ -4,7 +4,7 @@ import Results from './Results';
 import useApi from '../apiDispatcher';
 
 export default function SearchWidget() {
-	const [api, getFromApi] = useApi();
+	const [searchApi, getFromApi] = useApi();
 	const [searchTerm, setSearchTerm] = React.useState('');
 
 	React.useEffect(() => {
@@ -17,7 +17,7 @@ export default function SearchWidget() {
 	return (
 		<div id="search-widget">
 			<SearchField setSearchQuery={setSearchTerm}/>
-			<Results searchTerm={searchTerm} data={api.data}/>
+			<Results searchTerm={searchTerm} apiDispatcher={searchApi}/>
 		</div>
 	)
 }

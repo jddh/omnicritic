@@ -254,7 +254,11 @@ td.favourite {
 
 .data-list {
 	&.pending {
-		background-color: fuchsia;
+		display: none;
+
+		& thead {
+			// display: none;
+		}
 	}
 }
 
@@ -279,10 +283,16 @@ td.favourite {
 #search-autocomplete {
 	position: absolute;
 	right: 0;
+	display: none;
+	margin: 0;
 	padding: 1em;
 	background: var(--bottom-container);
 	border: 1px solid var(--ui-dark);
 	text-align: left;
+
+	&.active {
+		display: block;
+	}
 
 	li {
 		padding-bottom: 0.5em;
@@ -293,6 +303,50 @@ td.favourite {
 			padding-bottom: 0;
 		}
 	}
+
+	.throbber {
+		width: 50px;
+		height: 50px;
+	}
+}
+
+.load-throbber, .pending::after {
+	@keyframes maskAnimation {
+		100% {
+			mask-position: 100% 100%;
+		}
+	}
+	
+	display: block;
+	width: 75px;
+	height: 75px;
+	fill: var(--ui-dark);
+	opacity: .2;
+	mask: radial-gradient(#0101014c 20%, #000 50%) 0 0/200% 200%;
+	animation: maskAnimation 1.5s cubic-bezier(0.68, 0.04, 0.39, 1.01) infinite alternate;
+}
+
+.error-throbber {
+	display: block;
+	width: 75px;
+	height: 75px;
+	fill: var(--ui-dark);
+	opacity: .2;
+}
+
+.pending::after {
+	content: '';
+	position: absolute;
+	top: 50px;
+	left: 45%;
+	display: block;
+	display: none;
+	// background: url('/assets/film-solid.svg') top left / contain no-repeat;
+}
+
+#main-content .throbber {
+	margin: 0 auto;
+	padding-top: 30px;
 }
 
 //menu

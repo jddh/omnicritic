@@ -18,7 +18,7 @@ export default function Watchlist() {
 		<>
 		<h2 className="header-page-title">Your Watchlist</h2>
 		<AuthOrLogin>
-			<ListTable data={userApi.data} id="favourites" />
+			<ListTable apiFeed={userApi} id="favourites" />
 		</AuthOrLogin>
 		</>
 	)

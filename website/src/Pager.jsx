@@ -3,7 +3,6 @@ import clsx from 'clsx';
 const rangeEllipsis = '…';
 
 //https://www.zacfukuda.com/blog/pagination-algorithm
-//BUG: multiple ellipses can appear after clicking around 
 function paginate({current, max}) {
 	if (!current || !max) return null
 
@@ -49,8 +48,8 @@ export default function Pager ({pagerData, setPagerData, totalCount, showTotals 
 					<li><a onClick={() => setPage(pagerData.page-1)} href="#">Prev</a></li>
 				}
 
-				{pagination.items.map((page => 
-					<li key={page}>
+				{pagination.items.map(((page, i) =>
+					<li key={i}>
 					{page != pagerData.page && page != rangeEllipsis &&
 						<a  
 							onClick={() => setPage(page)}

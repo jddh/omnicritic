@@ -1,10 +1,13 @@
-//TODO more robust loading viz
-export default function LoadStatus({apiDispatcher}) {
+import Throbber from './Throbber';
+
+export default function LoadStatus({apiDispatcher, children}) {
 	return (
 		<>
-			{apiDispatcher.isLoading && <div>Loading...</div>}
+			{apiDispatcher.isLoading && <Throbber />}
 
-			{apiDispatcher.isError && <div>Fetch error!</div>}
+			{apiDispatcher.isError && <Throbber status="error" />}
+
+			{(!apiDispatcher.isLoading && !apiDispatcher.isError) && children}
 		</>
 	)
 }
