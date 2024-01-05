@@ -1,6 +1,6 @@
-export default function MainContent({children}) {
+export default function MainContent({className, children}) {
 	return (
-		<main id="main-content">
+		<main className={className} id="main-content">
 			{children}
 		</main>
 	)

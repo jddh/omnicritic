@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import MainContent from "./Layout/MainContent";
 import LoginForm from "./Auth/LoginForm";
 import authContext from "./Auth/authContext";
 
@@ -7,6 +8,8 @@ export default function Login() {
 	if (token) window.location.pathname = '/';
 	
 	return (
-		<LoginForm />
+		<MainContent>
+			<LoginForm />
+		</MainContent>
 	)
 }

@@ -28,14 +28,14 @@ input[type="text"], input[type="password"] {
 
 label.checkbox, select {
 	margin-right: 10px;
-	padding: .3em .9em;
+	padding: .2em .4em;
 	background-color: var(--ui-dark);
-	border-radius: .9em;
+	border-radius: .6em;
 	text-transform: uppercase;
 	font-weight: bold;
 	border: none;
 	text-wrap: nowrap;
-	font-size: var(--fs-label-small);
+	/* font-size: var(--fs-label-small); */
 	cursor: pointer;
 }
 
@@ -58,9 +58,12 @@ input[type="checkbox"] {
 
 label.checkbox {
 	padding: 0.2em 0.9em 0.2em 0.5em;
+	border-radius: .9em;
+	line-height: 1;
 
 	& input[type="checkbox"] {
-		vertical-align: -.4em;
+		/* vertical-align: -.4em; */
+		vertical-align: calc(var(--size)/-2.5);
 	}
 }
 
@@ -78,21 +81,25 @@ select {
 
 .select {
 	position: relative;
+	margin-right: .5em;
 
 	& select {
-		padding-right: 2em;
+		margin-right: 0;
+		padding-right: 1.5em;
 	}
 
 	&::after {
 		--size: 10px;
 		content: '';
 		position: absolute;
-		top: 15px;
-		right: 19px;
-		width: var(--size);
-		height: var(--size);
+		top: calc(50% - .3em);
+		right: .4em;
+		width: .6em;
+		height: .6em;
+		max-width: 11px;
+		/* max-height: 11px; */
 		background: url('/assets/icons.svg#caret') no-repeat;
-		font-size: 20px;
+		/* font-size: 20px; */
 		pointer-events: none;
 	}
 }

@@ -16,12 +16,13 @@ const titles = {
 	nullrated: ['Nullrated titles', <span><strong>Null ratings</strong> have been scraped and returned as unavailable or nonexistant</span>]
 }
 
-//TODO loaded strings
 function App() {
 
 	const [filter, setFilter] = useSemiPersistentState('listFilter', 'rated');
 	const [dbStatus, getFromDbStatus] = useApi({useAuth: true});
 	const {authenticated} = useContext(authContext);
+
+	const [apiFeed, getFromApi] = useApi();
 
 	//runtime
 	React.useEffect(() => {
@@ -33,8 +34,6 @@ function App() {
 		})()
 	}, []);
 
-	const [apiFeed, getFromApi] = useApi();
-
 	async function handleFilters(event) {
 		const filter = event.target.value;
 		setFilter(filter);
@@ -45,7 +44,7 @@ function App() {
 	return (
 
 		<div className="App">
-			<LoadStatus apiDispatcher={apiFeed} />
+			{/* <LoadStatus apiDispatcher={apiFeed} /> */}
 
 			<main>
 
@@ -53,13 +52,11 @@ function App() {
 				
 				<div className="title-description"><em>{titles[filter][1]}</em></div>
 
-				
-				<ListTable data={apiFeed.data} id="main-table">
+				<ListTable apiFeed={apiFeed} id="main-table">
 					<AuthOrHidden>
 						<StatusInfo data={dbStatus.data}></StatusInfo>
 					</AuthOrHidden>
 				</ListTable>
-
 			</main>
 		</div>
 	);

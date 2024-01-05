@@ -34,17 +34,19 @@ export default function ExecActions({id}) {
 
 		<h4>Get ratings</h4>
 		<form onSubmit={getRating} id="get-rating">
-			<select name="rating-source" id="rating-source">
-				{sources.map(s => 
-					<option 
-						value={s} 
-						onChange={changeSource} 
-						defaultValue={s == rateSource} 
-						
-						key={s}>
-					{s}</option>
-				)}
-			</select>
+			<span className="select">
+				<select name="rating-source" id="rating-source">
+					{sources.map(s =>
+						<option
+							value={s}
+							onChange={changeSource}
+							defaultValue={s == rateSource}
+				
+							key={s}>
+						{s}</option>
+					)}
+				</select>
+			</span>
 			<input type="submit" value="Go" />
 		</form>
 

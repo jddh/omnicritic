@@ -22,7 +22,7 @@ export default function Settings() {
 	return (
 		<main id="main-content">
 		<AuthOrLogin>
-			<h2 className="page-title">Here are your settings</h2>
+			<h2 className="page-title">Settings</h2>
 
 			<p>Your name is {user.username}</p>
 

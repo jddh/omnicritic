@@ -16,7 +16,8 @@ const options = [
 	['lowten', 'Bottom Ten', 'Low ratings'],
 	['justmc', intl.formatMessage({
 		defaultMessage: 'Metacritic',
-		description: 'parser for mc'
+		description: 'parser for mc',
+		id: 'justmc'
 	})],
 	['justrt', intl.formatMessage({
 		defaultMessage: 'Rotten Tomatoes',

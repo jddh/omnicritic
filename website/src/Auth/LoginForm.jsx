@@ -43,7 +43,7 @@ export default function LoginForm() {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form className="login" onSubmit={handleSubmit}>
 			<label>
 				<input type="text" name="username" id="username" placeholder="login" required/><br />
 			</label>

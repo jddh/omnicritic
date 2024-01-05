@@ -18,5 +18,21 @@
   "2tZgyl": {
     "defaultMessage": "Metacryptic",
     "description": "parser for mc"
+  },
+  "netflixlink": {
+    "defaultMessage": "Notflix",
+    "description": "link label for netflix"
+  },
+  "mclink": {
+    "defaultMessage": "Metacryptic",
+    "description": "link label for metacritic"
+  },
+  "rtlink": {
+    "defaultMessage": "Rotten Potatoes",
+    "description": "link label for RT"
+  },
+  "justmc": {
+    "defaultMessage": "Metacryptic",
+    "description": "parser for mc"
   }
 }

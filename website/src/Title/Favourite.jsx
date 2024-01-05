@@ -54,7 +54,10 @@ export default function Favourite({titleId, isActive}) {
 	return (
 		<AuthOrHidden>
 			{!userApi.isLoading &&
-			<a href="#" onClick={handleClick} className={`favourite ${active ? 'active': ''}`}> {active ? '✅':''} Favourite</a>
+			<>
+				<span className="favourite-label">Favourite:</span> 
+				<a href="#" onClick={handleClick} className={`favourite ${active ? 'active': ''}`}> {active ? '✅':''} Favourite</a>
+			</>
 			}
 		</AuthOrHidden>
 	)

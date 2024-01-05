@@ -1,7 +1,14 @@
+#app-container {
+	font-family: Helvetica, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  }
+
 h2 {
 	font-size: var(--fs-h1);
 }
 
 a {
 	color: var(--ui-dark);
+	text-decoration: none;
 }
