@@ -8,6 +8,7 @@ import TitleView from "./TitleView";
 import SearchResults from "./SearchResults";
 import Settings from "./Settings/Settings";
 import Watchlist from "./Watchlist/Watchlist";
+import Test from './Test';
 import Header from "./Header";
 import Login from "./Login";
 import Logout from "./Logout";
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="search/:query" element={<SearchResults />} />
           <Route path="watchlist" element={<Watchlist />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="test" element={<Test />} />
           <Route path="login" element={<Login />} />
           <Route path="logout" element={<Logout />} />
 

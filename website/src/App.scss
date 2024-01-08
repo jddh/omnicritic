@@ -10,9 +10,9 @@
 	--page-block-gutter: 30px;
 
 	--fs-base: 19px;
-	--fs-h1: 1.74em;					//33
-	--fs-em: 0.79em;					//15
-	--fs-table: 0.68em;				//13
+	--fs-h1: 1.74em; //33
+	--fs-em: 0.79em; //15
+	--fs-table: 0.74em; //13
 	--fs-label-small: 0.63em; //12
 }
 
@@ -29,7 +29,12 @@
 }
 
 //large header section
-#search-widget, .filter-buttons, #search-parsers, .pager.large, .title-description, .header-page-title {
+#search-widget,
+.filter-buttons,
+#search-parsers,
+.pager.large,
+.title-description,
+.header-page-title {
 	padding-left: var(--header-inline-padding);
 	padding-right: var(--header-inline-padding);
 	background-color: var(--top-container);
@@ -43,7 +48,8 @@
 }
 
 //top container: tuck up first elements
-.filter-buttons, #app-container .header-page-title {
+.filter-buttons,
+#app-container .header-page-title {
 	margin-top: calc(var(--header-block-padding) * -1 - 30px);
 }
 
@@ -60,11 +66,10 @@
 	}
 }
 
-header {
-	
-}
+header {}
 
-header nav, .bm-menu nav {
+header nav,
+.bm-menu nav {
 	ul {
 		padding-left: 0;
 	}
@@ -95,7 +100,8 @@ header nav, .bm-menu nav {
 	}
 }
 
-.page-title, .header-page-title {
+.page-title,
+.header-page-title {
 	margin: 0;
 }
 
@@ -145,7 +151,7 @@ header nav, .bm-menu nav {
 	#main-content & {
 		margin-top: 30px;
 	}
-	
+
 	ul {
 		margin: 0;
 		padding: 0;
@@ -163,7 +169,7 @@ header nav, .bm-menu nav {
 		}
 	}
 
-	ul + .totals {
+	ul+.totals {
 		margin-top: 15px;
 	}
 
@@ -174,9 +180,7 @@ header nav, .bm-menu nav {
 		}
 	}
 
-	select {
-
-	}
+	select {}
 }
 
 table {
@@ -186,9 +190,7 @@ table {
 	font-size: var(--fs-table);
 }
 
-tr {
-	
-}
+tr {}
 
 td {
 	margin: 0 10px;
@@ -197,6 +199,10 @@ td {
 
 	&.numerical {
 		width: 5em;
+
+		.score-wheel {
+			--size: 23px;
+		}
 	}
 
 	&.sorting-col {
@@ -228,6 +234,7 @@ td.direction-desc.active {
 		display: inline-block;
 	}
 }
+
 td.direction-asc.active {
 	&:after {
 		content: '👆';
@@ -239,7 +246,7 @@ td.favourite {
 	padding: 0;
 	text-align: center;
 
-	
+
 }
 
 a.favourite {
@@ -273,16 +280,40 @@ a.favourite {
 
 .score-wheel {
 	--size: 200px;
-	--score: 40;
-	--circle-score: calc((var(--score)/100) * 360);
+	--score: 90;
+
+		//brown 30; green 95;
 	--hue: calc((var(--score)/100) * 65 + 30);
 	--col: hsl(var(--hue), 62%, 55%);
-	width: var(--size);
-	height: var(--size);
-	background: conic-gradient(var(--col) calc(var(--circle-score)*1deg), #0000 calc(var(--circle-score)*1deg) 360deg);
-	border-radius: 50%;
-	mask: radial-gradient(calc(var(--size)/3), #0000 99%, #000);
-  }
+	position: relative;
+
+	.dial {
+		--circle-score: calc((var(--score)/100) * 360);
+		width: var(--size);
+		height: var(--size);
+		background: conic-gradient(var(--col) calc(var(--circle-score)*1deg), #0000 calc(var(--circle-score)*1deg) 360deg);
+		border-radius: 50%;
+		mask: radial-gradient(calc(var(--size)/2.5), #0000 99%, #000);
+	}
+
+	.number {
+		position: absolute;
+		top: 0.35em;
+		left: 0.4em;
+		display: inline-block;
+		font-size: calc(var(--size) / 1.9);
+		font-weight: bold;
+		color: var(--col);
+	}
+
+	&.perfect {
+		.number {
+			top: 0.65em;
+			left: 0.45em;
+			font-size: calc(var(--size) / 2.6);
+		}
+	}
+}
 
 .pagination-links {
 	li {
@@ -354,6 +385,12 @@ main.page-title {
 	.scores {
 		margin: 1em 0;
 	}
+
+	.score-wheel {
+		display: inline-block;
+		--size: 30px;
+		vertical-align: middle;
+	}
 }
 
 form.login {
@@ -365,13 +402,14 @@ form.login {
 	}
 }
 
-.load-throbber, .pending::after {
+.load-throbber,
+.pending::after {
 	@keyframes maskAnimation {
 		100% {
 			mask-position: 100% 100%;
 		}
 	}
-	
+
 	display: block;
 	width: 75px;
 	height: 75px;
@@ -411,7 +449,7 @@ form.login {
 	// width: 36px;
 	// height: 30px;
 	right: -163px;
-    top: 27px;
+	top: 27px;
 	display: inline-block;
 	transform-origin: left top;
 	transform: rotate(.25turn);

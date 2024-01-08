@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import useApi from './apiDispatcher';
 import SearchWidget from './SearchWidget/SearchWidget'
 import MainContent from "./Layout/MainContent";
+import Score from './Score';
 import LoadStatus from './LoadStatus';
 import Favourite from './Title/Favourite';
 import ExecActions from './Title/ExecActions';
@@ -56,11 +57,11 @@ export default function ItemView() {
 					{/* TODO viz for scores */}
 					<div className="scores">
 						{item.ratings?.metacritic?.rating &&
-						<div className='mc'>{mcStr} score: {item.ratings.metacritic.rating}</div>}
+						<div className='mc'>{mcStr} score: <Score score={item.ratings.metacritic.rating}/></div>}
 						{item.ratings?.rottentomatoes?.rating &&
-						<div className='rt'>{rtStr} score: {item.ratings.rottentomatoes.rating}</div>}
+						<div className='rt'>{rtStr} score: <Score score={item.ratings.rottentomatoes.rating} /></div>}
 						{item.ratings?.colonel?.rating &&
-						<div className='colonel'><strong>OmniCritic score: {item.ratings.colonel.rating}</strong></div>}
+						<div className='colonel'><strong>OmniCritic score: <Score score={item.ratings.colonel.rating} /></strong></div>}
 					</div>
 					<div className="links">
 						<ul>

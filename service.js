@@ -17,7 +17,6 @@ app.use(cors({
 }));
 app.use(express.json());
 
-//TODO crash recovery
 function cacheResponse(res, seconds = 10) {
 	return res.set({ 'Cache-Control': `max-age=${seconds}, must-revalidate` });
 }
