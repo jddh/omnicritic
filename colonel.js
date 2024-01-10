@@ -9,7 +9,6 @@ import bootstrap from '#models/bootstrap';
 
 await db.init();
 
-//TODO silent default with verbose option
 if (args('action')) await bootstrap({
 	removedupes: async function() {
 		await db.removeDuplicates(true);
@@ -33,9 +32,6 @@ if (args('action')) await bootstrap({
 	},
 	oneoff: async function() {
 		await actions.oneOff();
-	},
-	newmc: async function() {
-		await actions.testNewMC();
 	},
 	install: async function() {
 		await actions.install();

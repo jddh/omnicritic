@@ -2,7 +2,7 @@
   "name": "colonel",
   "type": "module",
   "version": "0.0.1",
-  "description": "Very illegal",
+  "description": "Consult the README for data acquisition resposibilities",
   "main": "colonel.js",
   "imports": {
     "#models/*": "./lib/*.js"

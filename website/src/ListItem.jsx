@@ -22,7 +22,7 @@ export default function ListItem({item, isFavourited, showFavourite}) {
 			</td>
 			
 			<td className='numerical'>
-				{item.ratings?.imdb?.rating &&
+				{item.ratings?.imdb?.rating > -1 &&
 				<Score score={item.ratings.imdb.rating * 10} />}
 			</td>
 

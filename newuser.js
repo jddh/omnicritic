@@ -1,11 +1,11 @@
+import args from '#models/arguments';
+import * as db from '#models/db/db';
+import * as auth from '#models/db/auth';
+
 /**
  * add user account to webapp
  * eg. 'node newuser user=dave password=pass'
  */
-
-import args from '#models/arguments';
-import * as db from '#models/db/db';
-import * as auth from '#models/db/auth';
 
 await db.init();
 

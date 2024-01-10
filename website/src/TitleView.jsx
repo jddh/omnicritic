@@ -51,7 +51,7 @@ export default function ItemView() {
 				<h1>{item.title} ({item.releaseDate})</h1>
 				<div className="content">
 					<em className='media-type'>{item.type}</em>
-					<div>
+					<div className='synopsis'>
 						{item.synopsis}
 					</div>
 					{/* TODO viz for scores */}
