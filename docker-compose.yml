@@ -26,7 +26,6 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://admin:password@mongo:27017/
 
   api:
-    # profiles: ['api']
     image: jddh/node-chrome
     working_dir: /app
     ports:
@@ -40,14 +39,30 @@ services:
 
   react-frontend:
     profiles: ["site"]
-    image: httpd:alpine 
+    image: eingressio/nginx-tiny 
+    ports:
+      - 6361:80
     volumes:
-      - ./website/build:/usr/local/apache2/htdocs/
-      # - ./web/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./website/dist:/usr/local/nginx/html
+      - ./website/nginx.conf:/usr/local/nginx/conf/nginx.conf
     networks:
       - vhost-net
-    environment:
-      VIRTUAL_HOST: colonel.localhost
+    # environment:
+      # VIRTUAL_HOST: colonel.localhost
+      # LETSENCRYPT_HOST: $SSL_HOSTS
+    restart: unless-stopped
+
+  apache-frontend:
+    profiles: ["site"]
+    image: httpd:alpine 
+    ports:
+      - 6362:80
+    volumes:
+      - ./website/dist:/usr/local/apache2/htdocs/
+    networks:
+      - vhost-net
+    # environment:
+      # VIRTUAL_HOST: colonel.localhost
       # LETSENCRYPT_HOST: $SSL_HOSTS
     restart: unless-stopped
 

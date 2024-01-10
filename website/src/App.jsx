@@ -21,8 +21,11 @@ export default function App() {
 
   React.useEffect(() => {
     (async () => {
-      const messages = await import('../compiled-lang/dev.json');
-      setLangStrings(messages)
+      console.log(import.meta.env);
+      if (import.meta.env.VITE_REBRAND) {
+        const messages = await import('../compiled-lang/rebrand.json');
+        setLangStrings(messages)
+      }
     })()
   }, [])
 
