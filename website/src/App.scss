@@ -1,4 +1,6 @@
 #root {
+	--bp-large: 900px;
+
 	--top-container: #048C8C;
 	--bottom-container: #C9F2F2;
 	--ui-dark: #006161;
@@ -23,6 +25,7 @@
 	position: relative;
 	max-width: 1000px;
 	margin: 0 auto;
+	padding: 0 60px;
 	padding-top: var(--page-block-gutter);
 	padding-bottom: var(--page-block-gutter);
 	font-size: var(--fs-base);
@@ -55,7 +58,7 @@
 
 #site-title {
 	position: absolute;
-	left: -267px;
+	left: -208px;
 	transform: rotate(-.25turn);
 	transform-origin: right top;
 	font-size: 2.21em;
@@ -276,6 +279,10 @@ a.favourite {
 	.favourite-label {
 		display: none;
 	}
+
+	.data-label {
+		display: none;
+	}
 }
 
 .score-wheel {
@@ -286,6 +293,7 @@ a.favourite {
 	--hue: calc((var(--score)/100) * 65 + 30);
 	--col: hsl(var(--hue), 62%, 55%);
 	position: relative;
+	display: inline-block;
 
 	.dial {
 		--circle-score: calc((var(--score)/100) * 360);
@@ -383,7 +391,12 @@ main.page-title {
 	}
 
 	.scores {
+		display: flex;
 		margin: 1em 0;
+
+		.score {
+			margin-right: 20px;
+		}
 	}
 
 	.score-wheel {
@@ -448,7 +461,7 @@ form.login {
 	position: absolute;
 	// width: 36px;
 	// height: 30px;
-	right: -163px;
+	right: -103px;
 	top: 27px;
 	display: inline-block;
 	transform-origin: left top;
@@ -520,4 +533,111 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .bm-overlay {
 	// background: rgba(0, 0, 0, 0.3);
 	background-color: transparent !important;
+}
+
+@media screen and (max-width: 900px) {
+	#app-container {
+		padding: 0 17px;
+	}
+
+	#main-content {
+		padding: 10px;
+	}
+
+	#site-title, .bm-burger-button #menu-text {
+		font-size: 1.5em;
+	}
+
+	#site-title {
+		position: relative;
+		left: 0;
+		transform: none;
+	}
+
+	.bm-burger-button {
+		// position: relative;
+		top: 0;
+		right: 17px;
+		transform: none;
+	}
+
+	.filter-buttons, #app-container .header-page-title {
+		margin-top: 0;
+	}
+
+	#search-parsers  {
+		flex-direction: column;
+
+		.parsers {
+			margin-top: 20px;
+		}
+	}
+
+	td, tr {
+		display: block;
+	}
+
+	td.numerical {
+		width: auto;
+	}
+
+	.data-list {
+		thead {
+			display: none;
+		}
+
+		tr {
+			position: relative;
+			display: flex;
+			flex-flow: row wrap;
+			margin-bottom: 10px;
+			padding: 10px;
+		}
+
+		td {
+			margin-left: 0;
+			margin-right: 10px;
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		.data-label {
+			display: inline;
+			margin-right: 6px;
+			font-size: 12px;
+			text-transform: uppercase;
+			font-weight: bold;
+			color: var(--ui-dark);
+			opacity: .35;
+		}
+
+		.score-wheel {
+			vertical-align: middle;
+		}
+
+		td.title {
+			width: 90%;
+			font-size: 18px;
+		}
+
+		td.numerical {
+			// width: 100%;
+			// text-align: left;
+			padding: 3px 0;
+		}
+
+		td.empty {
+			display: none;
+		}
+
+		td.favourite {
+			position: absolute;
+			top: 8px;
+			right: 0;
+		}
+
+		.scrape-date {
+			display: none;
+		}
+	}
 }

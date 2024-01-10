@@ -21,7 +21,6 @@ export default function App() {
 
   React.useEffect(() => {
     (async () => {
-      console.log(import.meta.env);
       if (import.meta.env.VITE_REBRAND) {
         const messages = await import('../compiled-lang/rebrand.json');
         setLangStrings(messages)

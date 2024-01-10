@@ -10,6 +10,7 @@ import MainContent from "./Layout/MainContent";
 import AuthOrHidden from './Auth/AuthOrHidden';
 import Throbber from './Throbber';
 import LoadStatus from "./LoadStatus";
+import {StringMC, StringRT} from "./IntlStrings";
 import useSemiPersistentState from './semiPersistentState';
 import useApi from './apiDispatcher';
 import authContext from "./Auth/authContext";
@@ -19,6 +20,7 @@ import authContext from "./Auth/authContext";
  * @param {*} name 
  * @returns 
  */
+//TODO decide on final viz; ui for clickable headings; mobile solution
 function getParsers(nameArray) {
 	let parseFns = [];
 	nameArray.forEach(name => {
@@ -188,17 +190,11 @@ export default function ListTable({apiFeed, id, dataLoadStatus, children}) {
 				<tr>
 					<td>Title</td>
 					<SortingColumn sorter={changeSort} dataSource='ratings.metacritic.rating' activeSort={activeSort} parentDirection={sortDirection}>
-					<FormattedMessage
-          				defaultMessage="Metacritic"
-          				description="Aggreator with 'Meta'"
-        			/> 
+						<StringMC />
 					</SortingColumn>
 
 					<SortingColumn sorter={changeSort} dataSource='ratings.rottentomatoes.rating' activeSort={activeSort} parentDirection={sortDirection}>
-					<FormattedMessage
-          				defaultMessage="Rotten Tomatoes"
-          				description="Aggreator with 'Meta'"
-        			/> 
+						<StringRT />
 					</SortingColumn>
 
 					<SortingColumn sorter={changeSort} dataSource='ratings.imdb.rating' activeSort={activeSort} parentDirection={sortDirection}>
@@ -206,7 +202,7 @@ export default function ListTable({apiFeed, id, dataLoadStatus, children}) {
 					</SortingColumn>
 
 					<SortingColumn sorter={changeSort} dataSource='ratings.colonel.rating' activeSort={activeSort} parentDirection={sortDirection}>
-						Omnicritic 
+						OmniCritic 
 					</SortingColumn>
 
 					<AuthOrHidden>

@@ -12,7 +12,7 @@ import authContext from "./Auth/authContext";
 const titles = {
 	all: ['All titles'],
 	rated: ['Rated titles', <span><strong>Rated</strong> by at least one of the sources</span>],
-	unrated: ['Unrated titles', <span><strong>Unrated</strong> titles have no ratings from any source</span>],
+	unrated: ['Unrated titles', <span><strong>Unrated</strong> titles have no ratings (or haven't been checked recently)</span>],
 	nullrated: ['Nullrated titles', <span><strong>Null ratings</strong> have been scraped and returned as unavailable or nonexistant</span>]
 }
 

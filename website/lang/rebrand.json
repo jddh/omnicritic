@@ -1,8 +1,4 @@
 {
-  "MDU1bB": {
-    "defaultMessage": "Metacryptic",
-    "description": "Aggreator with 'Meta'"
-  },
   "z3uQX5": {
     "defaultMessage": "Rottenpotatoes",
     "description": "Aggreator with 'Meta'"
@@ -15,24 +11,32 @@
     "defaultMessage": "Rotten Potatoes",
     "description": "parser for rt"
   },
-  "2tZgyl": {
-    "defaultMessage": "Metacryptic",
-    "description": "parser for mc"
-  },
   "netflixlink": {
     "defaultMessage": "Notflix",
     "description": "link label for netflix"
-  },
-  "mclink": {
-    "defaultMessage": "Metacryptic",
-    "description": "link label for metacritic"
   },
   "rtlink": {
     "defaultMessage": "Rotten Potatoes",
     "description": "link label for RT"
   },
-  "justmc": {
+  "tlmcc": {
     "defaultMessage": "Metacryptic",
-    "description": "parser for mc"
+    "description": "Top level MC component"
+  },
+  "tlmcct": {
+    "defaultMessage": "Metacryptic",
+    "description": "Top level MC string"
+  },
+  "tlmcs": {
+    "defaultMessage": "Metacryptic",
+    "description": "Top level MC imperative string"
+  },
+  "SvrReN": {
+    "defaultMessage": "Rotten Potatoes",
+    "description": "Top level RT component"
+  },
+  "mclink": {
+    "defaultMessage": "Metacryptic",
+    "description": "link label for metacritic"
   }
 }

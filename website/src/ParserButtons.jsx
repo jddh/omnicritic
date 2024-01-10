@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import {StringMC, StringRT} from "./IntlStrings";
 
 export default function ParserButtons ({parsers, setParsers}) {
 	const intl = useIntl();
@@ -14,15 +15,8 @@ const options = [
 	['contentious', 'Contentious', 'Disparate ratings between sources'],
 	['topten', 'Top Ten', 'At least one high rating'],
 	['lowten', 'Bottom Ten', 'Low ratings'],
-	['justmc', intl.formatMessage({
-		defaultMessage: 'Metacritic',
-		description: 'parser for mc',
-		id: 'justmc'
-	})],
-	['justrt', intl.formatMessage({
-		defaultMessage: 'Rotten Tomatoes',
-		description: 'parser for rt'
-	})]
+	['justmc', <StringMC />],
+	['justrt', <StringRT />]
 ];
 
 return (

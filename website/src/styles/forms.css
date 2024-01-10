@@ -17,8 +17,9 @@ input[type="text"], input[type="password"] {
 		display: inline-block;
 		width: var(--size);
 		height: var(--size);
-		left: calc(var(--size) * -1.7);
-		top: calc(var(--size) * -.4);
+		/* left: calc(var(--size) * -1.7);*/
+		top: calc(var(--size) * -.4); 
+		margin-left: calc(var(--size) * -1.9);
 		border: none;
 		background: url('/assets/icons.svg#x') no-repeat;
 		font-size: 0;

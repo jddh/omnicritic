@@ -24,7 +24,7 @@ function cacheResponse(res, seconds = 10) {
 app.get("/rated", async function (req, res, next) {
 	safeAsync(next, async () => {
 		const titles = await db.getRatedTitles(5000);
-		await wait(1000);
+		// await wait(1000);
 
 		cacheResponse(res).send(titles);
 		// res.status(500).send();
