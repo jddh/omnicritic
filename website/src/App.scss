@@ -37,7 +37,8 @@
 #search-parsers,
 .pager.large,
 .title-description,
-.header-page-title {
+.header-page-title,
+.sort-controls {
 	padding-left: var(--header-inline-padding);
 	padding-right: var(--header-inline-padding);
 	background-color: var(--top-container);
@@ -146,6 +147,12 @@ header nav,
 	}
 }
 
+.sort-controls {
+	// padding-top: 20px;
+	padding-bottom: 20px;
+	font-size: .8em;
+}
+
 .pager {
 	&.large {
 		padding-bottom: 20px;
@@ -209,6 +216,7 @@ td {
 	}
 
 	&.sorting-col {
+		color: var(--ui-dark);
 		cursor: pointer;
 	}
 }
