@@ -5,6 +5,7 @@ import ListItem from './ListItem';
 import SearchBox from './ListSearch';
 import SortingColumn from './SortingColumn';
 import Pager from './Pager';
+import SortControls from "./ListTable/SortControls";
 import ParserButtons from './ParserButtons';
 import MainContent from "./Layout/MainContent";
 import AuthOrHidden from './Auth/AuthOrHidden';
@@ -115,9 +116,12 @@ export default function ListTable({apiFeed, id, dataLoadStatus, children}) {
 		let sortedData = [...dataView];
 		const traverse = (obj, path) => path.split(".").reduce((ag, o) => ag[o] ? ag[o] : ag, obj);
 
+		//is our dataset numerical? decide what our sort keys are
+		const sortableValueType = traverse(sortedData[0],dataSource).toString().match(/\D/ig) ? 'alpha' : 'number';
+		const sortableValueFn = getSortableValueFn(sortableValueType);
+
 		sortedData = sortedData.sort((a, b) => {
-			const ar = parseInt(traverse(a,dataSource));
-			const br = parseInt(traverse(b,dataSource));
+			const [ar, br] = sortableValueFn(traverse(a,dataSource), traverse(b,dataSource))
 			
 			if (direction == 'asc') {
 				if (ar > br || ar && !br) return 1;
@@ -131,6 +135,14 @@ export default function ListTable({apiFeed, id, dataLoadStatus, children}) {
 		})
 
 		return sortedData;
+
+		function getSortableValueFn(type) {
+			if (type == 'number') 
+				return (a,b) => [parseInt(a),parseInt(b)];
+			//alpha
+				return (a,b) => [a.charAt(0),b.charAt(0)];
+			
+		}
 	}
 
 	//prune data for render
@@ -175,6 +187,8 @@ export default function ListTable({apiFeed, id, dataLoadStatus, children}) {
 			<ParserButtons parsers={parsers} setParsers={setParsers}/>
 		</div>
 
+		<SortControls sorter={changeSort} activeSort={activeSort} direction={sortDirection} />
+
 		<Pager pagerData={pager} setPagerData={setPager} totalCount={filteredData?.length}></Pager>
 
 		{/* <em>{dataForRender?.length} titles shown, {filteredData?.length} total</em> */}
@@ -188,7 +202,11 @@ export default function ListTable({apiFeed, id, dataLoadStatus, children}) {
 		<table className={clsx('data-list', isDataPending && 'pending')}>
 			<thead>
 				<tr>
-					<td>Title</td>
+
+					<SortingColumn type='alpha' sorter={changeSort} dataSource='title' activeSort={activeSort} parentDirection={sortDirection}>
+						Title
+					</SortingColumn>
+
 					<SortingColumn sorter={changeSort} dataSource='ratings.metacritic.rating' activeSort={activeSort} parentDirection={sortDirection}>
 						<StringMC />
 					</SortingColumn>
