@@ -38,7 +38,8 @@
 .pager.large,
 .title-description,
 .header-page-title,
-.sort-controls {
+.sort-controls,
+#search-info {
 	padding-left: var(--header-inline-padding);
 	padding-right: var(--header-inline-padding);
 	background-color: var(--top-container);
@@ -53,7 +54,8 @@
 
 //top container: tuck up first elements
 .filter-buttons,
-#app-container .header-page-title {
+#app-container .header-page-title,
+#search-info {
 	margin-top: calc(var(--header-block-padding) * -1 - 30px);
 }
 
@@ -144,6 +146,12 @@ header nav,
 			display: inline-block;
 			margin-bottom: 5px;
 		}
+	}
+}
+
+#search-info {
+	h2 {
+		margin-top: 0;
 	}
 }
 
@@ -339,10 +347,6 @@ a.favourite {
 }
 
 #search-widget {
-	// position: absolute;
-	// right: 0;
-	// box-sizing: border-box;
-	// width: 100%;
 	min-width: 250px;
 	padding-bottom: var(--header-block-padding);
 	padding-top: var(--header-block-padding);
@@ -351,6 +355,7 @@ a.favourite {
 
 #search-autocomplete {
 	position: absolute;
+	z-index: 1001;
 	right: 0;
 	display: none;
 	margin: 0;
@@ -455,7 +460,6 @@ form.login {
 	left: 45%;
 	display: block;
 	display: none;
-	// background: url('/assets/film-solid.svg') top left / contain no-repeat;
 }
 
 #main-content .throbber {
@@ -569,7 +573,8 @@ Note: Beware of modifying this element as it can break the animations - you shou
 		transform: none;
 	}
 
-	.filter-buttons, #app-container .header-page-title {
+	//untuck for mobile
+	.filter-buttons, #app-container .header-page-title, #search-info {
 		margin-top: 0;
 	}
 

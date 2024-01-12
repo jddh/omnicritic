@@ -1,5 +1,4 @@
 import React from "react";
-import useSemiPersistentState from "./semiPersistentState";
 
 export default function FilterButtons({ filter, filterHandler }) {
 

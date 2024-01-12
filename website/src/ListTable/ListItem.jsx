@@ -1,9 +1,9 @@
 import * as he from 'he';
 import clsx from 'clsx';
-import Score from './Score';
-import AuthOrHidden from './Auth/AuthOrHidden';
-import Favourite from './Title/Favourite';
-import { StringMC, StringRT } from './IntlStrings';
+import Score from '../Score';
+import AuthOrHidden from '../Auth/AuthOrHidden';
+import Favourite from '../Title/Favourite';
+import { StringMC, StringRT } from '../IntlStrings';
 
 export default function ListItem({ item, isFavourited, showFavourite }) {
 

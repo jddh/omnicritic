@@ -21,20 +21,3 @@ export function StringRT() {
 		description="Top level RT component"
 	/>)
 }
-
-// export function altStringMC() {
-// 	const intl = useIntl();
-// 	const str = intl.formatMessage({
-// 		defaultMessage: 'Metacritic',
-// 		description: 'Top level MC imperative string',
-// 		id: "tlmcs"
-// 	})
-
-// 	return str
-// }
-
-// export default intle.formatMessage({
-// 	defaultMessage: 'Metacritics',
-// 	description: 'Top level MC string',
-// 	id: "tlmcct"
-// });

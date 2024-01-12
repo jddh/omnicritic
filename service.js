@@ -71,7 +71,6 @@ app.get("/title/:titleId", async function (req, res, next) {
 	})
 })
 
-//BUG often gets null result
 app.get("/title/search/:query", async function (req, res, next) {
 	safeAsync(next, async () => {
 		const query = await db.searchTitlesByName(req.params.query, 10, ['title', '_id']);

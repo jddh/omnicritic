@@ -40,7 +40,7 @@
     "preview": "vite preview",
     "extract": "formatjs extract",
     "extract:spec": "npm run extract -- 'src/**/*.js*'  --out-file lang/rebrand.json",
-    "extract:sync": "sh ./scripts/sync.sh",
+    "extract:sync": "sh ./scripts/sync-translations.sh",
     "compile": "formatjs compile",
     "compile:spec": "npm run compile -- lang/*.json --ast --out-file compiled-lang/rebrand.json"
   },

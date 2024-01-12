@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import {StringMC, StringRT} from "./IntlStrings";
+import {StringMC, StringRT} from "../IntlStrings";
 
 export default function ParserButtons ({parsers, setParsers}) {
 	const intl = useIntl();

@@ -1,7 +1,7 @@
 import './App.scss';
 import React, { useContext } from 'react';
 import ListTable from './ListTable';
-import FeedFilterButtons from './FilterButtons'
+import FeedFilterButtons from './ListTable/FilterButtons'
 import StatusInfo from './StatusInfo';
 import useApi from './apiDispatcher';
 import useSemiPersistentState from './semiPersistentState';

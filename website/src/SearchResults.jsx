@@ -2,7 +2,6 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import ListTable from './ListTable';
 import useApi from './apiDispatcher';
-import useSemiPersistentState from './semiPersistentState';
 
 export default function SearchResults() {
 	const [api, getFromApi] = useApi();
@@ -18,10 +17,12 @@ export default function SearchResults() {
 	return (
 		<div className="App">
 			<main>
-				<h2>Search for: "{query}"</h2> 
-				<em>{api.data.length} results</em>
+				<div id="search-info">
+					<h2>Search for: "{query}"</h2>
+					<em>{api.data.length} results</em>
+				</div>
 
-				<ListTable data={api.data} />
+				<ListTable apiFeed={api} />
 			</main>
 		</div>
 	)

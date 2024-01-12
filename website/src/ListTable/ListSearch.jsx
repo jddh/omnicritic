@@ -14,7 +14,7 @@ export default function SearchBox({searchHandler,searchTerm,setSearchTerm}) {
 			<input type="text" placeholder={intl.formatMessage({
 					defaultMessage: 'Stranger Things, Succession, Batman',
 					description: 'placeholder text for table search',
-					id: 'jerkface'
+					id: 'tablesearch'
 				})}
 				 onChange={searchHandler} name="search-term" id="search-term" value={searchTerm} />
 			<input type="reset" value="clear" onClick={clear} />

@@ -9,7 +9,7 @@ export default function Results({ apiDispatcher, searchTerm }) {
 
 	return (
 		<>
-			<ul className={hasContent && 'active'} id='search-autocomplete'>
+			<ul className={clsx(hasContent && 'active')} id='search-autocomplete'>
 				<LoadStatus apiDispatcher={apiDispatcher}>
 					{hasResults && apiDispatcher.data.map(res =>
 						<li key={res._id}>

@@ -1,12 +1,12 @@
 import React from "react";
 import { FormattedMessage } from 'react-intl';
 import clsx from "clsx";
-import ListItem from './ListItem';
-import SearchBox from './ListSearch';
-import SortingColumn from './SortingColumn';
+import ListItem from './ListTable/ListItem';
+import SearchBox from './ListTable/ListSearch';
+import SortingColumn from './ListTable/SortingColumn';
 import Pager from './Pager';
 import SortControls from "./ListTable/SortControls";
-import ParserButtons from './ParserButtons';
+import ParserButtons from './ListTable/ParserButtons';
 import MainContent from "./Layout/MainContent";
 import AuthOrHidden from './Auth/AuthOrHidden';
 import Throbber from './Throbber';
@@ -21,7 +21,6 @@ import authContext from "./Auth/authContext";
  * @param {*} name 
  * @returns 
  */
-//TODO decide on final viz; ui for clickable headings; mobile solution
 function getParsers(nameArray) {
 	let parseFns = [];
 	nameArray.forEach(name => {

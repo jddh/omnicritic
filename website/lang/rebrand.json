@@ -3,10 +3,6 @@
     "defaultMessage": "Rottenpotatoes",
     "description": "Aggreator with 'Meta'"
   },
-  "jerkface": {
-    "defaultMessage": "Stranger Rings, Accession, Ratman",
-    "description": "placeholder text for table search"
-  },
   "mmQre3": {
     "defaultMessage": "Rotten Potatoes",
     "description": "parser for rt"
@@ -38,5 +34,9 @@
   "mclink": {
     "defaultMessage": "Metacryptic",
     "description": "link label for metacritic"
+  },
+  "tablesearch": {
+    "defaultMessage": "Stranger Rings, Accession, Ratman",
+    "description": "placeholder text for table search"
   }
 }
