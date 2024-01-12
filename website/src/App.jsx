@@ -20,6 +20,7 @@ export default function App() {
   const [langStrings, setLangStrings] = React.useState();
 
   React.useEffect(() => {
+    //TODO 1.1 opt out of looking for lang bundle entirely if !rebrand
     (async () => {
       if (import.meta.env.VITE_REBRAND) {
         const messages = await import('../compiled-lang/rebrand.json');

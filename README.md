@@ -2,8 +2,6 @@
 
 OmniCritic is a template for a **critic-aggregator-aggregator webapp**. 
 
-//TODO rm colonel runtime comments
-
 Have you ever said *"I wish I could get a easy-to-browse list of *everything* [streaming platform] streams, from best- to worst-ratings averaged across rating aggregators?"* This does that for you. It builds a database of streaming titles, cross-references them with rating aggregators, and builds to a high-performance web frontend.
 
 ## IMPORTANT Disclaimer
