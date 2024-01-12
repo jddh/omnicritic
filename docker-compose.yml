@@ -4,6 +4,7 @@ services:
 
   mongo:
     image: mongo
+    container_name: omnicritic-mongodb
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
@@ -13,6 +14,7 @@ services:
       - ./mongodb-data:/data/db 
 
   mongo-express:
+    profiles: ["mongo-express"]
     image: mongo-express
     restart: on-failure
     depends_on:
@@ -30,14 +32,14 @@ services:
     working_dir: /app
     ports:
       - 4000:4000
-    command: sh -c 'npm install -g nodemon && nodemon service.js'
+    command: node service.js
     volumes:
       - ./:/app
     environment:
       DB_HOST: mongo
       CONTAINER: docker
 
-  react-frontend:
+  frontend:
     profiles: ["site"]
     image: eingressio/nginx-tiny 
     ports:
@@ -45,20 +47,6 @@ services:
     volumes:
       - ./website/dist:/usr/local/nginx/html
       - ./website/nginx.conf:/usr/local/nginx/conf/nginx.conf
-    networks:
-      - vhost-net
-    # environment:
-      # VIRTUAL_HOST: colonel.localhost
-      # LETSENCRYPT_HOST: $SSL_HOSTS
-    restart: unless-stopped
-
-  apache-frontend:
-    profiles: ["site"]
-    image: httpd:alpine 
-    ports:
-      - 6362:80
-    volumes:
-      - ./website/dist:/usr/local/apache2/htdocs/
     networks:
       - vhost-net
     # environment:

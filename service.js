@@ -17,13 +17,15 @@ app.use(cors({
 }));
 app.use(express.json());
 
+const maxDocs = 6000;
+
 function cacheResponse(res, seconds = 10) {
 	return res.set({ 'Cache-Control': `max-age=${seconds}, must-revalidate` });
 }
 
 app.get("/rated", async function (req, res, next) {
 	safeAsync(next, async () => {
-		const titles = await db.getRatedTitles(5000);
+		const titles = await db.getRatedTitles(maxDocs);
 		// await wait(1000);
 
 		cacheResponse(res).send(titles);
@@ -34,7 +36,7 @@ app.get("/rated", async function (req, res, next) {
 
 app.get("/unrated", async function (req, res, next) {
 	safeAsync(next, async () => {
-		const titles = await db.getUnratedTitles(5000, ['metacritic', 'rottentomatoes']);
+		const titles = await db.getUnratedTitles(maxDocs, ['metacritic', 'rottentomatoes']);
 
 		cacheResponse(res).send(titles);
 	})
@@ -42,7 +44,7 @@ app.get("/unrated", async function (req, res, next) {
 
 app.get("/all", async function (req, res, next) {
 	safeAsync(next, async () => {
-		const titles = await db.getAllTitles(5000);
+		const titles = await db.getAllTitles(maxDocs);
 
 		cacheResponse(res).send(titles);
 	})
@@ -51,7 +53,7 @@ app.get("/all", async function (req, res, next) {
 app.get("/nullrated", async function (req, res, next) {
 	safeAsync(next, async () => {
 		// await throwError(req);
-		const titles = await db.getNullRatings(5000);
+		const titles = await db.getNullRatings(maxDocs);
 		cacheResponse(res).send(titles);
 	})
 

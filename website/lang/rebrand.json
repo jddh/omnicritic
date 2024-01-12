@@ -1,42 +1,18 @@
 {
-  "z3uQX5": {
-    "defaultMessage": "Rottenpotatoes",
-    "description": "Aggreator with 'Meta'"
-  },
-  "mmQre3": {
-    "defaultMessage": "Rotten Potatoes",
-    "description": "parser for rt"
-  },
-  "netflixlink": {
-    "defaultMessage": "Notflix",
-    "description": "link label for netflix"
-  },
-  "rtlink": {
-    "defaultMessage": "Rotten Potatoes",
-    "description": "link label for RT"
-  },
   "tlmcc": {
     "defaultMessage": "Metacryptic",
     "description": "Top level MC component"
-  },
-  "tlmcct": {
-    "defaultMessage": "Metacryptic",
-    "description": "Top level MC string"
-  },
-  "tlmcs": {
-    "defaultMessage": "Metacryptic",
-    "description": "Top level MC imperative string"
   },
   "SvrReN": {
     "defaultMessage": "Rotten Potatoes",
     "description": "Top level RT component"
   },
-  "mclink": {
-    "defaultMessage": "Metacryptic",
-    "description": "link label for metacritic"
-  },
   "tablesearch": {
     "defaultMessage": "Stranger Rings, Accession, Ratman",
     "description": "placeholder text for table search"
+  },
+  "netflixlink": {
+    "defaultMessage": "Notflix",
+    "description": "link label for netflix"
   }
 }

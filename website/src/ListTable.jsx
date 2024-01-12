@@ -144,22 +144,6 @@ export default function ListTable({apiFeed, id, dataLoadStatus, children}) {
 		}
 	}
 
-	//prune data for render
-	// let filteredData = [], dataForRender = [];
-	// if (dataView.length)
-	// {
-	// 	filteredData = sorter(activeSort, sortDirection);
-
-	// 	filteredData = filteredData.filter(i => i.title.match(new RegExp(searchTerm, 'gi')));
-
-	// 	const parserArray = getParsers(parsers);
-	// 	if (parserArray.length)
-	// 		filteredData = filteredData.filter(element => parserArray.some(fn => fn(element)));
-		
-	// 	dataForRender = filteredData;
-	// 	if (pager.limit) dataForRender = dataForRender.slice(((pager.page-1) * pager.limit), (pager.page * pager.limit));
-	// }
-
 	const [filteredData, dataForRender] = React.useMemo(() => {
 		let fd = [];
 		if (!dataView.length) return [];

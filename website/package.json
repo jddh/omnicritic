@@ -36,6 +36,7 @@
     "dev:safe": "VITE_REBRAND=true vite",
     "build": "vite build",
     "build:safe": "VITE_REBRAND=true vite build",
+    "build:cold": "npm run extract:spec && npm run compile:spec && npm run build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "extract": "formatjs extract",
