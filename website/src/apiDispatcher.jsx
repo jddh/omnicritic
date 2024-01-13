@@ -57,7 +57,10 @@ function checkForCachedData(key) {
  */
 export default function useApi(
 	{
-		rqBasePath = window.location.protocol + '//' + window.location.hostname + ':4000/', 
+		rqBasePath = 
+			window.location.protocol + '//' + 
+			(import.meta.env.VITE_API_URL ? 
+			import.meta.env.VITE_API_URL : (window.location.hostname + ':4000')) + '/', 
 		fetchOptions = undefined,
 		useAuth = false,
 		useCache = true

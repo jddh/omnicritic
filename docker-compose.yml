@@ -8,8 +8,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
-    ports:
-      - 27017:27017
+    networks:
+      - localnet
     volumes: 
       - ./mongodb-data:/data/db 
 
@@ -19,7 +19,6 @@ services:
     restart: on-failure
     depends_on:
       - mongo
-        # condition: service_healthy
     ports:
       - 8081:8081
     environment:
@@ -28,13 +27,16 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://admin:password@mongo:27017/
 
   api:
-    image: jddh/node-chrome
+    image: omnicritic/node-chrome
+    build: ./
     working_dir: /app
     ports:
       - 4000:4000
     command: node service.js
     volumes:
       - ./:/app
+    networks:
+      - localnet
     environment:
       DB_HOST: mongo
       CONTAINER: docker
@@ -47,13 +49,7 @@ services:
     volumes:
       - ./website/dist:/usr/local/nginx/html
       - ./website/nginx.conf:/usr/local/nginx/conf/nginx.conf
-    networks:
-      - vhost-net
-    # environment:
-      # VIRTUAL_HOST: colonel.localhost
-      # LETSENCRYPT_HOST: $SSL_HOSTS
     restart: unless-stopped
 
 networks:
-  vhost-net:
-    external: true
+  localnet:
