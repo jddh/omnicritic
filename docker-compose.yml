@@ -8,15 +8,12 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
-    networks:
-      - localnet
     volumes: 
       - ./mongodb-data:/data/db 
 
   mongo-express:
     profiles: ["mongo-express"]
     image: mongo-express
-    restart: on-failure
     depends_on:
       - mongo
     ports:
@@ -35,8 +32,6 @@ services:
     command: node service.js
     volumes:
       - ./:/app
-    networks:
-      - localnet
     environment:
       DB_HOST: mongo
       CONTAINER: docker
@@ -49,7 +44,3 @@ services:
     volumes:
       - ./website/dist:/usr/local/nginx/html
       - ./website/nginx.conf:/usr/local/nginx/conf/nginx.conf
-    restart: unless-stopped
-
-networks:
-  localnet:

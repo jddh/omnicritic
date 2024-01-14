@@ -12,6 +12,7 @@ import Test from './Test';
 import Header from "./Header";
 import Login from "./Login";
 import Logout from "./Logout";
+import MainContent from "./Layout/MainContent";
 import useSemiPersistentState from "./semiPersistentState";
 
 
@@ -38,8 +39,6 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<List />} />
-          <Route path="about" element={<About />} />
-          <Route path="dashboard" element={<Dashboard />} />
           <Route path="title/:titleid" element={<TitleView />} />
           <Route path="search/:query" element={<SearchResults />} />
           <Route path="watchlist" element={<Watchlist />} />
@@ -67,8 +66,6 @@ function Layout() {
     <authContext.Provider value={{ authenticated, setAuthenticated, token, setToken }}>
     <>
       
-      {/* A "layout route" is a good place to put markup you want to
-          share across all the pages on your site, like navigation. */}
       <div id="app-container">
       <Menu right customBurgerIcon={<MenuButton />} pageWrapId={"app-container"} outerContainerId={ "root" } width={ '10em' }>
         <Link to="/">Home</Link>
@@ -84,9 +81,6 @@ function Layout() {
           }
 			</Menu>
           <Header />
-          {/* An <Outlet> renders whatever child route is currently active,
-              so you can think about this <Outlet> as a placeholder for
-              the child routes we defined above. */}
           <Outlet />
         </div>
     </>
@@ -100,29 +94,15 @@ function MenuButton() {
   )
 }
 
-function About() {
-  return (
-    <div>
-      <h2>About</h2>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-    </div>
-  );
-}
-
 function NoMatch() {
   return (
+    <MainContent>
     <div>
       <h2>401</h2>
       <p>
         <Link to="/">Go to the home page</Link>
       </p>
     </div>
+    </MainContent>
   );
 }

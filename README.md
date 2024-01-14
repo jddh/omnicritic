@@ -24,7 +24,7 @@ This is for personal use and, if you build a ratings database, it should probabl
 7. Search for rating scores for the titles you've gathered with `node colonel action=ratings` (ditto)
 8. Alternatively to scraping, you can import sample data:
    
-       curl -s https://jddh.dev/omnicritic/omnicritic-titles.csv | docker exec -i omnicritic-mongodb sh -c 'exec mongoimport --authenticationDatabase=admin  --username=admin --password=password  --db=omnicritic --collection=titles --type=csv --headerline --file='
+       curl -s https://jddh.dev/omnicritic/omnicritic-titles.csv | docker exec -i omnicritic-mongodb sh -c 'exec mongoimport --authenticationDatabase=admin  --username=admin --password=password  --db=omnicritic --collection=titles --type=csv --headerline --ignoreBlanks --file='
 9. To spin up the frontend, `cd website` and `npm run build:cold`. Then run the frontend profile with `docker compose --profile site up -d`
 10. Visit the frontend at `http://localhost:6361` and let your fingers do the walking
 
