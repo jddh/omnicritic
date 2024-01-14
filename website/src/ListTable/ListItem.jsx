@@ -1,5 +1,6 @@
 import * as he from 'he';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 import Score from '../Score';
 import AuthOrHidden from '../Auth/AuthOrHidden';
 import Favourite from '../Title/Favourite';
@@ -15,9 +16,10 @@ export default function ListItem({ item, isFavourited, showFavourite }) {
 	return (
 		<tr key={item._id}>
 			<td className='title'>
-				<a href={"/title/" + item._id}>
+				{/* <a href={"/title/" + item._id}>
 					{he.decode(item.title)}
-				</a>
+				</a> */}
+				<Link to={"/title/" + item._id}>{he.decode(item.title)}</Link>
 			</td>
 			<td className={clsx('numerical', !hasMC && 'empty')}>
 				{hasMC &&
