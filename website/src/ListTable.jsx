@@ -76,6 +76,7 @@ export default function ListTable({apiFeed, id, dataLoadStatus, children}) {
 	//sorting
 	const [activeSort, setActiveSort] = useSemiPersistentState('activeSort-'+id, false);
 	const [sortDirection, setSortDirection] = useSemiPersistentState('sortDirection-'+id, 'desc');
+	const [sortType, setSortType] = useSemiPersistentState('sortType-'+id, false);
 
 	//favourites
 	const [userApi, getFromUserApi] = useApi({ useAuth: true });
@@ -105,19 +106,19 @@ export default function ListTable({apiFeed, id, dataLoadStatus, children}) {
 		},500)
 	}
 
-	function changeSort(dataSource, direction) {
+	function changeSort(dataSource, direction, type) {
 		setActiveSort(dataSource);
+		setSortType(type);
 		direction && setSortDirection(direction);
 	}
 
-	function sorter(dataSource, direction = 'desc') {
+	function sorter(dataSource, direction = 'desc', type) {
 		if (!dataSource) return dataView;
 		let sortedData = [...dataView];
 		const traverse = (obj, path) => path.split(".").reduce((ag, o) => ag[o] ? ag[o] : ag, obj);
 
 		//is our dataset numerical? decide what our sort keys are
-		const sortableValueType = traverse(sortedData[0],dataSource).toString().match(/\D/ig) ? 'alpha' : 'number';
-		const sortableValueFn = getSortableValueFn(sortableValueType);
+		const sortableValueFn = getSortableValueFn(sortType);
 
 		sortedData = sortedData.sort((a, b) => {
 			const [ar, br] = sortableValueFn(traverse(a,dataSource), traverse(b,dataSource))
@@ -136,11 +137,10 @@ export default function ListTable({apiFeed, id, dataLoadStatus, children}) {
 		return sortedData;
 
 		function getSortableValueFn(type) {
-			if (type == 'number') 
-				return (a,b) => [parseInt(a),parseInt(b)];
-			//alpha
+			if (type == 'alpha')
 				return (a,b) => [a.charAt(0),b.charAt(0)];
-			
+			else
+				return (a,b) => [parseInt(a),parseInt(b)];
 		}
 	}
 

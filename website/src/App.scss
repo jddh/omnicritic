@@ -234,6 +234,11 @@ thead {
 		padding-top: 0;
 		padding-bottom: 0;
 		font-weight: bold;
+
+		&.sorting-col {
+			position: relative;
+			padding-right: 1em;
+		}
 	}
 }
 
@@ -245,6 +250,14 @@ tbody {
 
 tbody tr:nth-child(odd) {
 	background-color: rgb(255 255 255 / .35);
+}
+
+.sorting-col.active {
+	&:after {
+		position: absolute;
+		right: 0;
+		font-size: .7em;
+	}
 }
 
 td.direction-desc.active {

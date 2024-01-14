@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 
 export default function SortingColumn({sorter, dataSource, activeSort, parentDirection, type = 'numerical', children}) {
 
@@ -20,8 +21,8 @@ export default function SortingColumn({sorter, dataSource, activeSort, parentDir
 	}
 
 	React.useEffect(() => {
-		if (direction && direction != parentDirection) 
-		sorter(dataSource, direction);
+		if (direction && direction != parentDirection)
+		sorter(dataSource, direction, type);
 	},[direction])
 
 	const isActive = activeSort == dataSource;
@@ -29,7 +30,7 @@ export default function SortingColumn({sorter, dataSource, activeSort, parentDir
 	return (
 		<td 
 		onClick={sortColumn} 
-		className={`sorting-col ${type == 'numerical' && ' numerical'} direction-${direction} ${isActive && ' active'}`} id={"sortfor-" + dataSource}>
+		className={clsx('sorting-col', type == 'numerical' && ' numerical', `direction-${direction}`, isActive && ' active')} id={"sortfor-" + dataSource}>
 			{children}
 		</td>
 	)
