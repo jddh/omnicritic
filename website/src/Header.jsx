@@ -2,42 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SearchWidget from "./SearchWidget/SearchWidget";
 import authContext from "./Auth/authContext";
-
+//TODO dismiss search autocomplete
 export default function Header() {
 	const { authenticated, token } = React.useContext(authContext);
 
 	return (
 		<header>
-			<div id="site-title"><a href="/">OmniCritic</a></div>
-			{/* <nav>
-				<ul>
-					<li>
-						<Link to="/">Home</Link>
-					</li>
-
-					{!token && 
-					<li>
-						<Link to="/login">Login</Link>
-					</li>}
-
-					{token && 
-					<>
-					<li>
-						<Link to="/watchlist">Watchlist</Link>
-					</li>
-					<li>
-						<Link to="/settings">Settings</Link>
-					</li>
-					<li>
-						<Link to="/logout">Logout</Link>
-					</li>
-					</>
-					}
-
-				</ul>
-			</nav> */}
-
-			{/* user is {`${authenticated ? "" : "not"} authenticated`} */}
+			<div id="site-title">
+				<Link to="/">OmniCritic</Link>
+			</div>
 
 			<SearchWidget />
 

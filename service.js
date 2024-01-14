@@ -56,13 +56,6 @@ app.get("/nullrated", async function (req, res, next) {
 		const titles = await db.getNullRatings(maxDocs);
 		cacheResponse(res).send(titles);
 	})
-
-	//
-
-	// makeError(req)
-	// .then(r => db.getNullRatings(5000))
-	// .then(r => cacheResponse(res).send(r))
-	// .catch(e => next(e))
 });
 
 app.get("/title/:titleId", async function (req, res, next) {
