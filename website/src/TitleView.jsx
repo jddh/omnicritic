@@ -44,7 +44,7 @@ export default function ItemView() {
 			{!api.isError && !api.isLoading &&
 
 				<>
-					<h1>{item.title} ({item.releaseDate})</h1>
+					<h1 className='title-title'>{item.title} ({item.releaseDate})</h1>
 					<div className="content">
 						<em className='media-type'>{item.type}</em>
 						<div className='synopsis'>

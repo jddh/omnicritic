@@ -6,21 +6,25 @@ export default function SortControls({sorter, activeSort, direction}) {
 	const {authenticated} = React.useContext(authContext);
 
 	const sortOptions = [
-		['title', 'Title'],
-		['ratings.metacritic.rating', <StringMC />],
-		['ratings.rottentomatoes.rating', <StringRT />],
-		['ratings.imdb.rating', 'IMDB'],
-		['ratings.colonel.rating', 'OmniCritic']
+		['title', 'Title', 'alpha'],
+		['ratings.metacritic.rating', <StringMC />, 'numerical'],
+		['ratings.rottentomatoes.rating', <StringRT />, 'numerical'],
+		['ratings.imdb.rating', 'IMDB', 'numerical'],
+		['ratings.colonel.rating', 'OmniCritic', 'numerical']
 	]
 
 	if (authenticated) sortOptions.push(['scrapeDate', 'Scrape Date']);
 
 	function sort(e) {
-		sorter(e.target.value, direction);
+		sorter(e.target.value, direction, getSortType(e.target.value));
 	}
 
 	function changeDirection(e) {
-		sorter(activeSort, e.target.value);
+		sorter(activeSort, e.target.value, getSortType(activeSort));
+	}
+
+	function getSortType(key) {
+		return sortOptions.find(so => so[0] == key)[2]
 	}
 
 	return (

@@ -71,6 +71,7 @@ export default function ListTable({apiFeed, id, dataLoadStatus, children}) {
 	const inputTimer = React.useRef(null);
 
 	//pagination
+	//TODO changing source should reset pager
 	const [pager, setPager] = React.useState({page: 1, limit: localStorage.getItem('pageLimit') || 100});
 
 	//sorting

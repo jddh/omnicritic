@@ -129,8 +129,11 @@ header nav,
 		flex: 1.2;
 	}
 
-	input[type="text"] {
+	.text-reset {
 		width: 89%;
+	}
+
+	input[type="text"] {
 		font-size: 1em;
 	}
 
@@ -330,7 +333,7 @@ a.favourite {
 		height: var(--size);
 		background: conic-gradient(var(--col) calc(var(--circle-score)*1deg), #0000 calc(var(--circle-score)*1deg) 360deg);
 		border-radius: 50%;
-		mask: radial-gradient(calc(var(--size)/2.5), #0000 99%, #000);
+		mask-image: radial-gradient(calc(var(--size)/2.5), #0000 99%, #000);
 	}
 
 	.number {
@@ -591,11 +594,29 @@ Note: Beware of modifying this element as it can break the animations - you shou
 		margin-top: 0;
 	}
 
+	#search-widget {
+		min-width: 0;
+		text-align: left;
+	}
+
 	#search-parsers  {
 		flex-direction: column;
 
 		.parsers {
 			margin-top: 20px;
+		}
+	}
+
+	.filter-buttons {
+		select {
+			padding-right: 1em;
+		}
+	}
+
+	.sort-controls {
+		select {
+			margin-bottom: 0.5em;
+			padding-right: 1em;
 		}
 	}
 
@@ -664,6 +685,12 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 		.scrape-date {
 			display: none;
+		}
+	}
+
+	main.page-title {
+		.title-title {
+			font-size: 1.5em;
 		}
 	}
 }

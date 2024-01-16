@@ -32,8 +32,10 @@ export default function SearchField({setSearchQuery}) {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<input type="text" name="title-search" id="title-search" placeholder="Search Everything" onChange={handleSearch} value={searchTerm} />
-			<input type="reset" value="clear" onClick={clear} />
+			<div className="text-reset">
+				<input type="text" name="title-search" id="title-search" placeholder="Search Everything" onChange={handleSearch} value={searchTerm} />
+				<input type="reset" value="clear" onClick={clear} />
+			</div>
 		</form>
 	)
 }
