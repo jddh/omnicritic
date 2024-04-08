@@ -98,6 +98,7 @@ select {
 
 .select {
 	position: relative;
+	display: inline-block;
 	margin-right: .5em;
 
 	& select {
@@ -109,7 +110,7 @@ select {
 		--size: 10px;
 		content: '';
 		position: absolute;
-		top: calc(50% - .3em);
+		top: calc(50% - .25em);
 		right: .4em;
 		width: .6em;
 		height: .6em;
